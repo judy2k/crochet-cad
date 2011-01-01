@@ -1,12 +1,16 @@
 #!python
 # -*- coding: utf-8 -*-
 
+import logging
 from math import cos, pi, sin
 
 from crocad.util import instruction, round_to_nearest_iter as snap
 
 
 __all__ = ['donut']
+
+
+log = logging.getLogger('crocad.donut')
 
 
 def donut(init_stitches, rows, initial_angle=0):
@@ -20,15 +24,15 @@ def donut(init_stitches, rows, initial_angle=0):
     row_angle = 2 * pi / rows
     for row in range(rows):
         rad = R + (r - (r * cos(row * row_angle + initial_angle)))
-        stitch_count = int(round(rad * 2 * pi))
-        yield stitch_count
+        circ = rad * 2 * pi
+        # stitch_count = int(round(circ))
+        yield circ # stitch_count
 
 
-def print_donut_text(stitches):
+def print_instructions(stitches):
     prev = None
     for row, stitch_count in enumerate(stitches):
-        # print stitch_count
-        print 'Row %d: ' % (row+1),
+        print 'Row %*d: ' % (3,row+1),
         print instruction(prev, stitch_count)
         prev = stitch_count
 
@@ -45,7 +49,13 @@ def main(argv, global_options):
     op.add_option('-r', '--row-count', action='store', type='int', default=16,
             metavar='ROWS')
     command_opts, _ = op.parse_args(argv)
-    print_donut_text(snap(donut(command_opts.inner_radius, command_opts.row_count), 6))
+    stitches = donut(command_opts.inner_radius, command_opts.row_count)
+    stitches = snap(stitches, 1 if global_options.accurate else 6)
+    title = "Donut (inner-radius: %d, %d rows)" % (command_opts.inner_radius,
+            command_opts.row_count)
+    print title
+    print '=' * len(title)
+    print_instructions(stitches)
 
 
 if __name__ == '__main__':
