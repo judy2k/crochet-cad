@@ -66,7 +66,7 @@ def instruction(prev, count):
         row_count = count
         diff = count - prev
         if diff == 0:
-            result += 'sc in each chain'
+            result += 'sc in each sc'
         else:
             repeats = gcd(count, prev)
             row_rem = 0
@@ -79,16 +79,17 @@ def instruction(prev, count):
             sc, sc_rem = divmod(scs, abs(diff))
             if repeats:
                 result += '*'
-            for i in range(abs(diff)):
+            part_count = int(abs(diff))
+            for i in range(part_count):
                 result += (' 2sc in next' if diff > 0 else ' 2sctog')
                 if i < abs(diff) - 1:
                     if sc:
-                        result += ' %dsc' % sc
+                        result += ', %dsc' % sc
                 else:
                     if (sc + sc_rem):
-                        result += ' %dsc' % (sc + sc_rem)
+                        result += ', %dsc' % (sc + sc_rem)
             if repeats:
-                result += ' repeat from * %d times' % repeats
+                result += ', repeat from * %d times' % repeats
                 
             if row_rem:
                 result += ' %dsc ' % row_rem
