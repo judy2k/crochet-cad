@@ -61,7 +61,10 @@ def instruction(prev, count):
     """
     result = ''
     if prev is None:
-        result += 'ch %d, sc in each chain' % count
+        if count <= 6:
+            result += 'Make a magic circle, 6sc into centre.'
+        else:
+            result += 'ch %d, sc in each chain' % count
     else:
         row_count = count
         diff = count - prev
