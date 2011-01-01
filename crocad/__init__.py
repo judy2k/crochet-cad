@@ -5,10 +5,18 @@
 import logging
 import sys
 
+class NullHandler(logging.Handler):
+    def emit(self, record):
+        pass
+logging.getLogger().addHandler(NullHandler())
+
 from crocad import donut
 
 
 __all__ = ['main']
+
+
+log = logging.getLogger('crocad')
 
 
 COMMAND_ALIASES = {
@@ -43,11 +51,14 @@ def main(argv=sys.argv[1:]):
     op.disable_interspersed_args()
     
     op.add_option('-v', '--verbose', action='count', default=0)
+    op.add_option('-a', '--accurate', action='store_true', default=False)
     global_options, args = op.parse_args(argv)
     
+    logging.basicConfig()
+    logging.getLogger().addHandler(logging.StreamHandler(sys.stderr))
     if global_options.verbose == 1:
         logging.getLogger().setLevel(logging.INFO)
-    elif global_options.verbose > 2:
+    elif global_options.verbose > 1:
         logging.getLogger().setLevel(logging.DEBUG)
     else:
         logging.getLogger().setLevel(logging.WARNING)
