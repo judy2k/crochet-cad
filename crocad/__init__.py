@@ -10,7 +10,7 @@ class NullHandler(logging.Handler):
         pass
 logging.getLogger().addHandler(NullHandler())
 
-from crocad import donut
+from crocad import donut, ball
 
 
 __all__ = ['main']
