@@ -2,10 +2,16 @@
 # -*- coding: utf-8 -*-
 
 
-from fractions import gcd
+__all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest', 'round_to_nearest_iter']
 
 
-__all__ = ['instruction', 'round_to_nearest', 'round_to_nearest_iter']
+try:
+    from fractions import gcd
+except ImportError:
+    def gcd(a,b):
+        while b != 0:
+            a, b = b , a % b
+        return a
 
 
 class Instruction(object):
@@ -54,6 +60,7 @@ class MultipleStitchesInstruction(Instruction):
     def stitches(self):
         return self.stitch_count
 
+
 def instruction(prev, count):
     """
     Returns the instructions for a circular row with `count` stitches,
@@ -66,7 +73,6 @@ def instruction(prev, count):
         else:
             result += 'ch %d, sc in each chain' % count
     else:
-        row_count = count
         diff = count - prev
         if diff == 0:
             result += 'sc in each sc'
@@ -96,10 +102,18 @@ def instruction(prev, count):
                 
             if row_rem:
                 result += ' %dsc ' % row_rem
-            
-        result += ' (%d)' % row_count
     
     return result
+
+
+def instruction_txt(row, prev, count):
+    return 'Row %d: ' % row  + instruction(prev, count) + ' (%d)' % count
+
+
+def instruction_html(row, prev, count):
+    return '<div class="instruction">Row %d: ' % row + \
+        instruction(prev, count) + \
+        ' <em class="stitch-count">(%d)</em></div>' % count
 
 
 def round_to_nearest(i, n=1, min_val=0):

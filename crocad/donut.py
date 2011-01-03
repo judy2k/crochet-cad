@@ -4,7 +4,7 @@
 import logging
 from math import cos, pi, sin
 
-from crocad.util import instruction, round_to_nearest_iter as snap
+from crocad.util import instruction_txt, round_to_nearest_iter as snap
 
 
 __all__ = ['donut']
@@ -32,8 +32,7 @@ def donut(init_stitches, rows, initial_angle=0):
 def print_instructions(stitches):
     prev = None
     for row, stitch_count in enumerate(stitches):
-        print 'Row %*d: ' % (3,row+1),
-        print instruction(prev, stitch_count)
+        print instruction_txt(row+1, prev, stitch_count)
         prev = stitch_count
 
 
