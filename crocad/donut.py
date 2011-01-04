@@ -42,11 +42,19 @@ def main(argv, global_options):
     """
     import optparse
     
-    op = optparse.OptionParser()
+    op = optparse.OptionParser(
+            '%prog [GLOBAL-OPTIONS] donut [--inner-radius=STITCHES] [--row-count=ROWS]',
+            description="""
+Generate a pattern for a donut (torus). The pattern
+starts off with a row in the centre (the donut hole) and crocheted up
+and around.""".strip())
     op.add_option('-i', '--inner-radius', action='store', type='int', default=18,
-            metavar='STITCHES')
+            metavar='STITCHES',
+            help='the circumference of the donut hole, in stitches [%default]')
     op.add_option('-r', '--row-count', action='store', type='int', default=16,
-            metavar='ROWS')
+            metavar='ROWS',
+            help="the number of rows in the pattern - defines the 'thickness'"
+                " of the donut [%default]")
     command_opts, _ = op.parse_args(argv)
     stitches = donut(command_opts.inner_radius, command_opts.row_count)
     stitches = snap(stitches, 1 if global_options.accurate else 6)

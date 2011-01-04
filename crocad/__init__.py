@@ -8,7 +8,7 @@ import sys
 class NullHandler(logging.Handler):
     def emit(self, record):
         pass
-logging.getLogger().addHandler(NullHandler())
+logging.getLogger('crocad').addHandler(NullHandler())
 
 from crocad import donut, ball
 
@@ -45,13 +45,29 @@ def main(argv=sys.argv[1:]):
     """
     import optparse
     
-    op = optparse.OptionParser("""
-%prog [-v] donut --inner-radius=STITCHES --row-count=ROWS
-""")
+    op = optparse.OptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
+  
+Help:
+  %prog --help
+  %prog COMMAND --help""",
+description="""
+Generate a crochet pattern for a geometric primitive, specified as COMMAND.
+Supported commands are 'ball' and 'donut'. For details of options for a
+specific command, run '%prog COMMAND --help' with the name of the command.
+""".strip()
+)
     op.disable_interspersed_args()
     
-    op.add_option('-v', '--verbose', action='count', default=0)
-    op.add_option('-a', '--accurate', action='store_true', default=False)
+    og = optparse.OptionGroup(op, 'Global Options',
+    'Global options must be provided before the name of the crochet-cad'
+    ' command. They can be used for any crochet-cad command.')
+    og.add_option('-v', '--verbose', action='count', default=0,
+        help='print out extra information - only really used for debugging.')
+    og.add_option('-a', '--accurate', action='store_true', default=False,
+        help='generate an exact pattern'
+        ' which may not produce such an even end-product.')
+    op.add_option_group(og)
+    
     global_options, args = op.parse_args(argv)
     
     logging.basicConfig()

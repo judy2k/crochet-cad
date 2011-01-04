@@ -37,9 +37,15 @@ def main(argv, global_options):
     """
     import optparse
 
-    op = optparse.OptionParser()
+    op = optparse.OptionParser(
+            '%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]',
+            description="""
+Generate a crochet pattern for a ball (sphere).
+""".strip())
     op.add_option('-r', '--row-count', action='store', type='int', default=16,
-            metavar='ROWS')
+            metavar='ROWS',
+            help='the number of rows in the pattern. Defines the size'
+            ' of the ball - the circumference is 2x this value. [%default]')
     command_opts, _ = op.parse_args(argv)
     stitches = ball(command_opts.row_count)
     stitches = snap(stitches, 1 if global_options.accurate else 6, 6)
