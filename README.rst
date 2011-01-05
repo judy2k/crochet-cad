@@ -3,6 +3,9 @@ Crochet CAD
 
 A collection of utilities to aid in designing round crochet patterns, such as Amigurumi. Currently this consists of a command-line script that will generate text patterns for Spheres or Donuts (Tori).
 
+Crochet CAD is distributed under the GNU General Public License v3, see
+COPYING.txt for more details.
+
 Installation
 ------------
 
