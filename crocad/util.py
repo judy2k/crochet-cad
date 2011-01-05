@@ -31,6 +31,7 @@ except ImportError:
 
 
 class Instruction(object):
+    """ A bunch of 'stitch' in 'stitch' instructions. """
     def __init__(self, stitch='sc', stitch_count=1):
         self.stitch = stitch
         self.stitch_count = stitch_count
@@ -45,9 +46,7 @@ class Instruction(object):
 
 
 class StitchTogetherInstruction(Instruction):
-    """
-    stXtog
-    """
+    """ A bunch of stXtog instructions. """
     def __init__(self, stitch_count=1, together_count=2):
         super(StitchTogetherInstruction, self).__init__(stitch=stitch,
                 stitch_count=stitch_count)
@@ -66,9 +65,7 @@ class StitchTogetherInstruction(Instruction):
         return s
         
 class MultipleStitchesInstruction(Instruction):
-    """
-    X st in st
-    """
+    """ A bunch of 'X st' in st commands. """
     def __init__(self, stitch_count=1, multiple_count=2):
         super(MultipleStitchesInstruction, self).__init__(stitch=stitch,
                 stitch_count=stitch_count, multiple_count=multiple_count)
@@ -123,20 +120,26 @@ def instruction(prev, count):
 
 
 def instruction_txt(row, prev, count):
+    """ Produce a line of output in plain text format. """
     return 'Row %d: ' % row  + instruction(prev, count) + ' (%d)' % count
 
 
 def instruction_html(row, prev, count):
+    """ Produce a line of output in HTML format. """
     return '<div class="instruction">Row %d: ' % row + \
         instruction(prev, count) + \
         ' <em class="stitch-count">(%d)</em></div>' % count
 
 
 def round_to_nearest(i, n=1, min_val=0):
-    """Return i rounded to the nearest n."""
+    """ Return i rounded to the nearest n. """
     return max(min_val, ((i // n) + round(float(i % n) / n)) * n)
 
 
 def round_to_nearest_iter(i, n=1, min_val=0):
+    """
+    Return an iterable that produces each item in i, rounded to the
+    nearest n.
+    """
     for val in i:
         yield round_to_nearest(val, n, min_val)

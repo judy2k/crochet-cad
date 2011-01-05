@@ -57,9 +57,7 @@ def find_command(command):
 
 
 def main(argv=sys.argv[1:]):
-    """
-    Crochet CAD's command-line entry-point.
-    """
+    """ Crochet CAD's command-line entry-point. """
     import optparse
     
     op = optparse.OptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]

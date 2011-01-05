@@ -47,7 +47,8 @@ class TestUtil(unittest.TestCase):
         self.assertEquals(12, self._rtn(12, 2, 6))
     
     def test_round_to_nearest_iter(self):
-        self.assertEquals([4,4,4,4,4,6,6,8,8,10], list(self._rtni(range(10), 2, 4)))
+        self.assertEquals([4,4,4,4,4,6,6,8,8,10],
+                list(self._rtni(range(10), 2, 4)))
 
 
 if __name__ == '__main__':
