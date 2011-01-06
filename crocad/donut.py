@@ -50,6 +50,7 @@ def donut(init_stitches, rows, initial_angle=0):
         rad = R + (r - (r * cos(row * row_angle + initial_angle)))
         circ = rad * 2 * pi
         # stitch_count = int(round(circ))
+        log.debug('Actual stitch-count: %.18f', circ)
         yield circ # stitch_count
 
 
