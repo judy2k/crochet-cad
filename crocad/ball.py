@@ -18,11 +18,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+crocad.ball - sphere crochet pattern generation for crochet-cad.
+"""
+
 import logging
-from math import cos, pi, sin
+from math import pi, sin
 
 from crocad.util import instruction_txt, round_to_nearest_iter as snap
-
+from crocad.util import print_instructions_txt
 
 __all__ = ['ball']
 
@@ -40,14 +44,6 @@ def ball(rows):
         stitches = 2 * pi * row_rad
         log.debug('Circumference: %.2f', stitches)
         yield stitches
-
-
-def print_instructions(stitches):
-    """ Print plain text instructions for `stitches`. """
-    prev = None
-    for row, stitch_count in enumerate(stitches):
-        print instruction_txt(row+1, prev, stitch_count)
-        prev = stitch_count
 
 
 def main(argv, global_options):
@@ -69,4 +65,4 @@ Generate a crochet pattern for a ball (sphere).
     title = "Ball (%d rows)" % (command_opts.row_count,)
     print title
     print '=' * len(title)
-    print_instructions(stitches)
+    print_instructions_txt(stitches)

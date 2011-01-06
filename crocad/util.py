@@ -18,13 +18,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-__all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest', 'round_to_nearest_iter']
+"""
+crocad.util - Shared functionality for crochet pattern generation.
+"""
+
+__all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest',
+        'round_to_nearest_iter', 'print_instructions_txt']
 
 
 try:
     from fractions import gcd
 except ImportError:
-    def gcd(a,b):
+    def gcd(a, b):
+        """Returns the greatest common divisor of two numbers."""
         while b != 0:
             a, b = b , a % b
         return a
@@ -37,28 +43,33 @@ class Instruction(object):
         self.stitch_count = stitch_count
         
     def stitches(self):
+        """ The number of stitches represented by this row. """
         return self.stitch_count
     
     stitches_into = stitches
     
     def str(self):
+        """Plain-text representation of this instruction."""
         return '%s in next %d' % (self.stitch, self.stitch_count)
 
 
 class StitchTogetherInstruction(Instruction):
     """ A bunch of stXtog instructions. """
-    def __init__(self, stitch_count=1, together_count=2):
+    def __init__(self, stitch='sc', stitch_count=1, together_count=2):
         super(StitchTogetherInstruction, self).__init__(stitch=stitch,
                 stitch_count=stitch_count)
         self.together_count = together_count
     
     def stitches(self):
+        """ The number of stitches represented by this row. """
         return self.stitch_count
     
     def stitches_into(self):
+        """ The number of stitches required for the previous row. """
         return self.stitch_count * self.together_count
     
     def str(self):
+        """Plain-text representation of this instruction."""
         s = '%d%stog' % (self.together_count, self.stitch)
         if self.stitch_count > 1:
             s += ' in next %d' % self.stitch_count
@@ -66,12 +77,25 @@ class StitchTogetherInstruction(Instruction):
         
 class MultipleStitchesInstruction(Instruction):
     """ A bunch of 'X st' in st commands. """
-    def __init__(self, stitch_count=1, multiple_count=2):
+    def __init__(self, stitch='sc', stitch_count=1, multiple_count=2):
         super(MultipleStitchesInstruction, self).__init__(stitch=stitch,
-                stitch_count=stitch_count, multiple_count=multiple_count)
+                stitch_count=stitch_count)
+        self.multiple_count = multiple_count
     
     def stitches(self):
+        """ The number of stitches represented by this row. """
         return self.stitch_count
+    
+    def stitches_into(self):
+        """ The number of stitches required for the previous row. """
+        return self.stitch_count / self.multiple_count
+    
+    def str(self):
+        """Plain-text representation of this instruction."""
+        s = '%d%s in each' % (self.multiple_count, self.stitch)
+        if self.stitch_count > 1:
+            s += ' in next %d' % self.stitch_count
+        return s
 
 
 def instruction(prev, count):
@@ -129,6 +153,14 @@ def instruction_html(row, prev, count):
     return '<div class="instruction">Row %d: ' % row + \
         instruction(prev, count) + \
         ' <em class="stitch-count">(%d)</em></div>' % count
+
+
+def print_instructions_txt(stitches):
+    """ Print plain text instructions for `stitches`. """
+    prev = None
+    for row, stitch_count in enumerate(stitches):
+        print instruction_txt(row+1, prev, stitch_count)
+        prev = stitch_count
 
 
 def round_to_nearest(i, n=1, min_val=0):

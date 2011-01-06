@@ -18,10 +18,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+crocad.ball - donut crochet pattern generation for crochet-cad.
+"""
+
 import logging
-from math import cos, pi, sin
+from math import pi, cos
 
 from crocad.util import instruction_txt, round_to_nearest_iter as snap
+from crocad.util import print_instructions_txt
 
 
 __all__ = ['donut']
@@ -46,14 +51,6 @@ def donut(init_stitches, rows, initial_angle=0):
         circ = rad * 2 * pi
         # stitch_count = int(round(circ))
         yield circ # stitch_count
-
-
-def print_instructions(stitches):
-    """ Print plain text instructions for `stitches`. """
-    prev = None
-    for row, stitch_count in enumerate(stitches):
-        print instruction_txt(row+1, prev, stitch_count)
-        prev = stitch_count
 
 
 def main(argv, global_options):
@@ -83,4 +80,4 @@ and around.""".strip())
             command_opts.row_count)
     print title
     print '=' * len(title)
-    print_instructions(stitches)
+    print_instructions_txt(stitches)

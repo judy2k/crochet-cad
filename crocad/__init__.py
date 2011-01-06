@@ -19,11 +19,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+"""
+crocad - A Python library for generating crochet patterns.
+
+This module provides `main`, which is the entry-point for command-line
+execution of the module's functionality.
+"""
+
 import logging
 import sys
 
 class NullHandler(logging.Handler):
+    """
+    A Handler that does nothing. Prevents error messages if crocad is used
+    as a library and logging is not configured.
+    """
     def emit(self, record):
+        """Do nothing."""
         pass
 logging.getLogger('crocad').addHandler(NullHandler())
 
