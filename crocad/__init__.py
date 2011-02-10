@@ -39,7 +39,7 @@ class NullHandler(logging.Handler):
         pass
 logging.getLogger('crocad').addHandler(NullHandler())
 
-from crocad import donut, ball
+from crocad import donut, ball, cone
 
 
 __all__ = ['main']
