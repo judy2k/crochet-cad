@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-crocad.ball - donut crochet pattern generation for crochet-cad.
+crocad.donut - donut crochet pattern generation for crochet-cad.
 """
 
 import logging

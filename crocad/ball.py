@@ -47,7 +47,7 @@ def ball(rows):
 
 
 def main(argv, global_options):
-    """ Command entry-point for the donut pattern-generator. """
+    """ Command entry-point for the ball pattern-generator. """
     import optparse
 
     op = optparse.OptionParser(
