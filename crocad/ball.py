@@ -25,24 +25,24 @@ crocad.ball - sphere crochet pattern generation for crochet-cad.
 import logging
 from math import pi, sin
 
-from crocad.util import instruction_txt, round_to_nearest_iter as snap
+from crocad.util import round_to_nearest_iter as snap
 from crocad.util import print_instructions_txt, print_row_counts
 
 __all__ = ['ball']
 
 
-log = logging.getLogger('crocad.ball')
+LOG = logging.getLogger('crocad.ball')
 
 
 def ball(rows):
     """ Generator for stitch-counts for a ball crochet pattern. """
-    r = (rows + 1) / pi
+    rad = (rows + 1) / pi
     row_angle = pi / (rows + 1)
-    log.debug('Ball - radius: %.2f, row-angle: %.2f rads', r, row_angle)
+    LOG.debug('Ball - radius: %.2f, row-angle: %.2f rads', rad, row_angle)
     for row in range(rows):
-        row_rad = r * sin((row + 1) * row_angle)
+        row_rad = rad * sin((row + 1) * row_angle)
         stitches = 2 * pi * row_rad
-        log.debug('Circumference: %.2f', stitches)
+        LOG.debug('Circumference: %.2f', stitches)
         yield stitches
 
 
@@ -50,16 +50,16 @@ def main(argv, global_options):
     """ Command entry-point for the ball pattern-generator. """
     import optparse
 
-    op = optparse.OptionParser(
+    opt_parser = optparse.OptionParser(
         '%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]',
         description="""
 Generate a crochet pattern for a ball (sphere).
 """.strip())
-    op.add_option('-r', '--row-count', action='store', type='int',
+    opt_parser.add_option('-r', '--row-count', action='store', type='int',
         default=16, metavar='ROWS',
         help='the number of rows in the pattern. Defines the size'
         ' of the ball - the circumference is 2x this value. [%default]')
-    command_opts, _ = op.parse_args(argv)
+    command_opts, _ = opt_parser.parse_args(argv)
     stitches = ball(command_opts.row_count)
     stitches = snap(stitches, 1 if global_options.accurate else 6, 6)
     

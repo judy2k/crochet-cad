@@ -45,7 +45,7 @@ from crocad import donut, ball, cone
 __all__ = ['main']
 
 
-log = logging.getLogger('crocad')
+LOG = logging.getLogger('crocad')
 
 
 COMMAND_ALIASES = {
@@ -72,7 +72,7 @@ def main(argv=sys.argv[1:]):
     """ Crochet CAD's command-line entry-point. """
     import optparse
     
-    op = optparse.OptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
+    opt_parser = optparse.OptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
   
 Help:
   %prog --help
@@ -83,22 +83,22 @@ Supported commands are 'ball', 'donut', and 'cone'. For details of options for a
 specific command, run '%prog COMMAND --help' with the name of the command.
 """.strip()
 )
-    op.disable_interspersed_args()
+    opt_parser.disable_interspersed_args()
     
-    og = optparse.OptionGroup(op, 'Global Options',
+    optgroup = optparse.OptionGroup(opt_parser, 'Global Options',
     'Global options must be provided before the name of the crochet-cad'
     ' command. They can be used for any crochet-cad command.')
-    og.add_option('-v', '--verbose', action='count', default=0,
+    optgroup.add_option('-v', '--verbose', action='count', default=0,
         help='print out extra information - only really used for debugging.')
-    og.add_option('-a', '--accurate', action='store_true', default=False,
+    optgroup.add_option('-a', '--accurate', action='store_true', default=False,
         help='generate an exact pattern'
         ' which may not produce such an even end-product.')
-    og.add_option('-i', '--inhuman', action='store_true', default=False,
+    optgroup.add_option('-i', '--inhuman', action='store_true', default=False,
         help='Instead of printing instructions, just print the row-counts,'
         ' one per line.')
-    op.add_option_group(og)
+    opt_parser.add_option_group(optgroup)
     
-    global_options, args = op.parse_args(argv)
+    global_options, args = opt_parser.parse_args(argv)
     
     logging.basicConfig()
     # logging.getLogger().addHandler(logging.StreamHandler(sys.stderr))
@@ -113,7 +113,7 @@ specific command, run '%prog COMMAND --help' with the name of the command.
         command = args.pop(0)
         find_command(command)(args, global_options)
     else:
-        op.error('No command was provided.')
+        opt_parser.error('No command was provided.')
 
 
 if __name__ == '__main__':

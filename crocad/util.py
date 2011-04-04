@@ -27,16 +27,16 @@ __all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest',
 
 import logging
 
-log = logging.getLogger('crocad.util')
+LOG = logging.getLogger('crocad.util')
 
 try:
     from fractions import gcd
 except ImportError:
-    def gcd(a, b):
+    def gcd(num1, num2):
         """Returns the greatest common divisor of two numbers."""
-        while b != 0:
-            a, b = b , a % b
-        return a
+        while num2 != 0:
+            num1, num2 = num2 , num1 % num2
+        return num1
 
 
 class Instruction(object):
@@ -73,11 +73,12 @@ class StitchTogetherInstruction(Instruction):
     
     def str(self):
         """Plain-text representation of this instruction."""
-        s = '%d%stog' % (self.together_count, self.stitch)
+        inst = '%d%stog' % (self.together_count, self.stitch)
         if self.stitch_count > 1:
-            s += ' in next %d' % self.stitch_count
-        return s
-        
+            inst += ' in next %d' % self.stitch_count
+        return inst
+
+
 class MultipleStitchesInstruction(Instruction):
     """ A bunch of 'X st' in st commands. """
     def __init__(self, stitch='sc', stitch_count=1, multiple_count=2):
@@ -95,10 +96,18 @@ class MultipleStitchesInstruction(Instruction):
     
     def str(self):
         """Plain-text representation of this instruction."""
-        s = '%d%s in each' % (self.multiple_count, self.stitch)
+        inst = '%d%s in each' % (self.multiple_count, self.stitch)
         if self.stitch_count > 1:
-            s += ' in next %d' % self.stitch_count
-        return s
+            inst += ' in next %d' % self.stitch_count
+        return inst
+
+
+def _first_instruction(count):
+    """ Returns an instruction for a first row. """
+    if count <= 6:
+        return 'Make a magic circle, 6sc into centre.'
+    else:
+        return 'ch %d, sc in each chain' % count
 
 
 def instruction(prev, count):
@@ -110,10 +119,7 @@ def instruction(prev, count):
     count = int(count) if count else None
     result = ''
     if prev is None:
-        if count <= 6:
-            result += 'Make a magic circle, 6sc into centre.'
-        else:
-            result += 'ch %d, sc in each chain' % count
+        return _first_instruction(count)
     else:
         diff = count - prev
         if diff == 0:
@@ -127,20 +133,20 @@ def instruction(prev, count):
             count, row_rem =  divmod(count, repeats)
             diff = count - prev
             scs = min(prev, count) - abs(diff)
-            sc, sc_rem = divmod(scs, abs(diff))
+            stcount, sc_rem = divmod(scs, abs(diff))
             if repeats:
                 result += '*'
             part_count = int(abs(diff))
-            log.debug('pc: %d, diff: %.4f', part_count, diff)
+            LOG.debug('pc: %d, diff: %.4f', part_count, diff)
             for i in range(part_count):
                 result += (', 2sc in next' if diff > 0 else ', 2sctog')
-                log.debug('result: %s', result)
+                LOG.debug('result: %s', result)
                 if i < abs(diff) - 1:
-                    if sc:
-                        result += ', %dsc' % sc
+                    if stcount:
+                        result += ', %dsc' % stcount
                 else:
-                    if (sc + sc_rem):
-                        result += ', %dsc' % (sc + sc_rem)
+                    if (stcount + sc_rem):
+                        result += ', %dsc' % (stcount + sc_rem)
             if repeats:
                 result += ', repeat from * %d times' % repeats
                 
@@ -172,19 +178,24 @@ def print_instructions_txt(title, stitches):
         prev = stitch_count
 
 
-def round_to_nearest(i, n=1, min_val=0):
-    """ Return i rounded to the nearest n. """
-    return max(min_val, ((i // n) + round(float(i % n) / n)) * n)
+def round_to_nearest(i, margin=1, min_val=0):
+    """ Return i rounded to the nearest margin. """
+    val = ((i // margin) + round(float(i % margin) / margin)) * margin
+    return max(min_val, val)
 
 
-def round_to_nearest_iter(i, n=1, min_val=0):
+def round_to_nearest_iter(i, margin=1, min_val=0):
     """
     Return an iterable that produces each item in i, rounded to the
-    nearest n.
+    nearest margin.
     """
     for val in i:
-        yield round_to_nearest(val, n, min_val)
+        yield round_to_nearest(val, margin, min_val)
+
 
 def print_row_counts(stitches):
+    """
+    Simply prints out the each stitch-count on its own line, as an integer.
+    """
     for stitch in stitches:
         print int(stitch)

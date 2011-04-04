@@ -25,14 +25,14 @@ crocad.donut - donut crochet pattern generation for crochet-cad.
 import logging
 from math import pi, cos
 
-from crocad.util import instruction_txt, round_to_nearest_iter as snap
+from crocad.util import round_to_nearest_iter as snap
 from crocad.util import print_instructions_txt, print_row_counts
 
 
 __all__ = ['donut']
 
 
-log = logging.getLogger('crocad.donut')
+LOG = logging.getLogger('crocad.donut')
 
 
 def donut(init_stitches, rows, initial_angle=0):
@@ -43,14 +43,16 @@ def donut(init_stitches, rows, initial_angle=0):
     rows - number of rows around the torus
     inital_angle - The angle (in radians) of the first row crocheted.
     """
-    R = init_stitches / (2 * pi)
-    r = rows / ( 2 * pi)
+    # Radius of the hole in 'stitches':
+    hole_rad = init_stitches / (2 * pi)
+    # Radius of a donut vertical cross-section:
+    xrad = rows / (2 * pi)
     row_angle = 2 * pi / rows
     for row in range(rows):
-        rad = R + (r - (r * cos(row * row_angle + initial_angle)))
+        rad = hole_rad + (xrad - (xrad * cos(row * row_angle + initial_angle)))
         circ = rad * 2 * pi
         # stitch_count = int(round(circ))
-        log.debug('Actual stitch-count: %.18f', circ)
+        LOG.debug('Actual stitch-count: %.18f', circ)
         yield circ # stitch_count
 
 
@@ -60,21 +62,21 @@ def main(argv, global_options):
     """
     import optparse
     
-    op = optparse.OptionParser(
+    opt_parser = optparse.OptionParser(
         '%prog [GLOBAL-OPTIONS] '
         'donut [--inner-radius=STITCHES] [--row-count=ROWS]',
         description="""
 Generate a pattern for a donut (torus). The pattern
 starts off with a row in the centre (the donut hole) and crocheted up
 and around.""".strip())
-    op.add_option('-i', '--inner-radius', action='store', type='int',
+    opt_parser.add_option('-i', '--inner-radius', action='store', type='int',
         default=18, metavar='STITCHES',
         help='the circumference of the donut hole, in stitches [%default]')
-    op.add_option('-r', '--row-count', action='store', type='int', default=16,
-        metavar='ROWS',
+    opt_parser.add_option('-r', '--row-count', action='store', type='int',
+        default=16, metavar='ROWS',
         help="the number of rows in the pattern - defines the 'thickness'"
             " of the donut [%default]")
-    command_opts, _ = op.parse_args(argv)
+    command_opts, _ = opt_parser.parse_args(argv)
     stitches = donut(command_opts.inner_radius, command_opts.row_count)
     stitches = snap(stitches, 1 if global_options.accurate else 6)
     
