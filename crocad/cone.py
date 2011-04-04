@@ -38,11 +38,12 @@ LOG = logging.getLogger('crocad.cone')
 def cone(rows, max_circ):
     """ Generator for stitch-counts for a cone crochet pattern. """
     min_circ = 6
-    for row in range(rows):
-        stitches = float(row)/rows * (max_circ-min_circ)
+    yield min_circ
+    for row in range(rows-2):
+        stitches = float(row)/(rows-2) * (max_circ-min_circ) + min_circ
         LOG.debug('Row %d, Stitches: %.2f', row+1, stitches)
         yield stitches
-
+    yield max_circ
 
 def main(argv, global_options):
     """ Command entry-point for the cone pattern-generator. """
