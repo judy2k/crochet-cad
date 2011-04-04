@@ -26,7 +26,7 @@ import logging
 from math import pi, cos
 
 from crocad.util import instruction_txt, round_to_nearest_iter as snap
-from crocad.util import print_instructions_txt
+from crocad.util import print_instructions_txt, print_row_counts
 
 
 __all__ = ['donut']
@@ -77,8 +77,10 @@ and around.""".strip())
     command_opts, _ = op.parse_args(argv)
     stitches = donut(command_opts.inner_radius, command_opts.row_count)
     stitches = snap(stitches, 1 if global_options.accurate else 6)
-    title = "Donut (inner-radius: %d, %d rows)" % (command_opts.inner_radius,
-            command_opts.row_count)
-    print title
-    print '=' * len(title)
-    print_instructions_txt(stitches)
+    
+    if not global_options.inhuman:
+        title = "Donut (inner-radius: %d, %d rows)" % (
+                command_opts.inner_radius, command_opts.row_count)
+        print_instructions_txt(title, stitches)
+    else:
+        print_row_counts(stitches)

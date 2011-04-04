@@ -93,6 +93,9 @@ specific command, run '%prog COMMAND --help' with the name of the command.
     og.add_option('-a', '--accurate', action='store_true', default=False,
         help='generate an exact pattern'
         ' which may not produce such an even end-product.')
+    og.add_option('-i', '--inhuman', action='store_true', default=False,
+        help='Instead of printing instructions, just print the row-counts,'
+        ' one per line.')
     op.add_option_group(og)
     
     global_options, args = op.parse_args(argv)

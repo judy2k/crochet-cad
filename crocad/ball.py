@@ -26,7 +26,7 @@ import logging
 from math import pi, sin
 
 from crocad.util import instruction_txt, round_to_nearest_iter as snap
-from crocad.util import print_instructions_txt
+from crocad.util import print_instructions_txt, print_row_counts
 
 __all__ = ['ball']
 
@@ -62,7 +62,9 @@ Generate a crochet pattern for a ball (sphere).
     command_opts, _ = op.parse_args(argv)
     stitches = ball(command_opts.row_count)
     stitches = snap(stitches, 1 if global_options.accurate else 6, 6)
-    title = "Ball (%d rows)" % (command_opts.row_count,)
-    print title
-    print '=' * len(title)
-    print_instructions_txt(stitches)
+    
+    if not global_options.inhuman:
+        title = "Ball (%d rows)" % (command_opts.row_count,)
+        print_instructions_txt(title, stitches)
+    else:
+        print_row_counts(stitches)

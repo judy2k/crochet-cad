@@ -162,8 +162,10 @@ def instruction_html(row, prev, count):
         ' <em class="stitch-count">(%d)</em></div>' % count
 
 
-def print_instructions_txt(stitches):
+def print_instructions_txt(title, stitches):
     """ Print plain text instructions for `stitches`. """
+    print title
+    print '=' * len(title)
     prev = None
     for row, stitch_count in enumerate(stitches):
         print instruction_txt(row+1, prev, stitch_count)
@@ -182,3 +184,7 @@ def round_to_nearest_iter(i, n=1, min_val=0):
     """
     for val in i:
         yield round_to_nearest(val, n, min_val)
+
+def print_row_counts(stitches):
+    for stitch in stitches:
+        print int(stitch)
