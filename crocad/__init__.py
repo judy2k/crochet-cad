@@ -79,7 +79,7 @@ Help:
   %prog COMMAND --help""",
 description="""
 Generate a crochet pattern for a geometric primitive, specified as COMMAND.
-Supported commands are 'ball' and 'donut'. For details of options for a
+Supported commands are 'ball', 'donut', and 'cone'. For details of options for a
 specific command, run '%prog COMMAND --help' with the name of the command.
 """.strip()
 )
