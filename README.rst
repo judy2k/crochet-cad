@@ -17,8 +17,11 @@ installed, otherwise install the latest Python 2 revision.
 
 .. _`Python 2`: http://python.org/download/
 
-Currently there's no setup script or installer, so just download_ the latest
-revision and unzip it.
+Download crochet-cad from the download_ site and unzip it.
+
+cd into the directory and run the following to install::
+
+    python setup.py install
 
 Running Crochet CAD
 -------------------
@@ -35,16 +38,21 @@ or::
 
     crochet-cad ball -r 18
 
+or::
+
+    crochet-cad cone -r 16 -c 60
+
 To get more information about available options run::
 
     crochet-cad --help
     crochet-cad donut --help
     crochet-cad ball --help
+    crochet-cad cone --help
 
 ------------------------------------------------------------------------------
 
 Requests for new features and bug reports can be made using the github
 issues_ tracker
 
-.. _download: https://github.com/bedmondmark/Crochet-Cad/zipball/master
-.. _issues: https://github.com/bedmondmark/Crochet-Cad/issues
+.. _download: https://github.com/bedmondmark/crochet-cad/zipball/master
+.. _issues: https://github.com/bedmondmark/crochet-cad/issues

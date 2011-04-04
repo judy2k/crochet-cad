@@ -58,9 +58,9 @@ Generate a crochet pattern for a cone.
         help='the number of rows in the pattern. Defines the height'
         ' of the cone [%default]')
     op.add_option('-c', '--max-circumference', action='store', type='int',
-        default=60, metavar='ROWS',
-        help='the number of rows in the pattern. Defines the width of the'
-        ' base of the cone [%default]')
+        default=60, metavar='STITCHES',
+        help='the number of stitches at the base of the pattern. Defines the'
+        ' circumference of the base of the cone [%default]')
     command_opts, _ = op.parse_args(argv)
     stitches = cone(command_opts.row_count, command_opts.max_circumference)
     stitches = snap(stitches, 1 if global_options.accurate else 6, 6)
