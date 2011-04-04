@@ -33,6 +33,11 @@ class TestUtil(unittest.TestCase):
         import crocad.util
         return crocad.util.round_to_nearest_iter
     
+    @property
+    def _inst(self):
+        import crocad.util
+        return crocad.util.instruction
+    
     def test_round_to_nearest(self):
         self.assertEquals(21, self._rtn(20.51))
         self.assertEquals(21, self._rtn(20.5))
@@ -50,6 +55,9 @@ class TestUtil(unittest.TestCase):
         self.assertEquals([4,4,4,4,4,6,6,8,8,10],
                 list(self._rtni(range(10), 2, 4)))
 
+    def test_instruction(self):
+        self.assertEqual('*, 2sc in next, 10sc, repeat from * 3 times 1sc ', self._inst(34.0, 37.0))
+        self.assertEqual('*, 2sc in next, 10sc, repeat from * 3 times 1sc ', self._inst(34, 37))
 
 if __name__ == '__main__':
     unittest.main()

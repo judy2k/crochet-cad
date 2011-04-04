@@ -25,6 +25,9 @@ crocad.util - Shared functionality for crochet pattern generation.
 __all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest',
         'round_to_nearest_iter', 'print_instructions_txt']
 
+import logging
+
+log = logging.getLogger('crocad.util')
 
 try:
     from fractions import gcd
@@ -103,6 +106,8 @@ def instruction(prev, count):
     Returns the instructions for a circular row with `count` stitches,
     crocheted on to a row of `prev` stitches.
     """
+    prev = int(prev) if prev else None
+    count = int(count) if count else None
     result = ''
     if prev is None:
         if count <= 6:
@@ -126,8 +131,10 @@ def instruction(prev, count):
             if repeats:
                 result += '*'
             part_count = int(abs(diff))
+            log.debug('pc: %d, diff: %.4f', part_count, diff)
             for i in range(part_count):
-                result += (' 2sc in next' if diff > 0 else ' 2sctog')
+                result += (', 2sc in next' if diff > 0 else ', 2sctog')
+                log.debug('result: %s', result)
                 if i < abs(diff) - 1:
                     if sc:
                         result += ', %dsc' % sc
