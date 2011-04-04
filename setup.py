@@ -7,6 +7,7 @@ setup(
     name='Crochet CAD',
     version='0.0.1dev',
     packages=['crocad',],
+    scripts=['crochet-cad'],
     license='GNU General Public License',
     description=
     'A collection of utilities to aid in designing circular crochet patterns, such as Amigurumi.',
