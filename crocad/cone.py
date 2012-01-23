@@ -45,6 +45,7 @@ def cone(rows, max_circ):
         yield stitches
     yield max_circ
 
+
 def main(argv, global_options):
     """ Command entry-point for the cone pattern-generator. """
     import optparse
