@@ -1,11 +1,16 @@
 require 'rake/clean'
 
-
-file 'js/gen/deps.js' => FileList['js/lib/*.js'] do |t|
-    sh "closure --warning_level QUIET --js_output_file js/gen/deps.js --js #{t.prerequisites.join(' --js ')}"
-end
 task :default => 'js/gen/deps.js'
 CLOBBER.include 'js/gen/deps.js'
+
+directory "js/gen"
+CLOBBER.include 'js/gen'
+
+dep_reqs = FileList['js/lib/*.js']
+file 'js/gen/deps.js' => dep_reqs do |t|
+    sh "closure --warning_level QUIET --js_output_file js/gen/deps.js --js #{dep_reqs.join(' --js ')}"
+end
+task 'js/gen/deps.js' => 'js/gen'
 
 
 FileList['coffee/*.coffee'].each do |src|
