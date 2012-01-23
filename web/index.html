@@ -1,16 +1,20 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
-    <head>
-        <title>Crochet CAD</title>
-    </head>
-    <body>
-        <div id="instructions"></div>
-        
-        <script src="crochet-cad.js"></script>
-        <script>
-            console.log('a');
-            console.dir(cui);
-            cui.sphere();
-        </script>
-    </body>
+<head>
+    <title>Donut</title>
+    <link rel="stylesheet" href="stylesheets/index.css" charset="utf-8">
+
+</head>
+<body>
+    <div id="controls" >
+        <p><input type="number" name="rows" id="rows"> Rows</p>
+        <p>Inside radius: <input type="number" name="inner_rad" id="inner_rad"> Stitches</p>
+    </div>
+    <div id="demo"></div>
+
+    <script src="js/gen/deps.js" charset="utf-8"></script>
+    <script src="js/gen/crocad.js" charset="utf-8"></script>
+    <script src="js/gen/index.js" charset="utf-8"></script>
+
+</body>
 </html>
