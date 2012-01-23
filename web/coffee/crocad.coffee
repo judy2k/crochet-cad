@@ -11,6 +11,9 @@ class Crocad
         else
             Crocad.roundToNearest(v, nearest, min_val) for v in val
 
+    @sum: (items) ->
+        _.reduce(items, ((memo,num)-> memo + num), 0)
+
     toString: ->
         "Crocad instance"
         
@@ -38,5 +41,29 @@ class StitchTogether extends Instruction
         inst
 Crocad.StitchTogether = StitchTogether
 
+
+class MultipleStitches extends Instruction
+    constructor: (@_stitches=2, @_stitchesInto=1, @_stitchType='sc') ->
+    stitchesInto: ->
+        @_stitchesInto
+    toString: ->
+        inst = "#{@_stitches}#{@_stitchType}"
+        if @_stitchesInto is 1
+            inst += " into stitch"
+        else
+            inst += " into next #{@_stitchesInto} stitches"
+        inst
+Crocad.MultipleStitches = MultipleStitches
+
+class InstructionGroup
+    constructor: (_instructions)->
+        @_instructions = if _instructions then _instructions else []
+    stitches: ->
+        Crocad.sum(x.stitches() for x in @_instructions)
+    stitchesInto: ->
+        Crocad.sum(x.stitchesInto() for x in @_instructions)
+    toString: ->
+        (x.toString() for x in @_instructions).join(', ')
+Crocad.InstructionGroup = InstructionGroup
 
 @Crocad = Crocad

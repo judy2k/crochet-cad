@@ -17,6 +17,16 @@ describe('crocad', function() {
         });
     });
 
+    describe('sum', function() {
+        it('can add up numbers', function() {
+            var sum = Crocad.sum;
+            expect(sum([])).toBe(0);
+            expect(sum([57])).toBe(57);
+            expect(sum([1,2,3])).toBe(6);
+            expect(sum([2,2,3])).toBe(7);
+        });
+    });
+
     describe('roundToNearest', function() {
         var rtn;
         beforeEach(function() {
@@ -81,6 +91,41 @@ describe('crocad', function() {
             expect(new Crocad.StitchTogether(5).toString()).toEqual("sc2tog in next 5");
             expect(new Crocad.StitchTogether(5, 3).toString()).toEqual("sc3tog in next 5");
             expect(new Crocad.StitchTogether(1, 3).toString()).toEqual("sc3tog");
+        });
+    });
+
+    describe('MultipleStitches', function() {
+        it('can be instantiated', function() {
+            var st = new Crocad.MultipleStitches();
+            expect(st).not.toBeUndefined();
+            expect(st.stitches()).toBe(2);
+            expect(st.stitchesInto()).toBe(1);
+        })
+        it('should be human-readable in the console', function() {
+            expect(new Crocad.MultipleStitches().toString()).toEqual("2sc into stitch");
+            expect(new Crocad.MultipleStitches(2,4).toString()).toEqual("2sc into next 4 stitches");
+            expect(new Crocad.MultipleStitches(3, 1).toString()).toEqual("3sc into stitch");
+            expect(new Crocad.MultipleStitches(3, 4).toString()).toEqual("3sc into next 4 stitches");
+        })
+    });
+    
+    describe('InstructionGroup', function() {
+        it('can be instantiated', function(){
+            var g = new Crocad.InstructionGroup();
+            expect(g).not.toBeUndefined();
+            expect(g.stitches()).toBe(0);
+            expect(g.stitchesInto()).toBe(0);
+        });
+        it('can hold Instructions', function() {
+            var Instruction = Crocad.Instruction;
+            var g = new Crocad.InstructionGroup([
+                new Instruction(),
+                new Instruction(),
+                new Instruction(),
+            ]);
+            expect(g.stitches()).toBe(3);
+            expect(g.stitchesInto()).toBe(3);
+            expect(g.toString()).toBe('sc, sc, sc');
         });
     });
 
