@@ -16,6 +16,15 @@ class Crocad
     @sum: (items) ->
         _.reduce(items, ((memo,num)-> memo + num), 0)
 
+    @rows: (counts) ->
+        result = []
+        for index in [0...counts.length]
+            result.push(Crocad.row(
+                if index is 0 then null else counts[index-1],
+                counts[index]
+            ))
+        result
+
     @row: (prev, count)->
         prev = if typeof prev is "number" then Math.round(prev) else null
         count = if typeof count is "number" then Math.round(count) else null
@@ -59,6 +68,28 @@ class Crocad
                             rep.append(new Crocad.Instruction(stcount + sc_rem))
                 if row_rem > 0
                     result.append(new Crocad.Instruction(row_rem))
+        result
+
+    @sphere: (rows) ->
+        rad = (rows + 1) / Math.PI
+        row_angle = Math.PI / (rows + 1)
+        result = []
+        for row in [0...rows]
+            row_rad = rad * Math.sin((row + 1) * row_angle)
+            result.push(Math.round(2 * Math.PI * row_rad))
+        result
+
+    @torus: (init_stitches, rows, initial_angle=0) ->
+        # Radius of the hole in 'stitches':
+        hole_rad = init_stitches / (2 * Math.PI)
+        # Radius of a donut vertical cross-section:
+        xrad = rows / (2 * Math.PI)
+        row_angle = 2 * Math.PI / rows
+        result = []
+        for row in [0...rows]
+            rad = hole_rad + (xrad - (xrad * Math.cos(row * row_angle + initial_angle)))
+            circ = rad * 2 * Math.PI
+            result.push(Math.round(circ))
         result
 
     toString: ->

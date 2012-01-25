@@ -1,4 +1,37 @@
 describe('crocad', function() {
+    describe('sphere', function() {
+        it('generates the same values as the Python script', function() {
+            expect(Crocad.sphere(12)).toEqual([6,12,17,21,24,26,26,24,21,17,12,6]);
+            expect(Crocad.sphere(31)).toEqual([6,12,19,24,30,36,41,45,49,53,56,
+                59,61,63,64,64,64,63,61,59,56,53,49,45,41,36,30,24,19,12,6]);
+            expect(Crocad.sphere(54)).toEqual([6,13,19,25,31,37,43,49,54,59,65,
+                70,74,79,83,87,91,94,97,100,103,105,106,108,109,110,110,110,
+                110,109,108,106,105,103,100,97,94,91,87,83,79,74,70,65,59,54,
+                49,43,37,31,25,19,13,6]);
+        });
+    });
+    describe('torus', function() {
+        it('generates the same values as the Python script', function() {
+            expect(Crocad.torus(12, 54)).toEqual([12,12,13,15,18,21,25,29,34,39,45,51,57,63,69,75,81,87,93,98,103,107,111,114,117,119,120,120,120,119,117,114,111,107,103,98,93,87,81,75,69,63,57,51,45,39,34,29,25,21,18,15,13,12]);
+            expect(Crocad.torus(12, 24)).toEqual([12,13,15,19,24,30,36,42,48,53,57,59,60,59,57,53,48,42,36,30,24,19,15,13]);
+            expect(Crocad.torus(6, 54)).toEqual([6,6,7,9,12,15,19,23,28,33,39,45,51,57,63,69,75,81,87,92,97,101,105,108,111,113,114,114,114,113,111,108,105,101,97,92,87,81,75,69,63,57,51,45,39,33,28,23,19,15,12,9,7,6]);
+        });
+    });
+    describe('rows', function() {
+        it('can generate rows', function() {
+            expect(Crocad.rows([6,7,6])).toEqual([
+                new Crocad.InstructionGroup([new Crocad.Instruction(6, 'ch')]),
+                new Crocad.InstructionGroup([
+                    new Crocad.MultipleStitches(),
+                    new Crocad.Instruction(5)
+                ]),
+                new Crocad.InstructionGroup([
+                    new Crocad.StitchTogether(),
+                    new Crocad.Instruction(5)
+                ])
+            ]);
+        });
+    });
     describe('row', function() {
         var row;
         beforeEach(function() {
