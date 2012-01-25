@@ -1,5 +1,7 @@
 require 'rake/clean'
 
+# Digest::MD5.file('Vagrantfile').hexdigest[0...8]
+
 task :default => 'js/gen/deps.js'
 CLOBBER.include 'js/gen/deps.js'
 
@@ -8,7 +10,7 @@ CLOBBER.include 'js/gen'
 
 dep_reqs = FileList['js/lib/*.js']
 file 'js/gen/deps.js' => dep_reqs do |t|
-    sh "closure --warning_level QUIET --js_output_file js/gen/deps.js --js #{dep_reqs.join(' --js ')}"
+    sh "java -jar support/closure-compiler.jar --warning_level QUIET --js_output_file js/gen/deps.js --js #{dep_reqs.join(' --js ')}"
 end
 task 'js/gen/deps.js' => 'js/gen'
 
