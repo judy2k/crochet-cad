@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Jasmine Spec Runner</title>
+  <title>Crochet CAD Tests</title>
 
   <link rel="shortcut icon" type="image/png" href="support/jasmine_favicon.png">
 
@@ -32,6 +32,9 @@
       var trivialReporter = new jasmine.TrivialReporter();
 
       jasmineEnv.addReporter(trivialReporter);
+
+      // var consoleReporter = new jasmine.ConsoleReporter();
+      // jasmineEnv.addReporter(consoleReporter);
 
       jasmineEnv.specFilter = function(spec) {
         return trivialReporter.specFilter(spec);

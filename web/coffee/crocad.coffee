@@ -1,4 +1,6 @@
 class Crocad
+    @divmod: (x, y) -> [Math.floor(x/y), x % y]
+
     @gcd: (num1, num2) ->
         while num2 isnt 0
             [num1, num2] = [num2, num1 % num2]
@@ -14,56 +16,124 @@ class Crocad
     @sum: (items) ->
         _.reduce(items, ((memo,num)-> memo + num), 0)
 
+    @row: (prev, count)->
+        prev = if typeof prev is "number" then Math.round(prev) else null
+        count = if typeof count is "number" then Math.round(count) else null
+        result = new Crocad.InstructionGroup()
+        if prev is null
+            result.append(new Crocad.Instruction(count, 'ch'))
+        else
+            abs = Math.abs; floor = Math.floor
+            divmod = Crocad.divmod
+
+            diff = count - prev
+            if diff is 0
+                result.append(new Crocad.Instruction(count))
+            else
+                repeats = Crocad.gcd(count, prev)
+                row_rem = 0
+                if repeats is 1
+                    repeats = abs(diff)
+                prev = floor(prev/repeats)
+                [count, row_rem] = divmod(count,repeats)
+                diff = count - prev
+                scs = Math.min(prev, count) - abs(diff)
+                [stcount, sc_rem] = divmod(scs, abs(diff))
+                if repeats > 1
+                    rep = new Crocad.InstructionGroup()
+                    rep.repeats = repeats
+                    result.append(rep)
+                else
+                    rep = result
+                part_count = floor(abs(diff))
+                for i in [0...part_count]
+                    rep.append(if diff > 0
+                        new Crocad.MultipleStitches()
+                    else
+                        new Crocad.StitchTogether())
+                    if i < abs(diff) - 1
+                        if stcount > 0
+                            rep.append(new Crocad.Instruction(stcount))
+                    else
+                        if (stcount + sc_rem) > 0
+                            rep.append(new Crocad.Instruction(stcount + sc_rem))
+                if row_rem > 0
+                    result.append(new Crocad.Instruction(row_rem))
+        result
+
     toString: ->
         "Crocad instance"
         
-class Instruction
-    constructor: (@_stitches=1, @_stitchType='sc') ->
+class Crocad.Instruction
+    constructor: (@_multiple=1, @_stitchType='sc') ->
+    merge: (ob)->
+        if ob.constructor is @constructor and ob._stitchType is @_stitchType
+            @_merge(ob) isnt false
+        else
+            false
+    _merge: (ob)->
+        @_multiple += ob._multiple
     stitches: ->
-        @_stitches
+        @_multiple
     stitchesInto: @prototype.stitches
     toString: ->
-        if @_stitches > 1
-            "#{@_stitches}#{@_stitchType}"
+        if @_multiple > 1
+            "#{@_multiple}#{@_stitchType}"
         else
             @_stitchType.toString()
-Crocad.Instruction = Instruction
 
-
-class StitchTogether extends Instruction
-    constructor: (@_stitches=1, @_togetherCount=2, @_stitchType='sc') ->
+class Crocad.StitchTogether extends Crocad.Instruction
+    constructor: (@_multiple=1, @_togetherCount=2, @_stitchType='sc') ->
+    _merge: (ob)->
+        if ob._togetherCount is @_togetherCount
+            @_multiple += ob._multiple
+        else
+            false
     stitchesInto: ->
-        @_stitches * @_togetherCount
+        @_multiple * @_togetherCount
     toString: ->
         inst = "#{@_stitchType}#{@_togetherCount}tog"
-        if @_stitches > 1
-            inst += " in next #{@_stitches}"
+        if @_multiple > 1
+            inst += " in next #{@_multiple}"
         inst
-Crocad.StitchTogether = StitchTogether
 
-
-class MultipleStitches extends Instruction
-    constructor: (@_stitches=2, @_stitchesInto=1, @_stitchType='sc') ->
+class Crocad.MultipleStitches extends Crocad.Instruction
+    constructor: (@_multiple=1, @_stitchesInto=2, @_stitchType='sc') ->
+    _merge: (ob)->
+        if ob._stitchesInto is @_stitchesInto
+            @_multiple += ob._multiple
+        else
+            false
+    stitches: ->
+        @_multiple * @_stitchesInto
     stitchesInto: ->
-        @_stitchesInto
+        @_multiple
     toString: ->
-        inst = "#{@_stitches}#{@_stitchType}"
-        if @_stitchesInto is 1
+        inst = "#{@_stitchesInto}#{@_stitchType}"
+        if @_multiple is 1
             inst += " into stitch"
         else
-            inst += " into next #{@_stitchesInto} stitches"
+            inst += " into next #{@_multiple} stitches"
         inst
-Crocad.MultipleStitches = MultipleStitches
 
-class InstructionGroup
-    constructor: (_instructions)->
+class Crocad.InstructionGroup extends Crocad.Instruction
+    constructor: (_instructions, @repeats=1)->
         @_instructions = if _instructions then _instructions else []
+    _merge: (ob) -> false
+    append: (instruction)->
+        last = @_instructions[@_instructions.length-1]
+        if last isnt undefined and last.merge(instruction)
+            return
+        else
+            @_instructions.push(instruction)
     stitches: ->
-        Crocad.sum(x.stitches() for x in @_instructions)
+        Crocad.sum(x.stitches() for x in @_instructions) * @repeats
     stitchesInto: ->
-        Crocad.sum(x.stitchesInto() for x in @_instructions)
+        Crocad.sum(x.stitchesInto() for x in @_instructions) * @repeats
     toString: ->
-        (x.toString() for x in @_instructions).join(', ')
-Crocad.InstructionGroup = InstructionGroup
+        if @repeats is 1
+            (x.toString() for x in @_instructions).join(', ')
+        else
+            '[' + (x.toString() for x in @_instructions).join(', ') + ". Repeat #{@repeats} times.]"
 
 @Crocad = Crocad
