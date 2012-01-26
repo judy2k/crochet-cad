@@ -11,10 +11,8 @@ file 'dev/index.html' => ['dev', 'src/index.html'] do
     cp 'src/index.html', 'dev/index.html'
 end
 task :devel => 'dev/index.html'
-CLOBBER.include 'dev/index.html'
 
 directory "dev/js/lib"
-CLOBBER.include 'dev/js/lib'
 
 FileList['src/js/lib/*.js'].each do |src|
     target = src.pathmap('dev/js/lib/%n.js')
@@ -29,8 +27,7 @@ FileList['src/coffee/*.coffee'].each do |src|
     file target => src do |t|
         sh "coffee -o #{File.dirname(t.name)} -c #{src}"
     end
-    CLOBBER.include(target)
-    task :default => target
+    task :devel => target
 end
         
 
@@ -39,9 +36,7 @@ FileList['src/sass/*.scss'].each do |src|
     file target => src do
         sh "compass compile . #{src}"
     end
-
-    CLOBBER.include(target)
-    task :default => target
+    task :devel => target
 end
 
 
