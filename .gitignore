@@ -6,5 +6,4 @@ env
 build
 web/.idea
 web/.sass-cache
-web/js/gen/*.*
-web/stylesheets/*.*
+web/dev
