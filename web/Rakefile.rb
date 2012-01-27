@@ -22,6 +22,15 @@ FileList['src/js/lib/*.js'].each do |src|
     task :devel => target
 end
 
+directory "dev/css/lib"
+FileList['src/css/lib/*.css'].each do |src|
+    target = src.pathmap('dev/css/lib/%n.css')
+    file target => ['dev/css/lib', src] do |t|
+        cp(src, t.name)
+    end
+    task :devel => target
+end
+
 FileList['src/coffee/*.coffee'].each do |src|
     target = src.pathmap('dev/js/gen/%n.js')
     file target => src do |t|
@@ -37,34 +46,4 @@ FileList['src/sass/*.scss'].each do |src|
         sh "compass compile . #{src}"
     end
     task :devel => target
-end
-
-
-if false then
-    dep_reqs = FileList['js/lib/*.js']
-    file 'js/gen/deps.js' => dep_reqs do |t|
-        sh "java -jar support/closure-compiler.jar --warning_level QUIET --js_output_file js/gen/deps.js --js #{dep_reqs.join(' --js ')}"
-    end
-    task 'js/gen/deps.js' => 'js/gen'
-
-
-    FileList['coffee/*.coffee'].each do |src|
-        target = File.join('js/gen', src.pathmap('%n.js'))
-        file target => src do |t|
-            sh "coffee -o #{File.dirname(t.name)} -c #{src}"
-        end
-        CLOBBER.include(target)
-        task :default => target
-    end
-            
-
-    FileList['sass/*.scss'].each do |src|
-      target = File.join('stylesheets', src.pathmap('%n.css'))
-      file target => src do
-        sh "compass compile . #{src}"
-      end
-      
-      CLOBBER.include(target)
-      task :default => target
-    end
 end
