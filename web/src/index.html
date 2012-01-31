@@ -2,20 +2,40 @@
 <html>
 <head>
     <title>Donut</title>
-    <link rel="stylesheet" href="css/index.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="css/lib/bootstrap.css" type="text/css" charset="utf-8">
     <link rel="stylesheet" href="css/ie.css" type="text/css" charset="utf-8">
     <link rel="stylesheet" href="css/print.css" media="print" type="text/css" harset="utf-8">
     <link rel="stylesheet" href="css/screen.css" media="screen" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="css/index.css" type="text/css" charset="utf-8">
 
 </head>
 <body>
-    <div id="controls" >
-        <p><input type="number" name="rows" id="rows"> Rows</p>
-        <p>Inside radius: <input type="number" name="inner_rad" id="inner_rad"> Stitches</p>
+    <ul class="tabs">
+        <li class="active"><a href="#">Sphere</a></li>
+        <li><a href="#">Cone</a></li>
+        <li><a href="#">Donut</a></li>
+    </ul>
+    <div id="controls" style="background-color: lightgray">
+        <form>
+        <div class="clearfix">
+        <label for="rows">Rows</label>
+        <div class="input"><input type="number" class="span2" name="rows" id="rows" data-bind="value: rows"></div></div>
+        <div class="clearfix">
+            <label for="inner_rad">Inside radius</label>
+            <div class="input"><input type="number" class="span2" name="inner_rad" id="inner_rad" data-bind="value: innerStitches"> Stitches</div>
+        </div>
+        </form>
     </div>
-    <div id="demo"></div>
+    <div id="pattern" data-bind="foreach: instructions">
+        <div>
+            <strong>Row <span data-bind="text: num"/></strong>:
+            <span data-bind="text: instructions"></span>
+            <em>[<span data-bind="text: instructions.stitches()"></span>]</em>
+        </div>
+    </div>
 
-    <script src="js/lib/underscore.js" charset="utf-8"></script>
+    <script src="js/lib/jquery.js" charset="utf-8"></script>
+    <script src="js/lib/knockout-2.0.0rc.js" charset="utf-8"></script>
     <script src="js/gen/crocad.js" charset="utf-8"></script>
     <script src="js/gen/index.js" charset="utf-8"></script>
 

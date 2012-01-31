@@ -1,4 +1,10 @@
 class Crocad
+    @sum: (items) ->
+        result = 0
+        for i in items
+            result += i
+        result
+
     @divmod: (x, y) -> [Math.floor(x/y), x % y]
 
     @gcd: (num1, num2) ->
@@ -12,9 +18,6 @@ class Crocad
             Math.max(min_val, val)
         else
             Crocad.roundToNearest(v, nearest, min_val) for v in val
-
-    @sum: (items) ->
-        _.reduce(items, ((memo,num)-> memo + num), 0)
 
     @rows: (counts) ->
         result = []
