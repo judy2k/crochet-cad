@@ -12,3 +12,4 @@ $.extend patternVM,
 @patternVM = patternVM
 $ ->
     ko.applyBindings(patternVM)
+    $('.nav-tabs a:last').tab('show')
