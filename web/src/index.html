@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="css/index.css" type="text/css" charset="utf-8">
 </head>
 <body>
+    <div id="wrapper">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#sphere" data-toggle="tab">Sphere</a></li>
+            <li><a href="#sphere" data-toggle="tab">Sphere</a></li>
             <li><a href="#cone" data-toggle="tab">Cone</a></li>
             <li><a href="#donut" data-toggle="tab">Donut</a></li>
         </ul>
         <div class="tab-content">
-            <div class='tab-pane active' id='sphere'>
+            <div class='tab-pane' id='sphere'>
                 I am the sphere tab.
             </div>
 
@@ -23,19 +24,23 @@
                 I am the cone tab.
             </div>
 
-            <div class='tab-pane' id='donut'>
-                <div id="controls" style="background-color: lightgray">
+            <div class='tab-pane row' id='donut'>
+                <div id="controls" class="well span4">
                     <form>
-                    <div class="clearfix">
-                    <label for="rows">Rows</label>
-                    <div class="input"><input type="number" class="span2" name="rows" id="rows" data-bind="value: rows"></div></div>
-                    <div class="clearfix">
-                        <label for="inner_rad">Inside radius</label>
-                        <div class="input"><input type="number" class="span2" name="inner_rad" id="inner_rad" data-bind="value: innerStitches"> Stitches</div>
-                    </div>
+                        <div class="clearfix">
+                            <label for="rows">Rows</label>
+                            <div class="input"><input type="number" class="span2" name="rows" id="rows" data-bind="value: rows, valueUpdate: 'afterkeydown'"></div>
+                        </div>
+                        <div class="clearfix">
+                            <label for="inner_rad">Inside radius</label>
+                            <div class="input"><input type="number" class="span2" name="inner_rad" id="inner_rad" data-bind="value: innerStitches"> Stitches</div>
+                        </div>
+                        <div class="clearfix">
+                            <label class="checkbox"><input type="checkbox" id="snap" name="snap">Snap to nearest 6 stitches</label>
+                        </div>
                     </form>
                 </div>
-                <div id="pattern" data-bind="foreach: instructions">
+                <div class="span6" id="pattern" data-bind="foreach: instructions">
                     <div>
                         <strong>Row <span data-bind="text: num"/></strong>:
                         <span data-bind="text: instructions"></span>
@@ -47,6 +52,7 @@
 
 
         </div>
+    </div>
 
     <script src="js/lib/jquery.js" charset="utf-8"></script>
     <script src="js/lib/bootstrap.js" charset="utf-8"></script>
