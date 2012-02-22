@@ -74,6 +74,7 @@ class Crocad
         result
 
     @sphere: (rows) ->
+        rows = parseInt(rows)
         rad = (rows + 1) / Math.PI
         row_angle = Math.PI / (rows + 1)
         result = []
@@ -83,6 +84,10 @@ class Crocad
         result
 
     @torus: (init_stitches, rows, initial_angle=0) ->
+        init_stitches=parseInt(init_stitches)
+        rows=parseInt(rows)
+        initial_angle=parseInt(initial_angle)
+
         # Radius of the hole in 'stitches':
         hole_rad = init_stitches / (2 * Math.PI)
         # Radius of a donut vertical cross-section:

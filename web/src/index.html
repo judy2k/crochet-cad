@@ -12,35 +12,52 @@
     <div id="wrapper">
         <ul class="nav nav-tabs">
             <li><a href="#sphere" data-toggle="tab">Sphere</a></li>
-            <li><a href="#cone" data-toggle="tab">Cone</a></li>
+            <!--<li><a href="#cone" data-toggle="tab">Cone</a></li>-->
             <li><a href="#donut" data-toggle="tab">Donut</a></li>
         </ul>
         <div class="tab-content">
             <div class='tab-pane' id='sphere'>
-                I am the sphere tab.
+                <div id="controls" class="well span4">
+                    <form>
+                        <div class="clearfix">
+                            <label for="rows">Rows</label>
+                            <div class="input"><input type="number" class="span2" name="rows" id="rows" data-bind="value: sphere.rows, valueUpdate: ['afterkeydown','aftermousedown']"></div>
+                        </div>
+                        <div class="clearfix">
+                            <label class="checkbox"><input type="checkbox" id="snap" name="snap" data-bind="checked: sphere.snap">Snap to nearest 6 stitches</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="span8" id="sphere_pattern" data-bind="foreach: sphere.instructions">
+                    <div>
+                        <strong>Row <span data-bind="text: num"/></strong>:
+                        <span data-bind="text: instructions"></span>
+                        <em>[<span data-bind="text: instructions.stitches()"></span>]</em>
+                    </div>
+                </div>
             </div>
 
-            <div class='tab-pane' id='cone'>
+            <!--<div class='tab-pane' id='cone'>
                 I am the cone tab.
-            </div>
+            </div>-->
 
             <div class='tab-pane row' id='donut'>
                 <div id="controls" class="well span4">
                     <form>
                         <div class="clearfix">
                             <label for="rows">Rows</label>
-                            <div class="input"><input type="number" class="span2" name="rows" id="rows" data-bind="value: rows, valueUpdate: 'afterkeydown'"></div>
+                            <div class="input"><input type="number" class="span2" name="rows" id="rows" data-bind="value: donut.rows, valueUpdate: ['afterkeydown','aftermousedown']"></div>
                         </div>
                         <div class="clearfix">
                             <label for="inner_rad">Inside radius</label>
-                            <div class="input"><input type="number" class="span2" name="inner_rad" id="inner_rad" data-bind="value: innerStitches"> Stitches</div>
+                            <div class="input"><input type="number" class="span2" name="inner_rad" id="inner_rad" data-bind="value: donut.innerStitches, valueUpdate: ['afterkeydown','aftermousedown']"> Stitches</div>
                         </div>
                         <div class="clearfix">
-                            <label class="checkbox"><input type="checkbox" id="snap" name="snap">Snap to nearest 6 stitches</label>
+                            <label class="checkbox"><input type="checkbox" id="snap" name="snap" data-bind="checked: donut.snap">Snap to nearest 6 stitches</label>
                         </div>
                     </form>
                 </div>
-                <div class="span8" id="pattern" data-bind="foreach: instructions">
+                <div class="span8" id="donut_pattern" data-bind="foreach: donut.instructions">
                     <div>
                         <strong>Row <span data-bind="text: num"/></strong>:
                         <span data-bind="text: instructions"></span>
