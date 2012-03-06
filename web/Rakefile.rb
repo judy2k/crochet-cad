@@ -31,6 +31,15 @@ FileList['src/css/lib/*.css'].each do |src|
     task :devel => target
 end
 
+directory "dev/img"
+FileList['src/img/*.*'].each do |src|
+    target = src.pathmap('dev/img/%f')
+    file target => ['dev/img', src] do |t|
+        cp(src, t.name)
+    end
+    task :devel => target
+end
+
 FileList['src/coffee/*.coffee'].each do |src|
     target = src.pathmap('dev/js/gen/%n.js')
     file target => src do |t|

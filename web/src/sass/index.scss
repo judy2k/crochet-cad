@@ -1,5 +1,7 @@
+@import "compass/css3/border-radius";
+
 body, p, td {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 strong {
     font-weight: bold;
@@ -12,11 +14,16 @@ strong {
     margin: 1em;
 }
 
-#controls {
+.controls {
 }
 
-#pattern {
-     background-color: yellow;
+#donut_pattern, #sphere_pattern {
+     /* background-color: yellow; */
 }
 
-#test {}
+.description {
+    border: 2px solid black;
+    @include border-radius(4px, 4px);
+    padding: 2em;
+    margin: 2em 0;
+}
