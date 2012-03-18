@@ -33,3 +33,4 @@ patternVM =
 $ ->
     ko.applyBindings(patternVM)
     $('.nav-tabs a:first').tab('show')
+    #$('#myModal').modal({show: false})

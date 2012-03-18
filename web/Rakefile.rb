@@ -8,7 +8,7 @@ directory "dev"
 CLOBBER.include 'dev'
 
 file 'dev/index.html' => ['dev', 'src/index.html'] do
-    cp 'src/index.html', 'dev/index.html'
+    sh "/usr/bin/python support/compress.py -d 'src/index.html' 'dev/index.html'"
 end
 task :devel => 'dev/index.html'
 
@@ -55,4 +55,13 @@ FileList['src/sass/*.scss'].each do |src|
         sh "compass compile . #{src}"
     end
     task :devel => target
+end
+
+directory "prod"
+CLOBBER.include "prod"
+
+task :build_production => 'prod/index.html'
+
+file 'prod/index.html' => ['devel', 'prod'] do
+    cp('dev/index.html', 'prod/index.html')
 end
