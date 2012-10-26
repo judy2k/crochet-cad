@@ -52,7 +52,7 @@ def donut(init_stitches, rows, initial_angle=0):
         rad = hole_rad + (xrad - (xrad * cos(row * row_angle + initial_angle)))
         circ = rad * 2 * pi
         # stitch_count = int(round(circ))
-        LOG.debug('Actual stitch-count: %.18f', circ)
+        LOG.debug(_('Actual stitch-count: %.18f'), circ)
         yield circ # stitch_count
 
 
@@ -63,25 +63,25 @@ def main(argv, global_options):
     import optparse
     
     opt_parser = optparse.OptionParser(
-        '%prog [GLOBAL-OPTIONS] '
-        'donut [--inner-radius=STITCHES] [--row-count=ROWS]',
+        _('%prog [GLOBAL-OPTIONS] '
+        'donut [--inner-radius=STITCHES] [--row-count=ROWS]'),
         description="""
 Generate a pattern for a donut (torus). The pattern
 starts off with a row in the centre (the donut hole) and crocheted up
 and around.""".strip())
-    opt_parser.add_option('-i', '--inner-radius', action='store', type='int',
+    opt_parser.add_option(_('-i'), _('--inner-radius'), action='store', type='int',
         default=18, metavar='STITCHES',
-        help='the circumference of the donut hole, in stitches [%default]')
+        help=_('the circumference of the donut hole, in stitches [%default]'))
     opt_parser.add_option('-r', '--row-count', action='store', type='int',
         default=16, metavar='ROWS',
-        help="the number of rows in the pattern - defines the 'thickness'"
-            " of the donut [%default]")
+        help=_("the number of rows in the pattern - defines the 'thickness'"
+            " of the donut [%default]"))
     command_opts, _ = opt_parser.parse_args(argv)
     stitches = donut(command_opts.inner_radius, command_opts.row_count)
     stitches = snap(stitches, 1 if global_options.accurate else 6)
     
     if not global_options.inhuman:
-        title = "Donut (inner-radius: %d, %d rows)" % (
+        title = _("Donut (inner-radius: %d, %d rows)") % (
                 command_opts.inner_radius, command_opts.row_count)
         print_instructions_txt(title, stitches)
     else:

@@ -38,11 +38,11 @@ def ball(rows):
     """ Generator for stitch-counts for a ball crochet pattern. """
     rad = (rows + 1) / pi
     row_angle = pi / (rows + 1)
-    LOG.debug('Ball - radius: %.2f, row-angle: %.2f rads', rad, row_angle)
+    LOG.debug(_('Ball - radius: %.2f, row-angle: %.2f rads'), rad, row_angle)
     for row in range(rows):
         row_rad = rad * sin((row + 1) * row_angle)
         stitches = 2 * pi * row_rad
-        LOG.debug('Circumference: %.2f', stitches)
+        LOG.debug(_('Circumference: %.2f'), stitches)
         yield stitches
 
 
@@ -51,20 +51,20 @@ def main(argv, global_options):
     import optparse
 
     opt_parser = optparse.OptionParser(
-        '%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]',
+        _('%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]'),
         description="""
 Generate a crochet pattern for a ball (sphere).
 """.strip())
-    opt_parser.add_option('-r', '--row-count', action='store', type='int',
+    opt_parser.add_option(_('-r'), _('--row-count'), action='store', type='int',
         default=16, metavar='ROWS',
-        help='the number of rows in the pattern. Defines the size'
-        ' of the ball - the circumference is 2x this value. [%default]')
+        help=_('the number of rows in the pattern. Defines the size'
+        ' of the ball - the circumference is 2x this value. [%default]'))
     command_opts, _ = opt_parser.parse_args(argv)
     stitches = ball(command_opts.row_count)
     stitches = snap(stitches, 1 if global_options.accurate else 6, 6)
     
     if not global_options.inhuman:
-        title = "Ball (%d rows)" % (command_opts.row_count,)
+        title = _("Ball (%d rows)") % (command_opts.row_count,)
         print_instructions_txt(title, stitches)
     else:
         print_row_counts(stitches)
