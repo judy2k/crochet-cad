@@ -22,6 +22,9 @@
 crocad.donut - donut crochet pattern generation for crochet-cad.
 """
 
+from crocad import localization
+_ = localization.get_translation()
+
 import logging
 from math import pi, cos
 
@@ -29,10 +32,12 @@ from crocad.util import round_to_nearest_iter as snap
 from crocad.util import print_instructions_txt, print_row_counts
 
 
+
 __all__ = ['donut']
 
 
 LOG = logging.getLogger('crocad.donut')
+
 
 
 def donut(init_stitches, rows, initial_angle=0):
@@ -61,7 +66,7 @@ def main(argv, global_options):
     Command entry-point for the donut pattern-generator.
     """
     import optparse
-    
+    _ = localization.get_translation()
     opt_parser = optparse.OptionParser(
         _('%prog [GLOBAL-OPTIONS] '
         'donut [--inner-radius=STITCHES] [--row-count=ROWS]'),
@@ -76,7 +81,7 @@ and around.""".strip())
         default=16, metavar='ROWS',
         help=_("the number of rows in the pattern - defines the 'thickness'"
             " of the donut [%default]"))
-    command_opts, _ = opt_parser.parse_args(argv)
+    command_opts, __ = opt_parser.parse_args(argv)
     stitches = donut(command_opts.inner_radius, command_opts.row_count)
     stitches = snap(stitches, 1 if global_options.accurate else 6)
     

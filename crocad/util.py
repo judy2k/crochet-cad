@@ -26,6 +26,9 @@ __all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest',
         'round_to_nearest_iter', 'print_instructions_txt']
 
 import logging
+import localization
+_ = localization.get_translation()
+
 
 LOG = logging.getLogger('crocad.util')
 

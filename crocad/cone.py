@@ -28,6 +28,8 @@ import logging
 from crocad.util import round_to_nearest_iter as snap
 from crocad.util import print_instructions_txt, print_row_counts
 
+from crocad import localization
+_ = localization.get_translation()
 
 __all__ = ['cone']
 
@@ -49,9 +51,9 @@ def cone(rows, max_circ):
 def main(argv, global_options):
     """ Command entry-point for the cone pattern-generator. """
     import optparse
-
+    _ = localization.get_translation()
     opt_parser = optparse.OptionParser(
-        _('%prog [GLOBAL-OPTIONS] cone [--row-count=ROWS]'),
+    _('%prog [GLOBAL-OPTIONS] cone [--row-count=ROWS]'),
         description="""
 Generate a crochet pattern for a cone.
 """.strip())
@@ -63,7 +65,7 @@ Generate a crochet pattern for a cone.
         type='int', default=60, metavar='STITCHES',
         help=_('the number of stitches at the base of the pattern. Defines the'
         ' circumference of the base of the cone [%default]'))
-    command_opts, _ = opt_parser.parse_args(argv)
+    command_opts, __ = opt_parser.parse_args(argv)
     stitches = cone(command_opts.row_count, command_opts.max_circumference)
     stitches = snap(stitches, 1 if global_options.accurate else 6, 6)
     if not global_options.inhuman:
