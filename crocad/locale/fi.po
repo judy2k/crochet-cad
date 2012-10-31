@@ -1,0 +1,233 @@
+# Finnish translations for PACKAGE package.
+# Copyright (C) 2012 ORGANIZATION
+# teemu <teukkam@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2012-10-26 15:53+EEST\n"
+"PO-Revision-Date: 2012-10-31 14:48+0200\n"
+"Last-Translator: teemu <teukkam@gmail.com>\n"
+"Language-Team: Finnish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: __init__.py:107
+msgid "Global Options"
+msgstr ""
+
+#: __init__.py:108
+msgid ""
+"Global options must be provided before the name of the crochet-cad command. "
+"They can be used for any crochet-cad command."
+msgstr ""
+
+#: __init__.py:110
+msgid "--verbose"
+msgstr ""
+
+#: __init__.py:110
+msgid "-v"
+msgstr ""
+
+#: __init__.py:111
+msgid "print out extra information - only really used for debugging."
+msgstr ""
+
+#: __init__.py:112
+msgid "--accurate"
+msgstr ""
+
+#: __init__.py:112
+msgid "-a"
+msgstr ""
+
+#: __init__.py:113
+msgid ""
+"generate an exact pattern which may not produce such an even end-product."
+msgstr ""
+
+#: __init__.py:115
+msgid "--inhuman"
+msgstr ""
+
+#: __init__.py:115 donut.py:72
+msgid "-i"
+msgstr ""
+
+#: __init__.py:116
+msgid ""
+"Instead of printing instructions, just print the row-counts, one per line."
+msgstr ""
+
+#: __init__.py:135
+msgid "No command was provided."
+msgstr ""
+
+#: ball.py:41
+msgid "Ball - radius: %.2f, row-angle: %.2f rads"
+msgstr ""
+
+#: ball.py:45
+msgid "Circumference: %.2f"
+msgstr ""
+
+#: ball.py:54
+msgid "%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]"
+msgstr ""
+
+#: ball.py:58 cone.py:58
+msgid "--row-count"
+msgstr ""
+
+#: ball.py:58 cone.py:58
+msgid "-r"
+msgstr ""
+
+#: ball.py:60
+msgid ""
+"the number of rows in the pattern. Defines the size of the ball - the "
+"circumference is 2x this value. [%default]"
+msgstr ""
+
+#: ball.py:67
+msgid "Ball (%d rows)"
+msgstr ""
+
+#: cone.py:44
+msgid "Row %d, Stitches: %.2f"
+msgstr ""
+
+#: cone.py:54
+msgid "%prog [GLOBAL-OPTIONS] cone [--row-count=ROWS]"
+msgstr ""
+
+#: cone.py:60
+msgid ""
+"the number of rows in the pattern. Defines the height of the cone [%default]"
+msgstr ""
+
+#: cone.py:62
+msgid "--max-circumference"
+msgstr ""
+
+#: cone.py:62
+msgid "-c"
+msgstr ""
+
+#: cone.py:64
+msgid ""
+"the number of stitches at the base of the pattern. Defines the circumference "
+"of the base of the cone [%default]"
+msgstr ""
+
+#: cone.py:70
+msgid "Cone (%d rows, %d max-circumference)"
+msgstr ""
+
+#: donut.py:55
+msgid "Actual stitch-count: %.18f"
+msgstr ""
+
+#: donut.py:66
+msgid ""
+"%prog [GLOBAL-OPTIONS] donut [--inner-radius=STITCHES] [--row-count=ROWS]"
+msgstr ""
+
+#: donut.py:72
+msgid "--inner-radius"
+msgstr ""
+
+#: donut.py:74
+msgid "the circumference of the donut hole, in stitches [%default]"
+msgstr ""
+
+#: donut.py:77
+msgid ""
+"the number of rows in the pattern - defines the 'thickness' of the donut "
+"[%default]"
+msgstr ""
+
+#: donut.py:84
+msgid "Donut (inner-radius: %d, %d rows)"
+msgstr ""
+
+#: util.py:56
+msgid "%s in next %d"
+msgstr ""
+
+#: util.py:76
+msgid "%d%stog"
+msgstr ""
+
+#: util.py:78 util.py:101
+msgid " in next %d"
+msgstr ""
+
+#: util.py:84
+msgid "sc"
+msgstr ""
+
+#: util.py:99
+msgid "%d%s in each"
+msgstr ""
+
+#: util.py:108
+msgid "Make a magic circle, 6sc into centre."
+msgstr ""
+
+#: util.py:110
+msgid "ch %d, sc in each chain"
+msgstr ""
+
+#: util.py:126
+msgid "sc in each sc"
+msgstr ""
+
+#: util.py:140
+msgid "pc: %d, diff: %.4f"
+msgstr ""
+
+#: util.py:142
+msgid ", 2sc in next"
+msgstr ""
+
+#: util.py:142
+msgid ", 2sctog"
+msgstr ""
+
+#: util.py:143
+msgid "result: %s"
+msgstr ""
+
+#: util.py:146 util.py:149
+msgid ", %dsc"
+msgstr ""
+
+#: util.py:151
+msgid ", repeat from * %d times"
+msgstr ""
+
+#: util.py:154
+msgid " %dsc "
+msgstr ""
+
+#: util.py:161
+msgid " (%d)"
+msgstr ""
+
+#: util.py:161
+msgid "Row %d: "
+msgstr ""
+
+#: util.py:166
+msgid "<div class=\"instruction\">Row %d: "
+msgstr ""
+
+#: util.py:168
+msgid " <em class=\"stitch-count\">(%d)</em></div>"
+msgstr ""
