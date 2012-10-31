@@ -42,6 +42,23 @@ class NullHandler(logging.Handler):
         pass
 logging.getLogger('crocad').addHandler(NullHandler())
 
+def init_localization():
+	"""Prepare localization"""
+	locale.setlocale(locale.LC_ALL, '')
+	
+	loc = locale.getlocale()
+	filename = "res/messages_%s.mo" % locale.getlocale()[0][0:2]
+	
+	try:
+		logging.debug("Opening message file %s for locale %s", filename, loc[0])
+		trans = gettext.GNUTranslations(open(filename, "rb"))
+	except IOError:
+		logging.debug("Locale not found. Using default messages.")
+		trans = gettext.NullTranslations()
+	
+	trans.install()	
+
+init_localization()
 from crocad import donut, ball, cone
 
 
@@ -68,24 +85,7 @@ def find_command(command):
     if hasattr(command_module, 'main'):
         return getattr(command_module, 'main')
     else:
-        raise Exception('Unknown command: %s' % command)
-
-def init_localization():
-	"""Prepare localization"""
-	locale.setlocale(locale.LC_ALL, '')
-	
-	loc = locale.getlocale()
-	filename = "res/messages_%s.mo" & locale.getlocale()[0][0:2]
-	
-	try:
-		logging.debug("Opening message file %s for locale %s", filename, loc[0])
-		trans = gettext.GNUTranslations(open(filename, "rb"))
-	except IOError:
-		logging.debug("Locale not found. Using default messages.")
-		trans = gettext.NullTranslations()
-	
-	trans.install()	
-	
+        raise Exception('Unknown command: %s' % command)	
 
 def main(argv=sys.argv[1:]):
     """ Crochet CAD's command-line entry-point. """
@@ -136,5 +136,4 @@ specific command, run '%prog COMMAND --help' with the name of the command.
 
 
 if __name__ == '__main__':
-    init_localization()
     main()
