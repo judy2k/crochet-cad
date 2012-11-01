@@ -3,14 +3,13 @@
 # teemu <teukkam@gmail.com>, 2012.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+msgstr "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2012-10-26 15:53+EEST\n"
 "PO-Revision-Date: 2012-10-31 14:48+0200\n"
 "Last-Translator: teemu <teukkam@gmail.com>\n"
 "Language-Team: Finnish\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 "Language: fi\n"
@@ -18,13 +17,13 @@ msgstr ""
 
 #: __init__.py:107
 msgid "Global Options"
-msgstr ""
+msgstr "Globaalit valinnat"
 
 #: __init__.py:108
 msgid ""
 "Global options must be provided before the name of the crochet-cad command. "
 "They can be used for any crochet-cad command."
-msgstr ""
+msgstr "Globaalit valinnat täytyy antaa ennen crochet-cad-komennon nimeä. Niitä voi käyttää kaikkien crochet-cad-komentojen yhteydessä."
 
 #: __init__.py:110
 msgid "--verbose"
@@ -36,7 +35,7 @@ msgstr ""
 
 #: __init__.py:111
 msgid "print out extra information - only really used for debugging."
-msgstr ""
+msgstr "tulosta enemmän informaatiota - käytetään vain vianetsintään."
 
 #: __init__.py:112
 msgid "--accurate"
@@ -49,7 +48,7 @@ msgstr ""
 #: __init__.py:113
 msgid ""
 "generate an exact pattern which may not produce such an even end-product."
-msgstr ""
+msgstr "generoi tarkka kaava, joka ei ehkä tuota tasaista lopputulosta."
 
 #: __init__.py:115
 msgid "--inhuman"
@@ -62,19 +61,19 @@ msgstr ""
 #: __init__.py:116
 msgid ""
 "Instead of printing instructions, just print the row-counts, one per line."
-msgstr ""
+msgstr "Ohjeiden sijaan tulosta vain kerrosten lukemat, yksi per rivi."
 
 #: __init__.py:135
 msgid "No command was provided."
-msgstr ""
+msgstr "Komentoa ei annettu."
 
 #: ball.py:41
 msgid "Ball - radius: %.2f, row-angle: %.2f rads"
-msgstr ""
+msgstr "Pallo - säde: %.2f, kerroskulma: %.2f radiaania"
 
 #: ball.py:45
 msgid "Circumference: %.2f"
-msgstr ""
+msgstr "Ympärysmitta: %.2f"
 
 #: ball.py:54
 msgid "%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]"
@@ -92,15 +91,15 @@ msgstr ""
 msgid ""
 "the number of rows in the pattern. Defines the size of the ball - the "
 "circumference is 2x this value. [%default]"
-msgstr ""
+msgstr "Kerrosten lukumäärä kaavassa. Määrittää pallon koon - ympärysmitta on 2x tämä arvo. [%default]"
 
 #: ball.py:67
 msgid "Ball (%d rows)"
-msgstr ""
+msgstr "Pallo (%d kerrosta)"
 
 #: cone.py:44
 msgid "Row %d, Stitches: %.2f"
-msgstr ""
+msgstr "Kerros %d, Silmukoita: %.2f"
 
 #: cone.py:54
 msgid "%prog [GLOBAL-OPTIONS] cone [--row-count=ROWS]"
@@ -109,7 +108,7 @@ msgstr ""
 #: cone.py:60
 msgid ""
 "the number of rows in the pattern. Defines the height of the cone [%default]"
-msgstr ""
+msgstr "Kerrosten lukumäärä kaavassa. Määrittää kartion korkeuden [%default]"
 
 #: cone.py:62
 msgid "--max-circumference"
@@ -123,15 +122,15 @@ msgstr ""
 msgid ""
 "the number of stitches at the base of the pattern. Defines the circumference "
 "of the base of the cone [%default]"
-msgstr ""
+msgstr "silmukoiden lukumäärä kuvion alareunassa. Määrittää kartion pohjan ympärysmitan [%default]"
 
 #: cone.py:70
 msgid "Cone (%d rows, %d max-circumference)"
-msgstr ""
+msgstr "Kartio (%d kierrosta, %d max-ympärysmitta)"
 
 #: donut.py:55
 msgid "Actual stitch-count: %.18f"
-msgstr ""
+msgstr "Tarkka silmukoiden lukumäärä: %.18f"
 
 #: donut.py:66
 msgid ""
@@ -144,77 +143,77 @@ msgstr ""
 
 #: donut.py:74
 msgid "the circumference of the donut hole, in stitches [%default]"
-msgstr ""
+msgstr "donitsin reiän ympärysmitta, silmukoina [%default]"
 
 #: donut.py:77
 msgid ""
 "the number of rows in the pattern - defines the 'thickness' of the donut "
 "[%default]"
-msgstr ""
+msgstr "kerrosten lukumäärä kaavassa - määrittää donitsin 'paksuuden' [%default]"
 
 #: donut.py:84
 msgid "Donut (inner-radius: %d, %d rows)"
-msgstr ""
+msgstr "Donitsi (sisäsäde: %d, %d kerrosta)"
 
 #: util.py:56
 msgid "%s in next %d"
-msgstr ""
+msgstr "%s seuraavaan %d"
 
 #: util.py:76
 msgid "%d%stog"
-msgstr ""
+msgstr "%d%syhteen"
 
 #: util.py:78 util.py:101
 msgid " in next %d"
-msgstr ""
+msgstr " seuraavaan %d"
 
 #: util.py:84
 msgid "sc"
-msgstr ""
+msgstr "ks"
 
 #: util.py:99
 msgid "%d%s in each"
-msgstr ""
+msgstr "%d%s jokaiseen"
 
 #: util.py:108
 msgid "Make a magic circle, 6sc into centre."
-msgstr ""
+msgstr "Tee taikarengas, 6 ks keskustaan."
 
 #: util.py:110
 msgid "ch %d, sc in each chain"
-msgstr ""
+msgstr "%d kjs, ks jokaiseen kjs:aan"
 
 #: util.py:126
 msgid "sc in each sc"
-msgstr ""
+msgstr "ks jokaiseen ks:aan"
 
 #: util.py:140
 msgid "pc: %d, diff: %.4f"
-msgstr ""
+msgstr "pc: %d, ero: %.4f"
 
 #: util.py:142
 msgid ", 2sc in next"
-msgstr ""
+msgstr ", 2 ks seuraavaan"
 
 #: util.py:142
 msgid ", 2sctog"
-msgstr ""
+msgstr ", 2 ks yhteen"
 
 #: util.py:143
 msgid "result: %s"
-msgstr ""
+msgstr "tulos: %s"
 
 #: util.py:146 util.py:149
 msgid ", %dsc"
-msgstr ""
+msgstr ", %d ks"
 
 #: util.py:151
 msgid ", repeat from * %d times"
-msgstr ""
+msgstr ", toista *:sta %d kertaa"
 
 #: util.py:154
 msgid " %dsc "
-msgstr ""
+msgstr " %d ks "
 
 #: util.py:161
 msgid " (%d)"
@@ -222,11 +221,11 @@ msgstr ""
 
 #: util.py:161
 msgid "Row %d: "
-msgstr ""
+msgstr "%d. krs: "
 
 #: util.py:166
 msgid "<div class=\"instruction\">Row %d: "
-msgstr ""
+msgstr "<div class=\"instruction\">%d. krs:: "
 
 #: util.py:168
 msgid " <em class=\"stitch-count\">(%d)</em></div>"
