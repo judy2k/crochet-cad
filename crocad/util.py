@@ -26,6 +26,9 @@ __all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest',
         'round_to_nearest_iter', 'print_instructions_txt']
 
 import logging
+import localization
+_ = localization.get_translation()
+
 
 LOG = logging.getLogger('crocad.util')
 
@@ -53,7 +56,7 @@ class Instruction(object):
     
     def str(self):
         """Plain-text representation of this instruction."""
-        return '%s in next %d' % (self.stitch, self.stitch_count)
+        return _('%s in next %d') % (self.stitch, self.stitch_count)
 
 
 class StitchTogetherInstruction(Instruction):
@@ -73,15 +76,15 @@ class StitchTogetherInstruction(Instruction):
     
     def str(self):
         """Plain-text representation of this instruction."""
-        inst = '%d%stog' % (self.together_count, self.stitch)
+        inst = _('%d%stog') % (self.together_count, self.stitch)
         if self.stitch_count > 1:
-            inst += ' in next %d' % self.stitch_count
+            inst += _(' in next %d') % self.stitch_count
         return inst
 
 
 class MultipleStitchesInstruction(Instruction):
     """ A bunch of 'X st' in st commands. """
-    def __init__(self, stitch='sc', stitch_count=1, multiple_count=2):
+    def __init__(self, stitch=_('sc'), stitch_count=1, multiple_count=2):
         super(MultipleStitchesInstruction, self).__init__(stitch=stitch,
                 stitch_count=stitch_count)
         self.multiple_count = multiple_count
@@ -96,18 +99,18 @@ class MultipleStitchesInstruction(Instruction):
     
     def str(self):
         """Plain-text representation of this instruction."""
-        inst = '%d%s in each' % (self.multiple_count, self.stitch)
+        inst = _('%d%s in each') % (self.multiple_count, self.stitch)
         if self.stitch_count > 1:
-            inst += ' in next %d' % self.stitch_count
+            inst += _(' in next %d') % self.stitch_count
         return inst
 
 
 def _first_instruction(count):
     """ Returns an instruction for a first row. """
     if count <= 6:
-        return 'Make a magic circle, 6sc into centre.'
+        return _('Make a magic circle, 6sc into centre.')
     else:
-        return 'ch %d, sc in each chain' % count
+        return _('ch %d, sc in each chain') % count
 
 
 def instruction(prev, count):
@@ -123,7 +126,7 @@ def instruction(prev, count):
     else:
         diff = count - prev
         if diff == 0:
-            result += 'sc in each sc'
+            result += _('sc in each sc')
         else:
             repeats = gcd(count, prev)
             row_rem = 0
@@ -137,35 +140,35 @@ def instruction(prev, count):
             if repeats:
                 result += '*'
             part_count = int(abs(diff))
-            LOG.debug('pc: %d, diff: %.4f', part_count, diff)
+            LOG.debug(_('pc: %d, diff: %.4f'), part_count, diff)
             for i in range(part_count):
-                result += (', 2sc in next' if diff > 0 else ', 2sctog')
-                LOG.debug('result: %s', result)
+                result += (_(', 2sc in next') if diff > 0 else _(', 2sctog'))
+                LOG.debug(_('result: %s'), result)
                 if i < abs(diff) - 1:
                     if stcount:
-                        result += ', %dsc' % stcount
+                        result += _(', %dsc') % stcount
                 else:
                     if (stcount + sc_rem):
-                        result += ', %dsc' % (stcount + sc_rem)
+                        result += _(', %dsc') % (stcount + sc_rem)
             if repeats:
-                result += ', repeat from * %d times' % repeats
+                result += _(', repeat from * %d times') % repeats
                 
             if row_rem:
-                result += ' %dsc ' % row_rem
+                result += _(' %dsc ') % row_rem
     
     return result
 
 
 def instruction_txt(row, prev, count):
     """ Produce a line of output in plain text format. """
-    return 'Row %d: ' % row  + instruction(prev, count) + ' (%d)' % count
+    return _('Row %d: ') % row  + instruction(prev, count) + _(' (%d)') % count
 
 
 def instruction_html(row, prev, count):
     """ Produce a line of output in HTML format. """
-    return '<div class="instruction">Row %d: ' % row + \
+    return _('<div class="instruction">Row %d: ') % row + \
         instruction(prev, count) + \
-        ' <em class="stitch-count">(%d)</em></div>' % count
+        _(' <em class="stitch-count">(%d)</em></div>') % count
 
 
 def print_instructions_txt(title, stitches):

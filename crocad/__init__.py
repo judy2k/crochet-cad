@@ -29,6 +29,9 @@ execution of the module's functionality.
 import logging
 import sys
 
+import gettext
+import locale
+
 class NullHandler(logging.Handler):
     """
     A Handler that does nothing. Prevents error messages if crocad is used
@@ -39,8 +42,10 @@ class NullHandler(logging.Handler):
         pass
 logging.getLogger('crocad').addHandler(NullHandler())
 
-from crocad import donut, ball, cone
 
+from crocad import localization
+_ = localization.get_translation()
+from crocad import donut, ball, cone
 
 __all__ = ['main']
 
@@ -65,8 +70,7 @@ def find_command(command):
     if hasattr(command_module, 'main'):
         return getattr(command_module, 'main')
     else:
-        raise Exception('Unknown command: %s' % command)
-
+        raise Exception('Unknown command: %s' % command)	
 
 def main(argv=sys.argv[1:]):
     """ Crochet CAD's command-line entry-point. """
@@ -85,17 +89,17 @@ specific command, run '%prog COMMAND --help' with the name of the command.
 )
     opt_parser.disable_interspersed_args()
     
-    optgroup = optparse.OptionGroup(opt_parser, 'Global Options',
-    'Global options must be provided before the name of the crochet-cad'
-    ' command. They can be used for any crochet-cad command.')
-    optgroup.add_option('-v', '--verbose', action='count', default=0,
-        help='print out extra information - only really used for debugging.')
-    optgroup.add_option('-a', '--accurate', action='store_true', default=False,
-        help='generate an exact pattern'
-        ' which may not produce such an even end-product.')
-    optgroup.add_option('-i', '--inhuman', action='store_true', default=False,
-        help='Instead of printing instructions, just print the row-counts,'
-        ' one per line.')
+    optgroup = optparse.OptionGroup(opt_parser, (_('Global Options'),
+    _('Global options must be provided before the name of the crochet-cad'
+    ' command. They can be used for any crochet-cad command.')))
+    optgroup.add_option(_('-v'), _('--verbose'), action='count', default=0,
+        help=_('print out extra information - only really used for debugging.'))
+    optgroup.add_option(_('-a'), _('--accurate'), action='store_true', default=False,
+        help=_('generate an exact pattern'
+        ' which may not produce such an even end-product.'))
+    optgroup.add_option(_('-i'), _('--inhuman'), action='store_true', default=False,
+        help=_('Instead of printing instructions, just print the row-counts,'
+        ' one per line.'))
     opt_parser.add_option_group(optgroup)
     
     global_options, args = opt_parser.parse_args(argv)
@@ -113,7 +117,7 @@ specific command, run '%prog COMMAND --help' with the name of the command.
         command = args.pop(0)
         find_command(command)(args, global_options)
     else:
-        opt_parser.error('No command was provided.')
+        opt_parser.error(_('No command was provided.'))
 
 
 if __name__ == '__main__':
