@@ -7,7 +7,7 @@ if lang==None or lang[:2]=="en":
 else:
     import gettext
     try:
-        trans = gettext.translation("crochet-cad", localedir="locale", languages=[lang])
+        trans = gettext.translation("crochet-cad", localedir="/usr/local/share/locale", languages=[lang])
         trans.install()
         translation=_
     except IOError:

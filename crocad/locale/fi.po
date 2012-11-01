@@ -23,7 +23,7 @@ msgstr "Globaalit valinnat"
 msgid ""
 "Global options must be provided before the name of the crochet-cad command. "
 "They can be used for any crochet-cad command."
-msgstr "Globaalit valinnat täytyy antaa ennen crochet-cad-komennon nimeä. Niitä voi käyttää kaikkien crochet-cad-komentojen yhteydessä."
+msgstr "Globaalit valinnat taytyy antaa ennen crochet-cad-komennon nimea. Niita voi kayttaa kaikkien crochet-cad-komentojen yhteydessa."
 
 #: __init__.py:110
 msgid "--verbose"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: __init__.py:111
 msgid "print out extra information - only really used for debugging."
-msgstr "tulosta enemmän informaatiota - käytetään vain vianetsintään."
+msgstr "tulosta enemman informaatiota - kaytetaan vain vianetsintaan."
 
 #: __init__.py:112
 msgid "--accurate"
@@ -48,7 +48,7 @@ msgstr ""
 #: __init__.py:113
 msgid ""
 "generate an exact pattern which may not produce such an even end-product."
-msgstr "generoi tarkka kaava, joka ei ehkä tuota tasaista lopputulosta."
+msgstr "generoi tarkka kaava, joka ei ehka tuota tasaista lopputulosta."
 
 #: __init__.py:115
 msgid "--inhuman"
