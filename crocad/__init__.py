@@ -29,8 +29,6 @@ execution of the module's functionality.
 import logging
 import sys
 
-import gettext
-import locale
 
 class NullHandler(logging.Handler):
     """
@@ -45,6 +43,7 @@ logging.getLogger('crocad').addHandler(NullHandler())
 
 from crocad import localization
 _ = localization.get_translation()
+
 from crocad import donut, ball, cone
 
 __all__ = ['main']
@@ -53,10 +52,10 @@ __all__ = ['main']
 LOG = logging.getLogger('crocad')
 
 
-COMMAND_ALIASES = {
-    'torus': 'donut',
-    'sphere': 'ball',
-}
+COMMAND_ALIASES = {}
+for module in [ball, cone, donut]:
+    for name in module.NAMES:
+        COMMAND_ALIASES[name] = module
 
 
 def find_command(command):
@@ -64,46 +63,47 @@ def find_command(command):
     Attempts to find an imported module with the name `command`, and then
     obtains and returns that moule's `main` function.
     """
-    command = COMMAND_ALIASES.get(command, command)
-    
-    command_module = globals().get(command)
+    command_module = COMMAND_ALIASES.get(command, None)
     if hasattr(command_module, 'main'):
         return getattr(command_module, 'main')
     else:
-        raise Exception('Unknown command: %s' % command)	
+        raise Exception('Unknown command: %s' % command)
+
 
 def main(argv=sys.argv[1:]):
     """ Crochet CAD's command-line entry-point. """
     import optparse
-    
+
     opt_parser = optparse.OptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
-  
+
 Help:
   %prog --help
   %prog COMMAND --help""",
 description="""
 Generate a crochet pattern for a geometric primitive, specified as COMMAND.
-Supported commands are 'ball', 'donut', and 'cone'. For details of options for a
-specific command, run '%prog COMMAND --help' with the name of the command.
+Supported commands are 'ball', 'donut', and 'cone'. For details of options for
+a specific command, run '%prog COMMAND --help' with the name of the command.
 """.strip()
 )
     opt_parser.disable_interspersed_args()
-    
+
     optgroup = optparse.OptionGroup(opt_parser, (_('Global Options'),
     _('Global options must be provided before the name of the crochet-cad'
     ' command. They can be used for any crochet-cad command.')))
     optgroup.add_option(_('-v'), _('--verbose'), action='count', default=0,
-        help=_('print out extra information - only really used for debugging.'))
-    optgroup.add_option(_('-a'), _('--accurate'), action='store_true', default=False,
-        help=_('generate an exact pattern'
+        help=_('print out extra information - only really used for debugging.')
+    )
+    optgroup.add_option(_('-a'), _('--accurate'), action='store_true',
+        default=False, help=_('generate an exact pattern'
         ' which may not produce such an even end-product.'))
-    optgroup.add_option(_('-i'), _('--inhuman'), action='store_true', default=False,
+    optgroup.add_option(_('-i'), _('--inhuman'), action='store_true',
+        default=False,
         help=_('Instead of printing instructions, just print the row-counts,'
         ' one per line.'))
     opt_parser.add_option_group(optgroup)
-    
+
     global_options, args = opt_parser.parse_args(argv)
-    
+
     logging.basicConfig()
     # logging.getLogger().addHandler(logging.StreamHandler(sys.stderr))
     if global_options.verbose == 1:

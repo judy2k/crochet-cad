@@ -1,9 +1,0 @@
-*.DS_Store
-*.pyc
-*.swp
-README.html
-env
-build
-web/.idea
-web/.sass-cache
-web/dev

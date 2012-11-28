@@ -32,18 +32,15 @@ from crocad.util import round_to_nearest_iter as snap
 from crocad.util import print_instructions_txt, print_row_counts
 
 
-
 __all__ = ['donut']
-
-
+NAMES = ['donut', 'torus']
 LOG = logging.getLogger('crocad.donut')
-
 
 
 def donut(init_stitches, rows, initial_angle=0):
     """
     Generator for stitch-counts for a donut crochet pattern.
-    
+
     init_stitches - stitch-count of the inside row.
     rows - number of rows around the torus
     inital_angle - The angle (in radians) of the first row crocheted.
@@ -58,7 +55,7 @@ def donut(init_stitches, rows, initial_angle=0):
         circ = rad * 2 * pi
         # stitch_count = int(round(circ))
         LOG.debug(_('Actual stitch-count: %.18f'), circ)
-        yield circ # stitch_count
+        yield circ  # stitch_count
 
 
 def main(argv, global_options):
@@ -74,8 +71,8 @@ def main(argv, global_options):
 Generate a pattern for a donut (torus). The pattern
 starts off with a row in the centre (the donut hole) and crocheted up
 and around.""".strip())
-    opt_parser.add_option(_('-i'), _('--inner-radius'), action='store', type='int',
-        default=18, metavar='STITCHES',
+    opt_parser.add_option(_('-i'), _('--inner-radius'), action='store',
+        type='int', default=18, metavar='STITCHES',
         help=_('the circumference of the donut hole, in stitches [%default]'))
     opt_parser.add_option('-r', '--row-count', action='store', type='int',
         default=16, metavar='ROWS',
@@ -84,7 +81,7 @@ and around.""".strip())
     command_opts, __ = opt_parser.parse_args(argv)
     stitches = donut(command_opts.inner_radius, command_opts.row_count)
     stitches = snap(stitches, 1 if global_options.accurate else 6)
-    
+
     if not global_options.inhuman:
         title = _("Donut (inner-radius: %d, %d rows)") % (
                 command_opts.inner_radius, command_opts.row_count)

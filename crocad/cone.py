@@ -33,6 +33,8 @@ _ = localization.get_translation()
 
 __all__ = ['cone']
 
+NAMES = ['cone']
+
 
 LOG = logging.getLogger('crocad.cone')
 
@@ -41,9 +43,9 @@ def cone(rows, max_circ):
     """ Generator for stitch-counts for a cone crochet pattern. """
     min_circ = 6
     yield min_circ
-    for row in range(rows-2):
-        stitches = float(row)/(rows-2) * (max_circ-min_circ) + min_circ
-        LOG.debug(_('Row %d, Stitches: %.2f'), row+1, stitches)
+    for row in range(rows - 2):
+        stitches = float(row) / (rows - 2) * (max_circ - min_circ) + min_circ
+        LOG.debug(_('Row %d, Stitches: %.2f'), row + 1, stitches)
         yield stitches
     yield max_circ
 
@@ -57,8 +59,8 @@ def main(argv, global_options):
         description="""
 Generate a crochet pattern for a cone.
 """.strip())
-    opt_parser.add_option(_('-r'), _('--row-count'), action='store', type='int',
-        default=16, metavar='ROWS',
+    opt_parser.add_option(_('-r'), _('--row-count'), action='store',
+        type='int', default=16, metavar='ROWS',
         help=_('the number of rows in the pattern. Defines the height'
         ' of the cone [%default]'))
     opt_parser.add_option(_('-c'), _('--max-circumference'), action='store',

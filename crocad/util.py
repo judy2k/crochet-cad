@@ -35,10 +35,10 @@ LOG = logging.getLogger('crocad.util')
 try:
     from fractions import gcd
 except ImportError:
-    def gcd(num1, num2):
+    def gcd(num1, num2):    # NOQA
         """Returns the greatest common divisor of two numbers."""
         while num2 != 0:
-            num1, num2 = num2 , num1 % num2
+            num1, num2 = num2, num1 % num2
         return num1
 
 
@@ -47,13 +47,13 @@ class Instruction(object):
     def __init__(self, stitch='sc', stitch_count=1):
         self.stitch = stitch
         self.stitch_count = stitch_count
-        
+
     def stitches(self):
         """ The number of stitches represented by this row. """
         return self.stitch_count
-    
+
     stitches_into = stitches
-    
+
     def str(self):
         """Plain-text representation of this instruction."""
         return _('%s in next %d') % (self.stitch, self.stitch_count)
@@ -65,15 +65,15 @@ class StitchTogetherInstruction(Instruction):
         super(StitchTogetherInstruction, self).__init__(stitch=stitch,
                 stitch_count=stitch_count)
         self.together_count = together_count
-    
+
     def stitches(self):
         """ The number of stitches represented by this row. """
         return self.stitch_count
-    
+
     def stitches_into(self):
         """ The number of stitches required for the previous row. """
         return self.stitch_count * self.together_count
-    
+
     def str(self):
         """Plain-text representation of this instruction."""
         inst = _('%d%stog') % (self.together_count, self.stitch)
@@ -88,15 +88,15 @@ class MultipleStitchesInstruction(Instruction):
         super(MultipleStitchesInstruction, self).__init__(stitch=stitch,
                 stitch_count=stitch_count)
         self.multiple_count = multiple_count
-    
+
     def stitches(self):
         """ The number of stitches represented by this row. """
         return self.stitch_count
-    
+
     def stitches_into(self):
         """ The number of stitches required for the previous row. """
         return self.stitch_count / self.multiple_count
-    
+
     def str(self):
         """Plain-text representation of this instruction."""
         inst = _('%d%s in each') % (self.multiple_count, self.stitch)
@@ -132,8 +132,8 @@ def instruction(prev, count):
             row_rem = 0
             if repeats == 1:
                 repeats = abs(diff)
-            prev = prev/repeats
-            count, row_rem =  divmod(count, repeats)
+            prev = prev / repeats
+            count, row_rem = divmod(count, repeats)
             diff = count - prev
             scs = min(prev, count) - abs(diff)
             stcount, sc_rem = divmod(scs, abs(diff))
@@ -152,16 +152,16 @@ def instruction(prev, count):
                         result += _(', %dsc') % (stcount + sc_rem)
             if repeats:
                 result += _(', repeat from * %d times') % repeats
-                
+
             if row_rem:
                 result += _(' %dsc ') % row_rem
-    
+
     return result
 
 
 def instruction_txt(row, prev, count):
     """ Produce a line of output in plain text format. """
-    return _('Row %d: ') % row  + instruction(prev, count) + _(' (%d)') % count
+    return _('Row %d: ') % row + instruction(prev, count) + _(' (%d)') % count
 
 
 def instruction_html(row, prev, count):
@@ -177,7 +177,7 @@ def print_instructions_txt(title, stitches):
     print '=' * len(title)
     prev = None
     for row, stitch_count in enumerate(stitches):
-        print instruction_txt(row+1, prev, stitch_count)
+        print instruction_txt(row + 1, prev, stitch_count)
         prev = stitch_count
 
 
