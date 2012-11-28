@@ -1,17 +1,20 @@
-# Finnish translations for PACKAGE package.
-# Copyright (C) 2012 ORGANIZATION
+# crochet-cad - A set of tools for designing crochet patterns.
+# 
+# Copyright (C) 2010-2012 Mark Smith <mark.smith@practicalpoetry.co.uk>
+# 
+# 
+# Translators:
 # teemu <teukkam@gmail.com>, 2012.
-#
 msgid ""
-msgstr "Project-Id-Version: PACKAGE VERSION\n"
+msgstr ""
+"Project-Id-Version: Crochet CAD\n"
 "POT-Creation-Date: 2012-10-26 15:53+EEST\n"
-"PO-Revision-Date: 2012-10-31 14:48+0200\n"
-"Last-Translator: teemu <teukkam@gmail.com>\n"
-"Language-Team: Finnish\n"
+"PO-Revision-Date: 2012-11-28 13:11+0000\n"
+"Last-Translator: bedmondmark <mark.smith@practicalpoetry.co.uk>\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/crochet-cad/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Generated-By: pygettext.py 1.5\n"
+"Content-Transfer-Encoding: 8Bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -120,8 +123,8 @@ msgstr ""
 
 #: cone.py:64
 msgid ""
-"the number of stitches at the base of the pattern. Defines the circumference "
-"of the base of the cone [%default]"
+"the number of stitches at the base of the pattern. Defines the circumference"
+" of the base of the cone [%default]"
 msgstr "silmukoiden lukumaara kuvion alareunassa. Maarittaa kartion pohjan ymparysmitan [%default]"
 
 #: cone.py:70
@@ -230,4 +233,3 @@ msgstr "<div class=\"instruction\">%d. krs:: "
 #: util.py:168
 msgid " <em class=\"stitch-count\">(%d)</em></div>"
 msgstr ""
-	

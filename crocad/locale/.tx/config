@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[crochet-cad.crochet-cad]
+file_filter = <lang>.po
+source_file = crochet-cad.pot
+source_lang = en
+
