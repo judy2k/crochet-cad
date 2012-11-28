@@ -65,13 +65,13 @@ def main(argv, global_options):
     import optparse
     _ = localization.get_translation()
     opt_parser = optparse.OptionParser(
-        _('%prog [GLOBAL-OPTIONS] '
-        'donut [--inner-radius=STITCHES] [--row-count=ROWS]'),
+        '%prog [GLOBAL-OPTIONS] '
+        'donut [--inner-radius=STITCHES] [--row-count=ROWS]',
         description="""
 Generate a pattern for a donut (torus). The pattern
 starts off with a row in the centre (the donut hole) and crocheted up
 and around.""".strip())
-    opt_parser.add_option(_('-i'), _('--inner-radius'), action='store',
+    opt_parser.add_option('-i', '--inner-radius', action='store',
         type='int', default=18, metavar='STITCHES',
         help=_('the circumference of the donut hole, in stitches [%default]'))
     opt_parser.add_option('-r', '--row-count', action='store', type='int',

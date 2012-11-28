@@ -52,11 +52,11 @@ def main(argv, global_options):
     import optparse
     _ = localization.get_translation()
     opt_parser = optparse.OptionParser(
-        _('%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]'),
+        '%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]',
         description="""
 Generate a crochet pattern for a ball (sphere).
 """.strip())
-    opt_parser.add_option(_('-r'), _('--row-count'), action='store',
+    opt_parser.add_option('-r', '--row-count', action='store',
         type='int', default=16, metavar='ROWS',
         help=_('the number of rows in the pattern. Defines the size'
         ' of the ball - the circumference is 2x this value. [%default]'))

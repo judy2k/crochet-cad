@@ -55,15 +55,13 @@ def main(argv, global_options):
     import optparse
     _ = localization.get_translation()
     opt_parser = optparse.OptionParser(
-    _('%prog [GLOBAL-OPTIONS] cone [--row-count=ROWS]'),
-        description="""
-Generate a crochet pattern for a cone.
-""".strip())
-    opt_parser.add_option(_('-r'), _('--row-count'), action='store',
+    '%prog [GLOBAL-OPTIONS] cone [--row-count=ROWS]',
+        description=_("Generate a crochet pattern for a cone."))
+    opt_parser.add_option('-r', '--row-count', action='store',
         type='int', default=16, metavar='ROWS',
         help=_('the number of rows in the pattern. Defines the height'
         ' of the cone [%default]'))
-    opt_parser.add_option(_('-c'), _('--max-circumference'), action='store',
+    opt_parser.add_option('-c', '--max-circumference', action='store',
         type='int', default=60, metavar='STITCHES',
         help=_('the number of stitches at the base of the pattern. Defines the'
         ' circumference of the base of the cone [%default]'))
