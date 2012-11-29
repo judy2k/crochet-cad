@@ -79,24 +79,24 @@ def main(argv=sys.argv[1:]):
 Help:
   %prog --help
   %prog COMMAND --help""",
-description="""
+description=_("""
 Generate a crochet pattern for a geometric primitive, specified as COMMAND.
 Supported commands are 'ball', 'donut', and 'cone'. For details of options for
 a specific command, run '%prog COMMAND --help' with the name of the command.
-""".strip()
+""").strip()
 )
     opt_parser.disable_interspersed_args()
 
     optgroup = optparse.OptionGroup(opt_parser, (_('Global Options'),
     _('Global options must be provided before the name of the crochet-cad'
     ' command. They can be used for any crochet-cad command.')))
-    optgroup.add_option(_('-v'), _('--verbose'), action='count', default=0,
+    optgroup.add_option('-v', '--verbose', action='count', default=0,
         help=_('print out extra information - only really used for debugging.')
     )
-    optgroup.add_option(_('-a'), _('--accurate'), action='store_true',
+    optgroup.add_option('-a', '--accurate', action='store_true',
         default=False, help=_('generate an exact pattern'
         ' which may not produce such an even end-product.'))
-    optgroup.add_option(_('-i'), _('--inhuman'), action='store_true',
+    optgroup.add_option('-i', '--inhuman', action='store_true',
         default=False,
         help=_('Instead of printing instructions, just print the row-counts,'
         ' one per line.'))
