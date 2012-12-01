@@ -88,9 +88,9 @@ a specific command, run '%prog COMMAND --help' with the name of the command.
 )
     opt_parser.disable_interspersed_args()
 
-    optgroup = optparse.OptionGroup(opt_parser, (_('Global Options'),
+    optgroup = optparse.OptionGroup(opt_parser, _('Global Options'),
     _('Global options must be provided before the name of the crochet-cad'
-    ' command. They can be used for any crochet-cad command.')))
+    ' COMMAND. They can be used with all crochet-cad commands.'))
     optgroup.add_option('-v', '--verbose', action='count', default=0,
         help=_('print out extra information - only really used for debugging.')
     )
