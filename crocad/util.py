@@ -36,20 +36,6 @@ _ = localization.get_translation()
 
 LOG = logging.getLogger('crocad.util')
 
-STITCHES = {
-    'sc':   (_('sc'), _('single crochet')),
-    'dc':   (_('dc'), _('double crochet')),
-    'tc':   (_('tc'), _('triple crochet')),
-    'hdc':  (_('hdc'), _('half double crochet')),
-    'htc':  (_('htc'), _('half triple crochet'))
-}
-
-
-class Templates(object):
-    x_in_each_y = T('{{stitch}} in each {{base_stitch}}')
-    x_ys_in_each_z = T('{{combination_number}}{{stitch}} in each {{base_stitch}}')
-    a_bs_in_next_x_ys = T('{{combination_number}}{{stitch}} in next {{repeat_count}}{{base_stitch}}')
-
 
 try:
     from fractions import gcd
