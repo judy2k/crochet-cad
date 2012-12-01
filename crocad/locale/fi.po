@@ -72,11 +72,11 @@ msgstr "Komentoa ei annettu."
 
 #: ball.py:41
 msgid "Ball - radius: %.2f, row-angle: %.2f rads"
-msgstr "Pallo - sade: %.2f, kerroskulma: %.2f radiaania"
+msgstr "Pallo - säde: %.2f, kerroskulma: %.2f radiaania"
 
 #: ball.py:45
 msgid "Circumference: %.2f"
-msgstr "Ymparysmitta: %.2f"
+msgstr "Ympärysmitta: %.2f"
 
 #: ball.py:54
 msgid "%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]"
@@ -94,7 +94,7 @@ msgstr ""
 msgid ""
 "the number of rows in the pattern. Defines the size of the ball - the "
 "circumference is 2x this value. [%default]"
-msgstr "Kerrosten lkm kaavassa. Maarittaa pallon koon - ymparysmitta on 2x tama arvo. [%default]"
+msgstr "Kerrosten lukumäärä kaavassa. Määrittää pallon koon - ympärysmitta on 2x tämä arvo. [%default]"
 
 #: ball.py:67
 msgid "Ball (%d rows)"
@@ -111,7 +111,7 @@ msgstr ""
 #: cone.py:60
 msgid ""
 "the number of rows in the pattern. Defines the height of the cone [%default]"
-msgstr "Kerrosten lkm kaavassa. Maarittaa kartion korkeuden [%default]"
+msgstr "Kerrosten lukumäärä kaavassa. Määrittää kartion korkeuden [%default]"
 
 #: cone.py:62
 msgid "--max-circumference"
@@ -123,9 +123,9 @@ msgstr ""
 
 #: cone.py:64
 msgid ""
-"the number of stitches at the base of the pattern. Defines the circumference"
-" of the base of the cone [%default]"
-msgstr "silmukoiden lukumaara kuvion alareunassa. Maarittaa kartion pohjan ymparysmitan [%default]"
+"the number of stitches at the base of the pattern. Defines the circumference "
+"of the base of the cone [%default]"
+msgstr "silmukoiden lukumäärä kuvion alareunassa. Määrittää kartion pohjan ympärysmitan [%default]"
 
 #: cone.py:70
 msgid "Cone (%d rows, %d max-circumference)"
@@ -146,13 +146,13 @@ msgstr ""
 
 #: donut.py:74
 msgid "the circumference of the donut hole, in stitches [%default]"
-msgstr "donitsin reian ymparysmitta, silmukoina [%default]"
+msgstr "donitsin reiän ympärysmitta, silmukoina [%default]"
 
 #: donut.py:77
 msgid ""
 "the number of rows in the pattern - defines the 'thickness' of the donut "
 "[%default]"
-msgstr "kerrosten lkm kaavassa - maarittaa donitsin 'paksuuden' [%default]"
+msgstr "kerrosten lukumäärä kaavassa - määrittää donitsin 'paksuuden' [%default]"
 
 #: donut.py:84
 msgid "Donut (inner-radius: %d, %d rows)"

@@ -27,6 +27,7 @@ execution of the module's functionality.
 """
 
 import logging
+import optparse
 import sys
 
 
@@ -45,6 +46,7 @@ from crocad import localization
 _ = localization.get_translation()
 
 from crocad import donut, ball, cone
+from crocad.util import UnicodeOptionParser
 
 __all__ = ['main']
 
@@ -72,9 +74,8 @@ def find_command(command):
 
 def main(argv=sys.argv[1:]):
     """ Crochet CAD's command-line entry-point. """
-    import optparse
 
-    opt_parser = optparse.OptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
+    opt_parser = UnicodeOptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
 
 Help:
   %prog --help

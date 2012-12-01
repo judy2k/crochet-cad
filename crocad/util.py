@@ -25,8 +25,10 @@ crocad.util - Shared functionality for crochet pattern generation.
 __all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest',
         'round_to_nearest_iter', 'print_instructions_txt']
 
+import optparse
 import logging
 import localization
+import sys
 
 _ = localization.get_translation()
 
@@ -40,6 +42,13 @@ except ImportError:
         while num2 != 0:
             num1, num2 = num2, num1 % num2
         return num1
+
+
+class UnicodeOptionParser(optparse.OptionParser):
+    def print_help(self, file=None):
+        if file is None:
+            file = sys.stdout
+        file.write(self.format_help().decode('utf-8').encode(file.encoding or 'utf-8', 'replace'))
 
 
 class Instruction(object):

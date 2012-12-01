@@ -29,7 +29,7 @@ import logging
 from math import pi, cos
 
 from crocad.util import round_to_nearest_iter as snap
-from crocad.util import print_instructions_txt, print_row_counts
+from crocad.util import print_instructions_txt, print_row_counts, UnicodeOptionParser
 
 
 __all__ = ['donut']
@@ -64,7 +64,7 @@ def main(argv, global_options):
     """
     import optparse
     _ = localization.get_translation()
-    opt_parser = optparse.OptionParser(
+    opt_parser = UnicodeOptionParser(
         '%prog [GLOBAL-OPTIONS] '
         'donut [--inner-radius=STITCHES] [--row-count=ROWS]',
         description="""

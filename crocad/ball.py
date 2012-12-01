@@ -28,7 +28,7 @@ _ = localization.get_translation()
 from math import pi, sin
 
 from crocad.util import round_to_nearest_iter as snap
-from crocad.util import print_instructions_txt, print_row_counts
+from crocad.util import print_instructions_txt, print_row_counts, UnicodeOptionParser
 
 __all__ = ['ball']
 NAMES = ['ball', 'sphere']
@@ -51,7 +51,7 @@ def main(argv, global_options):
     """ Command entry-point for the ball pattern-generator. """
     import optparse
     _ = localization.get_translation()
-    opt_parser = optparse.OptionParser(
+    opt_parser = UnicodeOptionParser(
         '%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]',
         description="""
 Generate a crochet pattern for a ball (sphere).

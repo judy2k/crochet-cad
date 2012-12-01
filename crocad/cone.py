@@ -26,7 +26,7 @@ crocad.cone - cone crochet pattern generation for crochet-cad.
 import logging
 
 from crocad.util import round_to_nearest_iter as snap
-from crocad.util import print_instructions_txt, print_row_counts
+from crocad.util import print_instructions_txt, print_row_counts, UnicodeOptionParser
 
 from crocad import localization
 _ = localization.get_translation()
@@ -54,7 +54,7 @@ def main(argv, global_options):
     """ Command entry-point for the cone pattern-generator. """
     import optparse
     _ = localization.get_translation()
-    opt_parser = optparse.OptionParser(
+    opt_parser = UnicodeOptionParser(
     '%prog [GLOBAL-OPTIONS] cone [--row-count=ROWS]',
         description=_("Generate a crochet pattern for a cone."))
     opt_parser.add_option('-r', '--row-count', action='store',
