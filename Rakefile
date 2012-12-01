@@ -17,7 +17,7 @@ namespace :translations do
     end
 
     desc "Push crochet-cad.pot to Transifex server. (Privileged operation)"
-    task :push => :extract_translations do
+    task :push => :extract do
         FileUtils.cd('crocad/locale') do
             sh "tx push -s"
         end
@@ -26,6 +26,7 @@ namespace :translations do
     desc "Compile translation source (.po) files into .mo files."
     task :compile do
         Dir.glob('crocad/locale/*.po') do |fn|
+            FileUtils.mkdir_p(fn.pathmap("crocad/locale/%n/LC_MESSAGES"))
             sh "./tools/msgfmt.py -o '#{fn.pathmap('crocad/locale/%n/LC_MESSAGES/crochet-cad.mo')}' '#{fn}'"
         end
     end
