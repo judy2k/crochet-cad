@@ -30,7 +30,7 @@ import logging
 import localization
 import sys
 
-from jinja2 import Template as T
+# from jinja2 import Template as T
 
 _ = localization.get_translation()
 
@@ -66,9 +66,19 @@ class Instruction(object):
         """ The number of stitches represented by this row. """
         return self.stitch_count
 
-    stitches_into = stitches
+    stitches_into = property(stitches)
 
-    def str(self):
+    def merge(self, ob):
+        if ob.__class__ == self.__class__ and ob.stitch == self.stitch:
+            return self._merge(ob) is not False
+        else:
+            return False
+
+    def _merge(self, ob):
+        self.stitch_count += ob.stitch_count
+        return True
+
+    def __str__(self):
         """Plain-text representation of this instruction."""
         return _('%s in next %d') % (self.stitch, self.stitch_count)
 
@@ -84,11 +94,19 @@ class StitchTogetherInstruction(Instruction):
         """ The number of stitches represented by this row. """
         return self.stitch_count
 
+    @property
     def stitches_into(self):
         """ The number of stitches required for the previous row. """
         return self.stitch_count * self.together_count
 
-    def str(self):
+    def _merge(self, ob):
+        if ob.together_count == self.together_count:
+            self.stitch_count += ob.stitch_count
+            return True
+        else:
+            return False
+
+    def __str__(self):
         """Plain-text representation of this instruction."""
         inst = _('{together_count}{stitch}tog').format(
             together_count=self.together_count,
@@ -105,21 +123,58 @@ class MultipleStitchesInstruction(Instruction):
                 stitch_count=stitch_count)
         self.multiple_count = multiple_count
 
+    def _merge(self, ob):
+        if ob.multiple_count == self.multiple_count:
+            self.stitch_count += ob.stitch_count
+            return True
+        else:
+            return False
+
     def stitches(self):
         """ The number of stitches represented by this row. """
         return self.stitch_count
 
+    @property
     def stitches_into(self):
         """ The number of stitches required for the previous row. """
         return self.stitch_count / self.multiple_count
 
-    def str(self):
+    def __str__(self):
         """Plain-text representation of this instruction."""
         inst = _('%d%s in each') % (self.multiple_count, self.stitch)
         if self.stitch_count > 1:
             inst += _(' in next %d') % self.stitch_count
         return inst
 
+
+class InstructionGroup(Instruction):
+    def __init__ (self, instructions=None, repeats=1):
+        self._instructions = instructions or []
+        self.repeats = repeats
+
+    def _merge(self, ob):
+        return False
+
+    def append(self, instruction):
+        last = self._instructions[-1] if self._instructions else None
+        if last and last.merge(instruction):
+            return
+        else:
+            self._instructions.append(instruction)
+
+    def stitches(self):
+        sum(x.stitches() for x in self._instructions) * self.repeats
+
+    @property
+    def stitches_into(self):
+        sum(x.stitchesInto() for x in self._instructions) * self.repeats
+
+    def __str__(self):
+        if self.repeats == 1:
+            ', '.join(x.toString() for x in self._instructions)
+        else:
+            return '[' + ', '.join(x.toString() for x in self._instructions)\
+                   + ". Repeat {repeats} times.]".format(repeats=self.repeats)
 
 def _first_instruction(count):
     """ Returns an instruction for a first row. """
