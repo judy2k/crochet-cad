@@ -30,4 +30,7 @@ namespace :translations do
             sh "./tools/msgfmt.py -o '#{fn.pathmap('crocad/locale/%n/LC_MESSAGES/crochet-cad.mo')}' '#{fn}'"
         end
     end
+
+    desc "Pull and compile translations from Transifex"
+    task :update => [:pull, :compile]
 end
