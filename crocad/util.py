@@ -30,9 +30,26 @@ import logging
 import localization
 import sys
 
+from jinja2 import Template as T
+
 _ = localization.get_translation()
 
 LOG = logging.getLogger('crocad.util')
+
+STITCHES = {
+    'sc':   (_('sc'), _('single crochet')),
+    'dc':   (_('dc'), _('double crochet')),
+    'tc':   (_('tc'), _('triple crochet')),
+    'hdc':  (_('hdc'), _('half double crochet')),
+    'htc':  (_('htc'), _('half triple crochet'))
+}
+
+
+class Templates(object):
+    x_in_each_y = T('{{stitch}} in each {{base_stitch}}')
+    x_ys_in_each_z = T('{{combination_number}}{{stitch}} in each {{base_stitch}}')
+    a_bs_in_next_x_ys = T('{{combination_number}}{{stitch}} in next {{repeat_count}}{{base_stitch}}')
+
 
 try:
     from fractions import gcd
@@ -87,7 +104,9 @@ class StitchTogetherInstruction(Instruction):
 
     def str(self):
         """Plain-text representation of this instruction."""
-        inst = _('%d%stog') % (self.together_count, self.stitch)
+        inst = _('{together_count}{stitch}tog').format(
+            together_count=self.together_count,
+            stitch=self.stitch)
         if self.stitch_count > 1:
             inst += _(' in next %d') % self.stitch_count
         return inst
@@ -148,12 +167,12 @@ def instruction(prev, count):
             diff = count - prev
             scs = min(prev, count) - abs(diff)
             stcount, sc_rem = divmod(scs, abs(diff))
-            if repeats:
+            if repeats > 1:
                 result += '*'
             part_count = int(abs(diff))
             LOG.debug(_('pc: %d, diff: %.4f'), part_count, diff)
             for i in range(part_count):
-                result += (_(', 2sc in next') if diff > 0 else _(', 2sctog'))
+                result += (_(', 2sc in next') if diff > 0 else _(', sc2tog'))
                 LOG.debug(_('result: %s'), result)
                 if i < abs(diff) - 1:
                     if stcount:
@@ -161,7 +180,7 @@ def instruction(prev, count):
                 else:
                     if (stcount + sc_rem):
                         result += _(', %dsc') % (stcount + sc_rem)
-            if repeats:
+            if repeats > 1:
                 result += _(', repeat from * %d times') % repeats
 
             if row_rem:

@@ -58,6 +58,11 @@ class TestUtil(unittest.TestCase):
     def test_instruction(self):
         self.assertEqual('*, 2sc in next, 10sc, repeat from * 3 times 1sc ', self._inst(34.0, 37.0))
         self.assertEqual('*, 2sc in next, 10sc, repeat from * 3 times 1sc ', self._inst(34, 37))
+        self.assertEqual(', 2sc in next, 10sc', self._inst(11, 12))
+        self.assertEqual(', sc2tog, 10sc', self._inst(12, 11))
+        self.assertEqual('sc in each sc', self._inst(12, 12))
+
+
 
 if __name__ == '__main__':
     unittest.main()
