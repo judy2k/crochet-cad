@@ -1,220 +1,177 @@
-# crochet-cad - A set of tools for designing crochet patterns.
-#
-# Copyright (C) 2010-2012 Mark Smith <mark.smith@practicalpoetry.co.uk>
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-10-26 15:53+EEST\n"
-"Language-Team: Mark Smith <mark.smith@practicalpoetry.co.uk>\n"
+"POT-Creation-Date: 2012-12-01 10:06+GMT\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8Bit\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Generated-By: pygettext.py 1.5\n"
 
 
-#: __init__.py:107
+#: crocad/__init__.py:82
+msgid ""
+"\n"
+"Generate a crochet pattern for a geometric primitive, specified as COMMAND.\n"
+"Supported commands are 'ball', 'donut', and 'cone'. For details of options for\n"
+"a specific command, run '%prog COMMAND --help' with the name of the command.\n"
+msgstr ""
+
+#: crocad/__init__.py:90
 msgid "Global Options"
 msgstr ""
 
-#: __init__.py:108
+#: crocad/__init__.py:91
 msgid "Global options must be provided before the name of the crochet-cad command. They can be used for any crochet-cad command."
 msgstr ""
 
-#: __init__.py:110
-msgid "--verbose"
-msgstr ""
-
-#: __init__.py:110
-msgid "-v"
-msgstr ""
-
-#: __init__.py:111
+#: crocad/__init__.py:94
 msgid "print out extra information - only really used for debugging."
 msgstr ""
 
-#: __init__.py:112
-msgid "--accurate"
-msgstr ""
-
-#: __init__.py:112
-msgid "-a"
-msgstr ""
-
-#: __init__.py:113
+#: crocad/__init__.py:97
 msgid "generate an exact pattern which may not produce such an even end-product."
 msgstr ""
 
-#: __init__.py:115
-msgid "--inhuman"
-msgstr ""
-
-#: __init__.py:115 donut.py:72
-msgid "-i"
-msgstr ""
-
-#: __init__.py:116
+#: crocad/__init__.py:101
 msgid "Instead of printing instructions, just print the row-counts, one per line."
 msgstr ""
 
-#: __init__.py:135
+#: crocad/__init__.py:120
 msgid "No command was provided."
 msgstr ""
 
-#: ball.py:41
+#: crocad/ball.py:42
 msgid "Ball - radius: %.2f, row-angle: %.2f rads"
 msgstr ""
 
-#: ball.py:45
+#: crocad/ball.py:46
 msgid "Circumference: %.2f"
 msgstr ""
 
-#: ball.py:54
-msgid "%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]"
-msgstr ""
-
-#: ball.py:58 cone.py:58
-msgid "--row-count"
-msgstr ""
-
-#: ball.py:58 cone.py:58
-msgid "-r"
-msgstr ""
-
-#: ball.py:60
+#: crocad/ball.py:61
 msgid "the number of rows in the pattern. Defines the size of the ball - the circumference is 2x this value. [%default]"
 msgstr ""
 
-#: ball.py:67
+#: crocad/ball.py:68
 msgid "Ball (%d rows)"
 msgstr ""
 
-#: cone.py:44
+#: crocad/cone.py:48
 msgid "Row %d, Stitches: %.2f"
 msgstr ""
 
-#: cone.py:54
-msgid "%prog [GLOBAL-OPTIONS] cone [--row-count=ROWS]"
+#: crocad/cone.py:59
+msgid "Generate a crochet pattern for a cone."
 msgstr ""
 
-#: cone.py:60
+#: crocad/cone.py:62
 msgid "the number of rows in the pattern. Defines the height of the cone [%default]"
 msgstr ""
 
-#: cone.py:62
-msgid "--max-circumference"
-msgstr ""
-
-#: cone.py:62
-msgid "-c"
-msgstr ""
-
-#: cone.py:64
+#: crocad/cone.py:66
 msgid "the number of stitches at the base of the pattern. Defines the circumference of the base of the cone [%default]"
 msgstr ""
 
-#: cone.py:70
+#: crocad/cone.py:72
 msgid "Cone (%d rows, %d max-circumference)"
 msgstr ""
 
-#: donut.py:55
+#: crocad/donut.py:57
 msgid "Actual stitch-count: %.18f"
 msgstr ""
 
-#: donut.py:66
-msgid "%prog [GLOBAL-OPTIONS] donut [--inner-radius=STITCHES] [--row-count=ROWS]"
-msgstr ""
-
-#: donut.py:72
-msgid "--inner-radius"
-msgstr ""
-
-#: donut.py:74
+#: crocad/donut.py:76
 msgid "the circumference of the donut hole, in stitches [%default]"
 msgstr ""
 
-#: donut.py:77
+#: crocad/donut.py:79
 msgid "the number of rows in the pattern - defines the 'thickness' of the donut [%default]"
 msgstr ""
 
-#: donut.py:84
+#: crocad/donut.py:86
 msgid "Donut (inner-radius: %d, %d rows)"
 msgstr ""
 
-#: util.py:56
+#: crocad/util.py:59
 msgid "%s in next %d"
 msgstr ""
 
-#: util.py:76
+#: crocad/util.py:79
 msgid "%d%stog"
 msgstr ""
 
-#: util.py:78 util.py:101
+#: crocad/util.py:81 crocad/util.py:104
 msgid " in next %d"
 msgstr ""
 
-#: util.py:84
+#: crocad/util.py:87
 msgid "sc"
 msgstr ""
 
-#: util.py:99
+#: crocad/util.py:102
 msgid "%d%s in each"
 msgstr ""
 
-#: util.py:108
+#: crocad/util.py:111
 msgid "Make a magic circle, 6sc into centre."
 msgstr ""
 
-#: util.py:110
+#: crocad/util.py:113
 msgid "ch %d, sc in each chain"
 msgstr ""
 
-#: util.py:126
+#: crocad/util.py:129
 msgid "sc in each sc"
 msgstr ""
 
-#: util.py:140
+#: crocad/util.py:143
 msgid "pc: %d, diff: %.4f"
 msgstr ""
 
-#: util.py:142
+#: crocad/util.py:145
 msgid ", 2sc in next"
 msgstr ""
 
-#: util.py:142
+#: crocad/util.py:145
 msgid ", 2sctog"
 msgstr ""
 
-#: util.py:143
+#: crocad/util.py:146
 msgid "result: %s"
 msgstr ""
 
-#: util.py:146 util.py:149
+#: crocad/util.py:149 crocad/util.py:152
 msgid ", %dsc"
 msgstr ""
 
-#: util.py:151
+#: crocad/util.py:154
 msgid ", repeat from * %d times"
 msgstr ""
 
-#: util.py:154
+#: crocad/util.py:157
 msgid " %dsc "
 msgstr ""
 
-#: util.py:161
+#: crocad/util.py:164
 msgid " (%d)"
 msgstr ""
 
-#: util.py:161
+#: crocad/util.py:164
 msgid "Row %d: "
 msgstr ""
 
-#: util.py:166
+#: crocad/util.py:169
 msgid "<div class=\"instruction\">Row %d: "
 msgstr ""
 
-#: util.py:168
+#: crocad/util.py:171
 msgid " <em class=\"stitch-count\">(%d)</em></div>"
 msgstr ""
 
