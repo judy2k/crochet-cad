@@ -63,6 +63,5 @@ class TestUtil(unittest.TestCase):
         self.assertEqual('sc in each sc', self._inst(12, 12))
 
 
-
 if __name__ == '__main__':
     unittest.main()
