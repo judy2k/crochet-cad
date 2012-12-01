@@ -27,5 +27,6 @@ else:
     else:
         translation = pass_through
 
+
 def get_translation():
     return translation

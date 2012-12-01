@@ -48,7 +48,9 @@ class UnicodeOptionParser(optparse.OptionParser):
     def print_help(self, file=None):
         if file is None:
             file = sys.stdout
-        file.write(self.format_help().decode('utf-8').encode(file.encoding or 'utf-8', 'replace'))
+        file.write(
+            self.format_help().decode('utf-8')
+                .encode(file.encoding or 'utf-8', 'replace'))
 
 
 class Instruction(object):
