@@ -67,10 +67,10 @@ def main(argv, global_options):
     opt_parser = UnicodeOptionParser(
         '%prog [GLOBAL-OPTIONS] '
         'donut [--inner-radius=STITCHES] [--row-count=ROWS]',
-        description="""
+        description=_("""
 Generate a pattern for a donut (torus). The pattern
 starts off with a row in the centre (the donut hole) and crocheted up
-and around.""".strip())
+and around.""").strip())
     opt_parser.add_option('-i', '--inner-radius', action='store',
         type='int', default=18, metavar='STITCHES',
         help=_('the circumference of the donut hole, in stitches [%default]'))

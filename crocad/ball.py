@@ -53,9 +53,9 @@ def main(argv, global_options):
     _ = localization.get_translation()
     opt_parser = UnicodeOptionParser(
         '%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]',
-        description="""
+        description=_("""
 Generate a crochet pattern for a ball (sphere).
-""".strip())
+""").strip())
     opt_parser.add_option('-r', '--row-count', action='store',
         type='int', default=16, metavar='ROWS',
         help=_('the number of rows in the pattern. Defines the size'
