@@ -37,14 +37,16 @@ _ = localization.get_translation()
 LOG = logging.getLogger('crocad.util')
 
 
+def gcd_backport(num1, num2):    # NOQA
+    """Returns the greatest common divisor of two numbers."""
+    while num2 != 0:
+        num1, num2 = num2, num1 % num2
+    return num1
+
 try:
     from fractions import gcd
 except ImportError:
-    def gcd(num1, num2):    # NOQA
-        """Returns the greatest common divisor of two numbers."""
-        while num2 != 0:
-            num1, num2 = num2, num1 % num2
-        return num1
+    gcd = gcd_backport
 
 
 class UnicodeOptionParser(optparse.OptionParser):
@@ -62,11 +64,12 @@ class Instruction(object):
         self.stitch = stitch
         self.stitch_count = stitch_count
 
+    @property
     def stitches(self):
         """ The number of stitches represented by this row. """
         return self.stitch_count
 
-    stitches_into = property(stitches)
+    stitches_into = stitches
 
     def merge(self, ob):
         if ob.__class__ == self.__class__ and ob.stitch == self.stitch:
@@ -90,6 +93,7 @@ class StitchTogetherInstruction(Instruction):
                 stitch_count=stitch_count)
         self.together_count = together_count
 
+    @property
     def stitches(self):
         """ The number of stitches represented by this row. """
         return self.stitch_count
@@ -130,14 +134,15 @@ class MultipleStitchesInstruction(Instruction):
         else:
             return False
 
+    @property
     def stitches(self):
         """ The number of stitches represented by this row. """
-        return self.stitch_count
+        return self.stitch_count * self.multiple_count
 
     @property
     def stitches_into(self):
         """ The number of stitches required for the previous row. """
-        return self.stitch_count / self.multiple_count
+        return self.stitch_count
 
     def __str__(self):
         """Plain-text representation of this instruction."""

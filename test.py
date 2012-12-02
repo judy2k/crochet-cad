@@ -21,13 +21,12 @@
 
 import unittest
 
+
 class UtilTestCaseMixin(object):
     @property
     def _util(self):
         import crocad.util
         return crocad.util
-
-
 
 
 class StitchTestCaseMixin(object):
@@ -95,6 +94,14 @@ class TestUtil(unittest.TestCase, UtilTestCaseMixin):
         self.assertEqual(', sc2tog, 10sc', self._inst(12, 11))
         self.assertEqual('sc in each sc', self._inst(12, 12))
 
+    def test_gcd_backport(self):
+        gcd = self._util.gcd_backport
+
+        self.assertEqual(10, gcd(10,10))
+        self.assertEqual(5, gcd(5,10))
+        self.assertEqual(5, gcd(10,5))
+        self.assertEqual(2, gcd(4,10))
+        self.assertEqual(1, gcd(4,11))
 
 class TestInstruction(unittest.TestCase, StitchTestCaseMixin):
     def test_init(self):
@@ -113,7 +120,7 @@ class TestInstruction(unittest.TestCase, StitchTestCaseMixin):
         i.merge(self._Instruction())
         self.assertEqual(i.stitch_count, 2)
 
-    def test_merge_cannot_merge_non_Instruction(self):
+    def test_merge_can_only_merge_Instruction(self):
         """ Only Instructions can be merged into other Instructions (not subclasses)
         """
         i = self._Instruction()
@@ -124,13 +131,67 @@ class TestInstruction(unittest.TestCase, StitchTestCaseMixin):
         not_i = self._InstructionGroup()
         self.assertFalse(i.merge(not_i))
 
-        self.assertTrue(False)
+    def test_str(self):
+        i = self._Instruction()
+        self.assertEqual("sc in next 1", str(i))
+
+        i = self._Instruction(stitch_count=2)
+        self.assertEqual("sc in next 2", str(i))
 
 
-def suite():
-    ts = unittest.TestSuite()
-    return ts
+class TestStitchTogetherInstruction(unittest.TestCase, StitchTestCaseMixin):
+    def test_init(self):
+        """ StitchTogetherInstructions are initialised correctly.
+        """
+        i = self._StitchTogetherInstruction()
+        self.assertEqual('sc', i.stitch)
+        self.assertEqual(1, i.stitch_count)
+        self.assertEqual(2, i.stitches_into)
+        self.assertEqual(1, i.stitches)
 
+    def test_merge(self):
+        """ StitchTogetherInstructions can be successfully merged
+        """
+        i = self._StitchTogetherInstruction()
+        i.merge(self._StitchTogetherInstruction())
+        self.assertEqual(i.stitch_count, 2)
+
+        # Can't merge two stitch-togethers with different together_counts.
+        self.assertFalse(i.merge(self._StitchTogetherInstruction(together_count=3)))
+
+    def test_merge_can_only_merge_StitchTogetherInstruction(self):
+        """ Only StitchTogetherInstructions can be merged into other StitchTogetherInstructions
+        """
+        i = self._StitchTogetherInstruction()
+        not_i = self._Instruction()
+        self.assertFalse(i.merge(not_i))
+        not_i = self._MultipleStitchesInstruction()
+        self.assertFalse(i.merge(not_i))
+        not_i = self._InstructionGroup()
+        self.assertFalse(i.merge(not_i))
+
+    def test_str(self):
+        self.assertEqual("2sctog",
+            str(self._StitchTogetherInstruction()))
+        self.assertEqual("2dctog",
+            str(self._StitchTogetherInstruction(stitch='dc')))
+        self.assertEqual("2sctog in next 2",
+            str(self._StitchTogetherInstruction(stitch_count=2)))
+        self.assertEqual("3sctog",
+            str(self._StitchTogetherInstruction(together_count=3)))
+        self.assertEqual("3sctog in next 2",
+            str(self._StitchTogetherInstruction(together_count=3, stitch_count=2)))
+
+
+class TestMultipleStitchesInstruction(unittest.TestCase, StitchTestCaseMixin):
+    def test_init(self):
+        """ MultipleStitchesInstruction are initialised correctly.
+        """
+        i = self._MultipleStitchesInstruction()
+        self.assertEqual('sc', i.stitch)
+        self.assertEqual(1, i.stitch_count)
+        self.assertEqual(1, i.stitches_into)
+        self.assertEqual(2, i.stitches)
 
 if __name__ == '__main__':
     unittest.main()
