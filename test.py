@@ -338,5 +338,25 @@ class Test_output_txt(unittest.TestCase, UtilTestCaseMixin):
         self.assertEqual(u'1. krs: Tee taikarengas, 6 ks keskustaan.(6)', self._util.instruction_txt(1, None, 6))
         self.assertEqual(u'2. krs: ks jokaiseen ks:aan(6)', self._util.instruction_txt(2, 6., 6.))
 
+
+class TestInit(unittest.TestCase):
+    @property
+    def _crocad(self):
+        import crocad
+        return crocad
+
+    def test_find_command(self):
+        import crocad.ball
+        import crocad.donut
+        import crocad.cone
+        self.assertEqual(self._crocad.find_command('ball'), crocad.ball.main)
+        self.assertEqual(self._crocad.find_command('sphere'), crocad.ball.main)
+        self.assertEqual(self._crocad.find_command('donut'), crocad.donut.main)
+        self.assertEqual(self._crocad.find_command('torus'), crocad.donut.main)
+        self.assertEqual(self._crocad.find_command('cone'), crocad.cone.main)
+        self.assertRaises(self._crocad.UserError, lambda: self._crocad.find_command('notexist'))
+
+
+
 if __name__ == '__main__':
     unittest.main()

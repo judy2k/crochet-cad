@@ -33,7 +33,7 @@ import sys
 
 from crocad import localization
 
-_ = None    # Assigned inside main
+_ = localization.get_translation()
 
 
 class UserError(Exception):
@@ -81,11 +81,8 @@ def find_command(command):
 
 def main(argv=sys.argv[1:]):
     """ Crochet CAD's command-line entry-point. """
-    global _
-
     try:
         locale.setlocale(locale.LC_ALL, '')
-        _ = localization.get_translation()
 
         opt_parser = optparse.OptionParser("""
 %prog [-va] COMMAND [COMMAND-OPTIONS]
