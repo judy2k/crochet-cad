@@ -19,8 +19,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+import locale
 import unittest
 
+# Currently only English output is tested:
+locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')
 
 class UtilTestCaseMixin(object):
     @property
@@ -88,11 +92,15 @@ class TestUtil(unittest.TestCase, UtilTestCaseMixin):
     def test_instruction(self):
         """ instruction produces the correct output
         """
+
+
         self.assertEqual('*, 2sc in next, 10sc, repeat from * 3 times 1sc ', self._inst(34.0, 37.0))
         self.assertEqual('*, 2sc in next, 10sc, repeat from * 3 times 1sc ', self._inst(34, 37))
+        self.assertEqual('*, 2sc in next, 7sc, 2sc in next, 8sc, repeat from * 2 times', self._inst(34, 38))
         self.assertEqual(', 2sc in next, 10sc', self._inst(11, 12))
         self.assertEqual(', sc2tog, 10sc', self._inst(12, 11))
         self.assertEqual('sc in each sc', self._inst(12, 12))
+        self.assertEqual('ch 12, sc in each chain', self._inst(None, 12))
 
     def test_gcd_backport(self):
         gcd = self._util.gcd_backport
@@ -138,6 +146,14 @@ class TestInstruction(unittest.TestCase, StitchTestCaseMixin):
         i = self._Instruction(stitch_count=2)
         self.assertEqual("sc in next 2", str(i))
 
+    def test_eq(self):
+        i1 = self._Instruction()
+        i2 = self._Instruction()
+        self.assertEqual(i1, i2)
+
+        i2 = self._Instruction(stitch_count=2)
+        self.assertNotEqual(i1, i2)
+
 
 class TestStitchTogetherInstruction(unittest.TestCase, StitchTestCaseMixin):
     def test_init(self):
@@ -179,8 +195,20 @@ class TestStitchTogetherInstruction(unittest.TestCase, StitchTestCaseMixin):
             str(self._StitchTogetherInstruction(stitch_count=2)))
         self.assertEqual("3sctog",
             str(self._StitchTogetherInstruction(together_count=3)))
+        sc3tog = self._StitchTogetherInstruction(together_count=3, stitch_count=2)
         self.assertEqual("3sctog in next 2",
-            str(self._StitchTogetherInstruction(together_count=3, stitch_count=2)))
+            str(sc3tog))
+
+    def test_eq(self):
+        i1 = self._StitchTogetherInstruction()
+        i2 = self._StitchTogetherInstruction()
+        self.assertEqual(i1, i2)
+
+        # Subclasses should never be equal to their parent stitch class:
+        self.assertFalse(i1 == self._Instruction())
+
+        i2 = self._StitchTogetherInstruction(stitch_count=2)
+        self.assertNotEqual(i1, i2)
 
 
 class TestMultipleStitchesInstruction(unittest.TestCase, StitchTestCaseMixin):
@@ -192,6 +220,107 @@ class TestMultipleStitchesInstruction(unittest.TestCase, StitchTestCaseMixin):
         self.assertEqual(1, i.stitch_count)
         self.assertEqual(1, i.stitches_into)
         self.assertEqual(2, i.stitches)
+
+    def test_merge(self):
+        i = self._MultipleStitchesInstruction()
+        self.assertTrue(i.merge(self._MultipleStitchesInstruction()))
+        self.assertEqual(2, i.stitch_count)
+        self.assertEqual(2, i.stitches_into)
+        self.assertEqual(4, i.stitches)
+
+        three_sc_in_next = self._MultipleStitchesInstruction(multiple_count=3)
+        self.assertFalse(i.merge(three_sc_in_next))
+
+    def test_can_only_merge_MultipleStitchesInstructions(self):
+        """ Only StitchTogetherInstructions can be merged into other StitchTogetherInstructions
+        """
+        i = self._MultipleStitchesInstruction()
+        not_i = self._Instruction()
+        self.assertFalse(i.merge(not_i))
+        not_i = self._StitchTogetherInstruction()
+        self.assertFalse(i.merge(not_i))
+        not_i = self._InstructionGroup()
+        self.assertFalse(i.merge(not_i))
+
+    def test_str(self):
+        self.assertEqual("2sc in each",
+            str(self._MultipleStitchesInstruction()))
+        self.assertEqual("2dc in each",
+            str(self._MultipleStitchesInstruction(stitch='dc')))
+        self.assertEqual("2sc in each in next 2",
+            str(self._MultipleStitchesInstruction(stitch_count=2)))
+        self.assertEqual("3sc in each",
+            str(self._MultipleStitchesInstruction(multiple_count=3)))
+        sc3tog = self._MultipleStitchesInstruction(multiple_count=3, stitch_count=2)
+        self.assertEqual("3sc in each in next 2",
+            str(sc3tog))
+
+    def test_eq(self):
+        i1 = self._MultipleStitchesInstruction()
+        i2 = self._MultipleStitchesInstruction()
+        self.assertEqual(i1, i2)
+
+        i3 = self._MultipleStitchesInstruction(multiple_count=3)
+        self.assertTrue(i1 != i3)
+        self.assertFalse(i1 == i3)
+
+        # Subclasses should never be equal to their parent stitch class:
+        self.assertFalse(i1 == self._Instruction())
+
+        i2 = self._MultipleStitchesInstruction(stitch_count=2)
+        self.assertNotEqual(i1, i2)
+
+
+class TestInstructionGroup(unittest.TestCase, UtilTestCaseMixin):
+    def test_init(self):
+        i = self._util.InstructionGroup()
+        self.assertEqual(0, i.stitches)
+        self.assertEqual(0, i.stitches_into)
+
+    def test_merge(self):
+        self.assertFalse(self._util.InstructionGroup().merge(self._util.InstructionGroup()))
+
+    def test_append(self):
+        i = self._util.InstructionGroup()
+
+        # Appending one item adds that item to the group:
+        i1 = self._util.Instruction()
+        i.append(i1)
+        self.assertEqual(i._instructions[0], i1)
+
+        # Adding further instructions merges with the existing instruction:
+        i.append(self._util.Instruction())
+        self.assertEqual(i._instructions[0],
+            self._util.Instruction(stitch_count=2))
+
+        i.append(self._util.Instruction(stitch_count=3))
+        self.assertEqual(i._instructions[0],
+            self._util.Instruction(stitch_count=5))
+
+        # Adding a different type, appends the new instruction:
+        i.append(self._util.StitchTogetherInstruction())
+        self.assertEqual(i._instructions[0],
+            self._util.Instruction(stitch_count=5))
+        self.assertEqual(i._instructions[1],
+            self._util.StitchTogetherInstruction())
+
+        # Adding further instructions merges with the existing instruction:
+        i.append(self._util.StitchTogetherInstruction())
+        self.assertEqual(i._instructions[1],
+            self._util.StitchTogetherInstruction(stitch_count=2))
+
+    def test_str(self):
+        self.assertEqual('', str(self._util.InstructionGroup()))
+        self.assertEqual('', str(self._util.InstructionGroup(repeats=6)))
+        self.assertEqual('sc in next 1', str(self._util.InstructionGroup([
+            self._util.Instruction()
+        ])))
+        self.assertEqual(
+            '[sc in next 1. Repeat 6 times.]',
+            str(self._util.InstructionGroup(
+                [self._util.Instruction()],
+                repeats=6)))
+
 
 if __name__ == '__main__':
     unittest.main()

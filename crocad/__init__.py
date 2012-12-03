@@ -26,6 +26,7 @@ This module provides `main`, which is the entry-point for command-line
 execution of the module's functionality.
 """
 
+import locale
 import logging
 import optparse
 import sys
@@ -39,11 +40,8 @@ class NullHandler(logging.Handler):
     def emit(self, record):
         """Do nothing."""
         pass
+
 logging.getLogger('crocad').addHandler(NullHandler())
-
-
-from crocad import localization
-_ = localization.get_translation()
 
 from crocad import donut, ball, cone
 from crocad.util import UnicodeOptionParser
@@ -74,6 +72,14 @@ def find_command(command):
 
 def main(argv=sys.argv[1:]):
     """ Crochet CAD's command-line entry-point. """
+    global _
+
+    locale.setlocale(locale.LC_ALL, '')
+    print 'set locale to:', locale.setlocale(locale.LC_ALL)
+    print 'current locale', locale.getlocale()
+
+    from crocad import localization
+    _ = localization.get_translation()
 
     opt_parser = UnicodeOptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
 

@@ -43,6 +43,7 @@ def gcd_backport(num1, num2):    # NOQA
         num1, num2 = num2, num1 % num2
     return num1
 
+
 try:
     from fractions import gcd
 except ImportError:
@@ -80,6 +81,13 @@ class Instruction(object):
     def _merge(self, ob):
         self.stitch_count += ob.stitch_count
         return True
+
+    def __eq__(self, other):
+        return (
+            self.__class__ == other.__class__
+            and self.stitch == other.stitch
+            and self.stitch_count == other.stitch_count
+        )
 
     def __str__(self):
         """Plain-text representation of this instruction."""
@@ -119,6 +127,12 @@ class StitchTogetherInstruction(Instruction):
             inst += _(' in next %d') % self.stitch_count
         return inst
 
+    def __eq__(self, other):
+        return (
+            super(StitchTogetherInstruction, self).__eq__(other)
+            and self.together_count == other.together_count
+        )
+
 
 class MultipleStitchesInstruction(Instruction):
     """ A bunch of 'X st' in st commands. """
@@ -151,9 +165,16 @@ class MultipleStitchesInstruction(Instruction):
             inst += _(' in next %d') % self.stitch_count
         return inst
 
+    def __eq__(self, other):
+        return (
+            super(MultipleStitchesInstruction, self).__eq__(other)
+            and self.multiple_count == other.multiple_count
+        )
+
 
 class InstructionGroup(Instruction):
     def __init__ (self, instructions=None, repeats=1):
+        self.stitch=None
         self._instructions = instructions or []
         self.repeats = repeats
 
@@ -167,19 +188,21 @@ class InstructionGroup(Instruction):
         else:
             self._instructions.append(instruction)
 
+    @property
     def stitches(self):
-        sum(x.stitches() for x in self._instructions) * self.repeats
+        return sum(x.stitches() for x in self._instructions) * self.repeats
 
     @property
     def stitches_into(self):
-        sum(x.stitchesInto() for x in self._instructions) * self.repeats
+        return sum(x.stitchesInto() for x in self._instructions) * self.repeats
 
     def __str__(self):
-        if self.repeats == 1:
-            ', '.join(x.toString() for x in self._instructions)
+        if self.repeats == 1 or len(self._instructions) == 0:
+            return ', '.join(str(x) for x in self._instructions)
         else:
-            return '[' + ', '.join(x.toString() for x in self._instructions)\
+            return '[' + ', '.join(str(x) for x in self._instructions)\
                    + ". Repeat {repeats} times.]".format(repeats=self.repeats)
+
 
 def _first_instruction(count):
     """ Returns an instruction for a first row. """
