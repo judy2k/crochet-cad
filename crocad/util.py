@@ -22,15 +22,13 @@
 crocad.util - Shared functionality for crochet pattern generation.
 """
 
-__all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest',
-        'round_to_nearest_iter', 'print_instructions_txt']
+from __future__ import absolute_import
 
-import optparse
 import logging
-import localization
-import sys
+from crocad import localization
 
-# from jinja2 import Template as T
+__all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest',
+           'round_to_nearest_iter', 'print_instructions_txt']
 
 _ = localization.get_translation()
 
@@ -63,14 +61,26 @@ class Instruction(object):
 
     stitches_into = stitches
 
-    def merge(self, ob):
-        if ob.__class__ == self.__class__ and ob.stitch == self.stitch:
-            return self._merge(ob) is not False
+    def merge(self, other):
+        """ Attempt to merge two stitches of the same type.
+
+        This method simply checks that the two instructions are of the exact
+        same class, and that the stitch is the same. Each Instruction subclass
+        has additional criteria as to whether the merge is allowed - this
+        is delegated to the subclasses '_merge' method.
+
+        This method returns False if the merge not possible.
+        """
+        if other.__class__ == self.__class__ and other.stitch == self.stitch:
+            return self._merge(other) is not False
         else:
             return False
 
-    def _merge(self, ob):
-        self.stitch_count += ob.stitch_count
+    def _merge(self, other):
+        """ Provides subclass-specific merge validation and behaviour. This
+        method should not be called directly.
+        """
+        self.stitch_count += other.stitch_count
         return True
 
     def __eq__(self, other):
@@ -102,9 +112,12 @@ class StitchTogetherInstruction(Instruction):
         """ The number of stitches required for the previous row. """
         return self.stitch_count * self.together_count
 
-    def _merge(self, ob):
-        if ob.together_count == self.together_count:
-            self.stitch_count += ob.stitch_count
+    def _merge(self, other):
+        """ Provides subclass-specific merge validation and behaviour. This
+        method should not be called directly.
+        """
+        if other.together_count == self.together_count:
+            self.stitch_count += other.stitch_count
             return True
         else:
             return False
@@ -132,9 +145,12 @@ class MultipleStitchesInstruction(Instruction):
                 stitch_count=stitch_count)
         self.multiple_count = multiple_count
 
-    def _merge(self, ob):
-        if ob.multiple_count == self.multiple_count:
-            self.stitch_count += ob.stitch_count
+    def _merge(self, other):
+        """ Provides subclass-specific merge validation and behaviour. This
+        method should not be called directly.
+        """
+        if other.multiple_count == self.multiple_count:
+            self.stitch_count += other.stitch_count
             return True
         else:
             return False
@@ -167,19 +183,24 @@ class MultipleStitchesInstruction(Instruction):
 
 class InstructionGroup(Instruction):
     def __init__ (self, instructions=None, repeats=1):
-        self.stitch=None
+        self.stitch = None
         self._instructions = instructions or []
         self.repeats = repeats
 
-    def _merge(self, ob):
+    def _merge(self, other):
+        """ Provides subclass-specific merge validation and behaviour. This
+        method should not be called directly.
+        """
         return False
 
-    def append(self, instruction):
+    def append(self, inst):
+        """ Append an instruction to this group.
+        """
         last = self._instructions[-1] if self._instructions else None
-        if last and last.merge(instruction):
+        if last and last.merge(inst):
             return
         else:
-            self._instructions.append(instruction)
+            self._instructions.append(inst)
 
     @property
     def stitches(self):
@@ -187,6 +208,9 @@ class InstructionGroup(Instruction):
 
     @property
     def stitches_into(self):
+        """ The number of stitches in the previous row required to crochet
+        this InstructionGroup.
+        """
         return sum(x.stitchesInto() for x in self._instructions) * self.repeats
 
     def __str__(self):
