@@ -32,6 +32,9 @@ import optparse
 import sys
 
 
+class UserError(Exception): pass
+
+
 class NullHandler(logging.Handler):
     """
     A Handler that does nothing. Prevents error messages if crocad is used
@@ -66,62 +69,64 @@ def find_command(command):
     if hasattr(command_module, 'main'):
         return getattr(command_module, 'main')
     else:
-        raise Exception('Unknown command: %s' % command)
+        raise UserError(_('Unknown command: {command}').format(command=command))
 
 
 def main(argv=sys.argv[1:]):
     """ Crochet CAD's command-line entry-point. """
+    try:
+        global _
+        locale.setlocale(locale.LC_ALL, '')
 
-    locale.setlocale(locale.LC_ALL, '')
+        from crocad import localization
+        _ = localization.get_translation()
 
-    from crocad import localization
-    _ = localization.get_translation()
+        opt_parser = optparse.OptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
 
-    opt_parser = optparse.OptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
-
-Help:
-  %prog --help
-  %prog COMMAND --help""",
-description=_("""
-Generate a crochet pattern for a geometric primitive, specified as COMMAND.
-Supported commands are 'ball', 'donut', and 'cone'. For details of options for
-a specific command, run '%prog COMMAND --help' with the name of the command.
-""").strip()
-)
-    opt_parser.disable_interspersed_args()
-
-    optgroup = optparse.OptionGroup(opt_parser, _('Global Options'),
-    _('Global options must be provided before the name of the crochet-cad'
-    ' COMMAND. They can be used with all crochet-cad commands.'))
-    optgroup.add_option('-v', '--verbose', action='count', default=0,
-        help=_('print out extra information - only really used for debugging.')
+    Help:
+      %prog --help
+      %prog COMMAND --help""",
+    description=_("""
+    Generate a crochet pattern for a geometric primitive, specified as COMMAND.
+    Supported commands are 'ball', 'donut', and 'cone'. For details of options for
+    a specific command, run '%prog COMMAND --help' with the name of the command.
+    """).strip()
     )
-    optgroup.add_option('-a', '--accurate', action='store_true',
-        default=False, help=_('generate an exact pattern'
-        ' which may not produce such an even end-product.'))
-    optgroup.add_option('-i', '--inhuman', action='store_true',
-        default=False,
-        help=_('Instead of printing instructions, just print the row-counts,'
-        ' one per line.'))
-    opt_parser.add_option_group(optgroup)
+        opt_parser.disable_interspersed_args()
 
-    global_options, args = opt_parser.parse_args(argv)
+        optgroup = optparse.OptionGroup(opt_parser, _('Global Options'),
+        _('Global options must be provided before the name of the crochet-cad'
+        ' COMMAND. They can be used with all crochet-cad commands.'))
+        optgroup.add_option('-v', '--verbose', action='count', default=0,
+            help=_('print out extra information - only really used for debugging.')
+        )
+        optgroup.add_option('-a', '--accurate', action='store_true',
+            default=False, help=_('generate an exact pattern'
+            ' which may not produce such an even end-product.'))
+        optgroup.add_option('-i', '--inhuman', action='store_true',
+            default=False,
+            help=_('Instead of printing instructions, just print the row-counts,'
+            ' one per line.'))
+        opt_parser.add_option_group(optgroup)
 
-    logging.basicConfig()
-    # logging.getLogger().addHandler(logging.StreamHandler(sys.stderr))
-    if global_options.verbose == 1:
-        logging.getLogger().setLevel(logging.INFO)
-    elif global_options.verbose > 1:
-        logging.getLogger().setLevel(logging.DEBUG)
-    else:
-        logging.getLogger().setLevel(logging.WARNING)
+        global_options, args = opt_parser.parse_args(argv)
 
-    if args:
-        command = args.pop(0)
-        find_command(command)(args, global_options)
-    else:
-        opt_parser.error(_('No command was provided.'))
+        logging.basicConfig()
+        # logging.getLogger().addHandler(logging.StreamHandler(sys.stderr))
+        if global_options.verbose == 1:
+            logging.getLogger().setLevel(logging.INFO)
+        elif global_options.verbose > 1:
+            logging.getLogger().setLevel(logging.DEBUG)
+        else:
+            logging.getLogger().setLevel(logging.WARNING)
 
+        if args:
+            command = args.pop(0)
+            find_command(command)(args, global_options)
+        else:
+            opt_parser.error(_('No command was provided.'))
+    except UserError, ue:
+        opt_parser.error(ue)
 
 if __name__ == '__main__':
     main()
