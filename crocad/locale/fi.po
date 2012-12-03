@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Crochet CAD\n"
-"POT-Creation-Date: 2012-12-01 17:16+GMT\n"
-"PO-Revision-Date: 2012-12-01 17:18+0000\n"
+"POT-Creation-Date: 2012-12-03 14:27+GMT\n"
+"PO-Revision-Date: 2012-12-03 14:29+0000\n"
 "Last-Translator: bedmondmark <mark.smith@practicalpoetry.co.uk>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/crochet-cad/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: crocad/__init__.py:83
+#: crocad/__init__.py:85
 msgid ""
 "\n"
 "Generate a crochet pattern for a geometric primitive, specified as COMMAND.\n"
@@ -26,78 +26,78 @@ msgid ""
 "a specific command, run '%prog COMMAND --help' with the name of the command.\n"
 msgstr ""
 
-#: crocad/__init__.py:91
+#: crocad/__init__.py:93
 msgid "Global Options"
 msgstr "Globaalit valinnat"
 
-#: crocad/__init__.py:92
+#: crocad/__init__.py:94
 msgid ""
 "Global options must be provided before the name of the crochet-cad COMMAND. "
 "They can be used with all crochet-cad commands."
 msgstr "Globaalit valinnat taytyy antaa ennen crochet-cad-komennon nimea. Niita voi kayttaa kaikkien crochet-cad-komentojen yhteydessa."
 
-#: crocad/__init__.py:95
+#: crocad/__init__.py:97
 msgid "print out extra information - only really used for debugging."
 msgstr "tulosta enemman informaatiota - kaytetaan vain vianetsintaan."
 
-#: crocad/__init__.py:98
+#: crocad/__init__.py:100
 msgid ""
 "generate an exact pattern which may not produce such an even end-product."
 msgstr "generoi tarkka kaava, joka ei ehka tuota tasaista lopputulosta."
 
-#: crocad/__init__.py:102
+#: crocad/__init__.py:104
 msgid ""
 "Instead of printing instructions, just print the row-counts, one per line."
 msgstr "Ohjeiden sijaan tulosta vain kerrosten lukemat, yksi per rivi."
 
-#: crocad/__init__.py:121
+#: crocad/__init__.py:123
 msgid "No command was provided."
 msgstr "Komentoa ei annettu."
 
-#: crocad/ball.py:43
+#: crocad/ball.py:46
 msgid "Ball - radius: %.2f, row-angle: %.2f rads"
 msgstr "Pallo - säde: %.2f, kerroskulma: %.2f radiaania"
 
-#: crocad/ball.py:47
+#: crocad/ball.py:50
 msgid "Circumference: %.2f"
 msgstr "Ympärysmitta: %.2f"
 
-#: crocad/ball.py:56
+#: crocad/ball.py:59
 msgid ""
 "\n"
 "Generate a crochet pattern for a ball (sphere).\n"
 msgstr ""
 
-#: crocad/ball.py:61
+#: crocad/ball.py:64
 msgid ""
 "the number of rows in the pattern. Defines the size of the ball - the "
 "circumference is 2x this value. [%default]"
 msgstr "Kerrosten lukumäärä kaavassa. Määrittää pallon koon - ympärysmitta on 2x tämä arvo. [%default]"
 
-#: crocad/ball.py:68
+#: crocad/ball.py:71
 msgid "Ball (%d rows)"
 msgstr "Pallo (%d kerrosta)"
 
-#: crocad/cone.py:49
+#: crocad/cone.py:48
 msgid "Row %d, Stitches: %.2f"
 msgstr "Kerros %d, Silmukoita: %.2f"
 
-#: crocad/cone.py:59
+#: crocad/cone.py:58
 msgid "Generate a crochet pattern for a cone."
 msgstr ""
 
-#: crocad/cone.py:62
+#: crocad/cone.py:61
 msgid ""
 "the number of rows in the pattern. Defines the height of the cone [%default]"
 msgstr "Kerrosten lukumäärä kaavassa. Määrittää kartion korkeuden [%default]"
 
-#: crocad/cone.py:66
+#: crocad/cone.py:65
 msgid ""
 "the number of stitches at the base of the pattern. Defines the circumference"
 " of the base of the cone [%default]"
 msgstr "silmukoiden lukumäärä kuvion alareunassa. Määrittää kartion pohjan ympärysmitan [%default]"
 
-#: crocad/cone.py:72
+#: crocad/cone.py:71
 msgid "Cone (%d rows, %d max-circumference)"
 msgstr "Kartio (%d kierrosta, %d max-ympärysmitta)"
 
@@ -127,78 +127,74 @@ msgstr "kerrosten lukumäärä kaavassa - määrittää donitsin 'paksuuden' [%d
 msgid "Donut (inner-radius: %d, %d rows)"
 msgstr "Donitsi (sisäsäde: %d, %d kerrosta)"
 
-#: crocad/util.py:87
+#: crocad/util.py:85
 msgid "%s in next %d"
 msgstr "%s seuraavaan %d"
 
-#: crocad/util.py:107
+#: crocad/util.py:114
 msgid "{together_count}{stitch}tog"
 msgstr "{together_count} {stitch} yhteen"
 
-#: crocad/util.py:111 crocad/util.py:134
+#: crocad/util.py:118 crocad/util.py:156
 msgid " in next %d"
 msgstr " seuraavaan %d"
 
-#: crocad/util.py:117
+#: crocad/util.py:130
 msgid "sc"
 msgstr "ks"
 
-#: crocad/util.py:132
+#: crocad/util.py:154
 msgid "%d%s in each"
 msgstr "%d%s jokaiseen"
 
-#: crocad/util.py:141
+#: crocad/util.py:201
 msgid "Make a magic circle, 6sc into centre."
 msgstr "Tee taikarengas, 6 ks keskustaan."
 
-#: crocad/util.py:143
+#: crocad/util.py:203
 msgid "ch %d, sc in each chain"
 msgstr "%d kjs, ks jokaiseen kjs:aan"
 
-#: crocad/util.py:159
+#: crocad/util.py:219
 msgid "sc in each sc"
 msgstr "ks jokaiseen ks:aan"
 
-#: crocad/util.py:173
+#: crocad/util.py:233
 msgid "pc: %d, diff: %.4f"
 msgstr "pc: %d, ero: %.4f"
 
-#: crocad/util.py:175
+#: crocad/util.py:235
 msgid ", 2sc in next"
 msgstr ", 2 ks seuraavaan"
 
-#: crocad/util.py:175
+#: crocad/util.py:235
 msgid ", sc2tog"
 msgstr ", 2 ks yhteen"
 
-#: crocad/util.py:176
+#: crocad/util.py:236
 msgid "result: %s"
 msgstr "tulos: %s"
 
-#: crocad/util.py:179 crocad/util.py:182
+#: crocad/util.py:239 crocad/util.py:242
 msgid ", %dsc"
 msgstr ", %d ks"
 
-#: crocad/util.py:184
+#: crocad/util.py:244
 msgid ", repeat from * %d times"
 msgstr ", toista *:sta %d kertaa"
 
-#: crocad/util.py:187
+#: crocad/util.py:247
 msgid " %dsc "
 msgstr " %d ks "
 
-#: crocad/util.py:194
-msgid " (%d)"
-msgstr "(%d)"
+#: crocad/util.py:254
+msgid "Row {row_number}: {instructions} ({stitch_count})"
+msgstr "{row_number}. krs: {instructions}({stitch_count})"
 
-#: crocad/util.py:194
-msgid "Row %d: "
-msgstr "%d. krs: "
-
-#: crocad/util.py:199
+#: crocad/util.py:263
 msgid "<div class=\"instruction\">Row %d: "
 msgstr "<div class=\"instruction\">%d. krs:: "
 
-#: crocad/util.py:201
+#: crocad/util.py:265
 msgid " <em class=\"stitch-count\">(%d)</em></div>"
 msgstr " <em class=\"stitch-count\">(%d)</em></div>"

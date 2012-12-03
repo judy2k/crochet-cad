@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-12-01 17:16+GMT\n"
+"POT-Creation-Date: 2012-12-03 14:31+GMT\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: crocad/__init__.py:83
+#: crocad/__init__.py:85
 msgid ""
 "\n"
 "Generate a crochet pattern for a geometric primitive, specified as COMMAND.\n"
@@ -23,69 +23,69 @@ msgid ""
 "a specific command, run '%prog COMMAND --help' with the name of the command.\n"
 msgstr ""
 
-#: crocad/__init__.py:91
+#: crocad/__init__.py:93
 msgid "Global Options"
 msgstr ""
 
-#: crocad/__init__.py:92
+#: crocad/__init__.py:94
 msgid "Global options must be provided before the name of the crochet-cad COMMAND. They can be used with all crochet-cad commands."
 msgstr ""
 
-#: crocad/__init__.py:95
+#: crocad/__init__.py:97
 msgid "print out extra information - only really used for debugging."
 msgstr ""
 
-#: crocad/__init__.py:98
+#: crocad/__init__.py:100
 msgid "generate an exact pattern which may not produce such an even end-product."
 msgstr ""
 
-#: crocad/__init__.py:102
+#: crocad/__init__.py:104
 msgid "Instead of printing instructions, just print the row-counts, one per line."
 msgstr ""
 
-#: crocad/__init__.py:121
+#: crocad/__init__.py:123
 msgid "No command was provided."
 msgstr ""
 
-#: crocad/ball.py:43
+#: crocad/ball.py:46
 msgid "Ball - radius: %.2f, row-angle: %.2f rads"
 msgstr ""
 
-#: crocad/ball.py:47
+#: crocad/ball.py:50
 msgid "Circumference: %.2f"
 msgstr ""
 
-#: crocad/ball.py:56
+#: crocad/ball.py:59
 msgid ""
 "\n"
 "Generate a crochet pattern for a ball (sphere).\n"
 msgstr ""
 
-#: crocad/ball.py:61
+#: crocad/ball.py:64
 msgid "the number of rows in the pattern. Defines the size of the ball - the circumference is 2x this value. [%default]"
 msgstr ""
 
-#: crocad/ball.py:68
+#: crocad/ball.py:71
 msgid "Ball (%d rows)"
 msgstr ""
 
-#: crocad/cone.py:49
+#: crocad/cone.py:48
 msgid "Row %d, Stitches: %.2f"
 msgstr ""
 
-#: crocad/cone.py:59
+#: crocad/cone.py:58
 msgid "Generate a crochet pattern for a cone."
 msgstr ""
 
-#: crocad/cone.py:62
+#: crocad/cone.py:61
 msgid "the number of rows in the pattern. Defines the height of the cone [%default]"
 msgstr ""
 
-#: crocad/cone.py:66
+#: crocad/cone.py:65
 msgid "the number of stitches at the base of the pattern. Defines the circumference of the base of the cone [%default]"
 msgstr ""
 
-#: crocad/cone.py:72
+#: crocad/cone.py:71
 msgid "Cone (%d rows, %d max-circumference)"
 msgstr ""
 
@@ -113,79 +113,75 @@ msgstr ""
 msgid "Donut (inner-radius: %d, %d rows)"
 msgstr ""
 
-#: crocad/util.py:87
+#: crocad/util.py:85
 msgid "%s in next %d"
 msgstr ""
 
-#: crocad/util.py:107
+#: crocad/util.py:114
 msgid "{together_count}{stitch}tog"
 msgstr ""
 
-#: crocad/util.py:111 crocad/util.py:134
+#: crocad/util.py:118 crocad/util.py:156
 msgid " in next %d"
 msgstr ""
 
-#: crocad/util.py:117
+#: crocad/util.py:130
 msgid "sc"
 msgstr ""
 
-#: crocad/util.py:132
+#: crocad/util.py:154
 msgid "%d%s in each"
 msgstr ""
 
-#: crocad/util.py:141
+#: crocad/util.py:201
 msgid "Make a magic circle, 6sc into centre."
 msgstr ""
 
-#: crocad/util.py:143
+#: crocad/util.py:203
 msgid "ch %d, sc in each chain"
 msgstr ""
 
-#: crocad/util.py:159
+#: crocad/util.py:219
 msgid "sc in each sc"
 msgstr ""
 
-#: crocad/util.py:173
+#: crocad/util.py:233
 msgid "pc: %d, diff: %.4f"
 msgstr ""
 
-#: crocad/util.py:175
+#: crocad/util.py:235
 msgid ", 2sc in next"
 msgstr ""
 
-#: crocad/util.py:175
+#: crocad/util.py:235
 msgid ", sc2tog"
 msgstr ""
 
-#: crocad/util.py:176
+#: crocad/util.py:236
 msgid "result: %s"
 msgstr ""
 
-#: crocad/util.py:179 crocad/util.py:182
+#: crocad/util.py:239 crocad/util.py:242
 msgid ", %dsc"
 msgstr ""
 
-#: crocad/util.py:184
+#: crocad/util.py:244
 msgid ", repeat from * %d times"
 msgstr ""
 
-#: crocad/util.py:187
+#: crocad/util.py:247
 msgid " %dsc "
 msgstr ""
 
-#: crocad/util.py:194
-msgid " (%d)"
+#: crocad/util.py:254
+msgid "Row {row_number}: {instructions} ({stitch_count})"
 msgstr ""
 
-#: crocad/util.py:194
-msgid "Row %d: "
-msgstr ""
-
-#: crocad/util.py:199
+#: crocad/util.py:263
 msgid "<div class=\"instruction\">Row %d: "
 msgstr ""
 
-#: crocad/util.py:201
+#: crocad/util.py:265
 msgid " <em class=\"stitch-count\">(%d)</em></div>"
 msgstr ""
 

@@ -251,7 +251,11 @@ def instruction(prev, count):
 
 def instruction_txt(row, prev, count):
     """ Produce a line of output in plain text format. """
-    return _('Row %d: ') % row + instruction(prev, count) + _(' (%d)') % count
+    return _('Row {row_number}: {instructions} ({stitch_count})').format(
+        row_number=row,
+        instructions=instruction(prev, count),
+        stitch_count=count
+    )
 
 
 def instruction_html(row, prev, count):
