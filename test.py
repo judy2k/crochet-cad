@@ -244,13 +244,13 @@ class TestMultipleStitchesInstruction(unittest.TestCase, StitchTestCaseMixin):
 
     def test_str(self):
         locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')
-        self.assertEqual("2sc",
+        self.assertEqual("2sc in next",
             str(self._MultipleStitchesInstruction()))
-        self.assertEqual("2dc",
+        self.assertEqual("2dc in next",
             str(self._MultipleStitchesInstruction(stitch='dc')))
         self.assertEqual("2sc in next 2",
             str(self._MultipleStitchesInstruction(stitch_count=2)))
-        self.assertEqual("3sc",
+        self.assertEqual("3sc in next",
             str(self._MultipleStitchesInstruction(multiple_count=3)))
         sc3tog = self._MultipleStitchesInstruction(multiple_count=3, stitch_count=2)
         self.assertEqual("3sc in next 2",
@@ -322,7 +322,7 @@ class TestInstructionGroup(unittest.TestCase, UtilTestCaseMixin):
                 [self._util.Instruction()],
                 repeats=6)))
         self.assertEqual(
-            '[sc in next 1, 2sc. Repeat 6 times.]',
+            '[sc in next 1, 2sc in next. Repeat 6 times.]',
             str(self._util.InstructionGroup(
                 [self._util.Instruction(), self._util.MultipleStitchesInstruction()],
                 repeats=6)))

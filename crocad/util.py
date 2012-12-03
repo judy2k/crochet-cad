@@ -151,9 +151,11 @@ class MultipleStitchesInstruction(Instruction):
 
     def __str__(self):
         """Plain-text representation of this instruction."""
-        inst = _('%d%s in each') % (self.multiple_count, self.stitch)
+        inst = _('%d%s') % (self.multiple_count, self.stitch)
         if self.stitch_count > 1:
             inst += _(' in next %d') % self.stitch_count
+        else:
+            inst += _(' in next')
         return inst
 
     def __eq__(self, other):
