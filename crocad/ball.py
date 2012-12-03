@@ -33,8 +33,6 @@ from crocad.util import print_instructions_txt, print_row_counts
 
 __all__ = ['ball']
 
-_ = localization.get_translation()
-
 NAMES = ['ball', 'sphere']
 LOG = logging.getLogger('crocad.ball')
 
