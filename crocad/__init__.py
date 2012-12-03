@@ -31,8 +31,13 @@ import logging
 import optparse
 import sys
 
+from crocad import localization
 
-class UserError(Exception): pass
+_ = None    # Assigned inside main
+
+class UserError(Exception):
+    """ Indicates an incorrect value passed to the command-line program.
+    """
 
 
 class NullHandler(logging.Handler):
@@ -74,14 +79,14 @@ def find_command(command):
 
 def main(argv=sys.argv[1:]):
     """ Crochet CAD's command-line entry-point. """
-    try:
-        global _
-        locale.setlocale(locale.LC_ALL, '')
+    global _
 
-        from crocad import localization
+    try:
+        locale.setlocale(locale.LC_ALL, '')
         _ = localization.get_translation()
 
-        opt_parser = optparse.OptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
+        opt_parser = optparse.OptionParser("""
+%prog [-va] COMMAND [COMMAND-OPTIONS]
 
     Help:
       %prog --help
@@ -98,15 +103,16 @@ def main(argv=sys.argv[1:]):
         _('Global options must be provided before the name of the crochet-cad'
         ' COMMAND. They can be used with all crochet-cad commands.'))
         optgroup.add_option('-v', '--verbose', action='count', default=0,
-            help=_('print out extra information - only really used for debugging.')
+            help=_('print out extra information'
+                   ' - only really used for debugging.')
         )
         optgroup.add_option('-a', '--accurate', action='store_true',
             default=False, help=_('generate an exact pattern'
             ' which may not produce such an even end-product.'))
         optgroup.add_option('-i', '--inhuman', action='store_true',
             default=False,
-            help=_('Instead of printing instructions, just print the row-counts,'
-            ' one per line.'))
+            help=_('Instead of printing instructions,'
+                   ' just print the row-counts, one per line.'))
         opt_parser.add_option_group(optgroup)
 
         global_options, args = opt_parser.parse_args(argv)
@@ -125,8 +131,9 @@ def main(argv=sys.argv[1:]):
             find_command(command)(args, global_options)
         else:
             opt_parser.error(_('No command was provided.'))
-    except UserError, ue:
-        opt_parser.error(ue)
+    except UserError, user_error:
+        opt_parser.error(user_error)
+
 
 if __name__ == '__main__':
     main()
