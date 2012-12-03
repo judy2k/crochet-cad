@@ -27,7 +27,7 @@ from __future__ import absolute_import
 import logging
 from crocad import localization
 
-__all__ = ['instruction_txt', 'instruction_html', 'round_to_nearest',
+__all__ = ['instruction_txt', 'round_to_nearest',
            'round_to_nearest_iter', 'print_instructions_txt']
 
 _ = localization.get_translation()
@@ -182,7 +182,10 @@ class MultipleStitchesInstruction(Instruction):
 
 
 class InstructionGroup(Instruction):
-    def __init__ (self, instructions=None, repeats=1):
+    """
+    Encapsulates a sequence of instructions which may or may not be repeated.
+    """
+    def __init__(self, instructions=None, repeats=1):
         self.stitch = None
         self._instructions = instructions or []
         self.repeats = repeats

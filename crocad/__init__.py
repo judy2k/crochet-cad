@@ -35,6 +35,7 @@ from crocad import localization
 
 _ = None    # Assigned inside main
 
+
 class UserError(Exception):
     """ Indicates an incorrect value passed to the command-line program.
     """
@@ -74,7 +75,8 @@ def find_command(command):
     if hasattr(command_module, 'main'):
         return getattr(command_module, 'main')
     else:
-        raise UserError(_('Unknown command: {command}').format(command=command))
+        raise UserError(
+            _('Unknown command: {command}').format(command=command))
 
 
 def main(argv=sys.argv[1:]):
@@ -92,9 +94,9 @@ def main(argv=sys.argv[1:]):
       %prog --help
       %prog COMMAND --help""",
     description=_("""
-    Generate a crochet pattern for a geometric primitive, specified as COMMAND.
-    Supported commands are 'ball', 'donut', and 'cone'. For details of options for
-    a specific command, run '%prog COMMAND --help' with the name of the command.
+Generate a crochet pattern for a geometric primitive, specified as COMMAND.
+Supported commands are 'ball', 'donut', and 'cone'. For details of options for
+a specific command, run '%prog COMMAND --help' with the name of the command.
     """).strip()
     )
         opt_parser.disable_interspersed_args()
