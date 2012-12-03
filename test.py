@@ -92,8 +92,7 @@ class TestUtil(unittest.TestCase, UtilTestCaseMixin):
     def test_instruction(self):
         """ instruction produces the correct output
         """
-
-
+        locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')
         self.assertEqual('*, 2sc in next, 10sc, repeat from * 3 times 1sc ', self._inst(34.0, 37.0))
         self.assertEqual('*, 2sc in next, 10sc, repeat from * 3 times 1sc ', self._inst(34, 37))
         self.assertEqual('*, 2sc in next, 7sc, 2sc in next, 8sc, repeat from * 2 times', self._inst(34, 38))
@@ -187,6 +186,7 @@ class TestStitchTogetherInstruction(unittest.TestCase, StitchTestCaseMixin):
         self.assertFalse(i.merge(not_i))
 
     def test_str(self):
+        locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')
         self.assertEqual("2sctog",
             str(self._StitchTogetherInstruction()))
         self.assertEqual("2dctog",
@@ -243,6 +243,7 @@ class TestMultipleStitchesInstruction(unittest.TestCase, StitchTestCaseMixin):
         self.assertFalse(i.merge(not_i))
 
     def test_str(self):
+        locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')
         self.assertEqual("2sc in each",
             str(self._MultipleStitchesInstruction()))
         self.assertEqual("2dc in each",
@@ -321,6 +322,16 @@ class TestInstructionGroup(unittest.TestCase, UtilTestCaseMixin):
                 [self._util.Instruction()],
                 repeats=6)))
 
+
+class Test_output_txt(unittest.TestCase, UtilTestCaseMixin):
+    def test_output_text(self):
+        locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')
+        self.assertEqual('Row 1: Make a magic circle, 6sc into centre. (6)', self._util.instruction_txt(1, None, 6))
+        self.assertEqual('Row 2: sc in each sc (6)', self._util.instruction_txt(2, 6, 6))
+
+        locale.setlocale(locale.LC_ALL, 'fi_FI.utf-8')
+        self.assertEqual(u'1. krs: Tee taikarengas, 6 ks keskustaan.(6)', self._util.instruction_txt(1, None, 6))
+        self.assertEqual(u'2. krs: ks jokaiseen ks:aan(6)', self._util.instruction_txt(2, 6, 6))
 
 if __name__ == '__main__':
     unittest.main()
