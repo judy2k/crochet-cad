@@ -45,7 +45,6 @@ def cone(rows, max_circ):
     yield min_circ
     for row in range(rows - 2):
         stitches = float(row) / (rows - 2) * (max_circ - min_circ) + min_circ
-        LOG.debug(_('Row %d, Stitches: %.2f'), row + 1, stitches)
         yield stitches
     yield max_circ
 

@@ -54,8 +54,6 @@ def donut(init_stitches, rows, initial_angle=0):
     for row in range(rows):
         rad = hole_rad + (xrad - (xrad * cos(row * row_angle + initial_angle)))
         circ = rad * 2 * pi
-        # stitch_count = int(round(circ))
-        LOG.debug(_('Actual stitch-count: %.18f'), circ)
         yield circ  # stitch_count
 
 
@@ -68,9 +66,11 @@ def main(argv, global_options):
         '%prog [GLOBAL-OPTIONS] '
         'donut [--inner-radius=STITCHES] [--row-count=ROWS]',
         description=_("""
-Generate a pattern for a donut (torus). The pattern
-starts off with a row in the centre (the donut hole) and crocheted up
-and around.""").strip())
+Generate a pattern for a donut (torus).
+
+The pattern starts off with a row in the centre (the donut hole) and is
+crocheted up and around.
+""").strip())
     opt_parser.add_option('-i', '--inner-radius', action='store',
         type='int', default=18, metavar='STITCHES',
         help=_('the circumference of the donut hole, in stitches [%default]'))

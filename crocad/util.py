@@ -230,10 +230,8 @@ def instruction(prev, count):
             if repeats > 1:
                 result += '*'
             part_count = int(abs(diff))
-            LOG.debug(_('pc: %d, diff: %.4f'), part_count, diff)
             for i in range(part_count):
                 result += (_(', 2sc in next') if diff > 0 else _(', sc2tog'))
-                LOG.debug(_('result: %s'), result)
                 if i < abs(diff) - 1:
                     if stcount:
                         result += _(', %dsc') % stcount
@@ -254,15 +252,8 @@ def instruction_txt(row, prev, count):
     return _('Row {row_number}: {instructions} ({stitch_count})').format(
         row_number=row,
         instructions=instruction(prev, count),
-        stitch_count=count
+        stitch_count=int(count)
     )
-
-
-def instruction_html(row, prev, count):
-    """ Produce a line of output in HTML format. """
-    return _('<div class="instruction">Row %d: ') % row + \
-        instruction(prev, count) + \
-        _(' <em class="stitch-count">(%d)</em></div>') % count
 
 
 def print_instructions_txt(title, stitches):

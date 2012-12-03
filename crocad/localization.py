@@ -30,7 +30,6 @@ class Translation(object):
         Checks to ensure the locale hasn't changed  (and re-loads translations
         if it has) and returns suitable translation.
         """
-        logging.debug('Comparing locales: %r, %r', (self.lang, self.charset), locale.getlocale())
         if (self.lang, self.charset) != locale.getlocale():
             self.lang, self.charset = locale.getlocale()
             self._lookup_translations()
@@ -39,7 +38,6 @@ class Translation(object):
     def _lookup_translations(self):
         """ Load translations from disk.
         """
-        LOG.debug("Looking up translations for %s", self.lang)
         if self.lang is None:
             self.translator = pass_through
         else:

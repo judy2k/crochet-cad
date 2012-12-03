@@ -244,16 +244,16 @@ class TestMultipleStitchesInstruction(unittest.TestCase, StitchTestCaseMixin):
 
     def test_str(self):
         locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')
-        self.assertEqual("2sc in each",
+        self.assertEqual("2sc",
             str(self._MultipleStitchesInstruction()))
-        self.assertEqual("2dc in each",
+        self.assertEqual("2dc",
             str(self._MultipleStitchesInstruction(stitch='dc')))
-        self.assertEqual("2sc in each in next 2",
+        self.assertEqual("2sc in next 2",
             str(self._MultipleStitchesInstruction(stitch_count=2)))
-        self.assertEqual("3sc in each",
+        self.assertEqual("3sc",
             str(self._MultipleStitchesInstruction(multiple_count=3)))
         sc3tog = self._MultipleStitchesInstruction(multiple_count=3, stitch_count=2)
-        self.assertEqual("3sc in each in next 2",
+        self.assertEqual("3sc in next 2",
             str(sc3tog))
 
     def test_eq(self):
@@ -321,17 +321,22 @@ class TestInstructionGroup(unittest.TestCase, UtilTestCaseMixin):
             str(self._util.InstructionGroup(
                 [self._util.Instruction()],
                 repeats=6)))
+        self.assertEqual(
+            '[sc in next 1, 2sc. Repeat 6 times.]',
+            str(self._util.InstructionGroup(
+                [self._util.Instruction(), self._util.MultipleStitchesInstruction()],
+                repeats=6)))
 
 
 class Test_output_txt(unittest.TestCase, UtilTestCaseMixin):
     def test_output_text(self):
         locale.setlocale(locale.LC_ALL, 'en_GB.utf-8')
         self.assertEqual('Row 1: Make a magic circle, 6sc into centre. (6)', self._util.instruction_txt(1, None, 6))
-        self.assertEqual('Row 2: sc in each sc (6)', self._util.instruction_txt(2, 6, 6))
+        self.assertEqual('Row 2: sc in each sc (6)', self._util.instruction_txt(2, 6., 6.))
 
         locale.setlocale(locale.LC_ALL, 'fi_FI.utf-8')
         self.assertEqual(u'1. krs: Tee taikarengas, 6 ks keskustaan.(6)', self._util.instruction_txt(1, None, 6))
-        self.assertEqual(u'2. krs: ks jokaiseen ks:aan(6)', self._util.instruction_txt(2, 6, 6))
+        self.assertEqual(u'2. krs: ks jokaiseen ks:aan(6)', self._util.instruction_txt(2, 6., 6.))
 
 if __name__ == '__main__':
     unittest.main()

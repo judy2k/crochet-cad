@@ -43,11 +43,9 @@ def ball(rows):
     """ Generator for stitch-counts for a ball crochet pattern. """
     rad = (rows + 1) / pi
     row_angle = pi / (rows + 1)
-    LOG.debug(_('Ball - radius: %.2f, row-angle: %.2f rads'), rad, row_angle)
     for row in range(rows):
         row_rad = rad * sin((row + 1) * row_angle)
         stitches = 2 * pi * row_rad
-        LOG.debug(_('Circumference: %.2f'), stitches)
         yield stitches
 
 

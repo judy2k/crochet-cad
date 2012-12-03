@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-12-03 14:31+GMT\n"
+"POT-Creation-Date: 2012-12-03 15:23+GMT\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,58 +47,43 @@ msgstr ""
 msgid "No command was provided."
 msgstr ""
 
-#: crocad/ball.py:46
-msgid "Ball - radius: %.2f, row-angle: %.2f rads"
-msgstr ""
-
-#: crocad/ball.py:50
-msgid "Circumference: %.2f"
-msgstr ""
-
-#: crocad/ball.py:59
+#: crocad/ball.py:57
 msgid ""
 "\n"
 "Generate a crochet pattern for a ball (sphere).\n"
 msgstr ""
 
-#: crocad/ball.py:64
+#: crocad/ball.py:62
 msgid "the number of rows in the pattern. Defines the size of the ball - the circumference is 2x this value. [%default]"
 msgstr ""
 
-#: crocad/ball.py:71
+#: crocad/ball.py:69
 msgid "Ball (%d rows)"
 msgstr ""
 
-#: crocad/cone.py:48
-msgid "Row %d, Stitches: %.2f"
-msgstr ""
-
-#: crocad/cone.py:58
+#: crocad/cone.py:57
 msgid "Generate a crochet pattern for a cone."
 msgstr ""
 
-#: crocad/cone.py:61
+#: crocad/cone.py:60
 msgid "the number of rows in the pattern. Defines the height of the cone [%default]"
 msgstr ""
 
-#: crocad/cone.py:65
+#: crocad/cone.py:64
 msgid "the number of stitches at the base of the pattern. Defines the circumference of the base of the cone [%default]"
 msgstr ""
 
-#: crocad/cone.py:71
+#: crocad/cone.py:70
 msgid "Cone (%d rows, %d max-circumference)"
 msgstr ""
 
-#: crocad/donut.py:58
-msgid "Actual stitch-count: %.18f"
-msgstr ""
-
-#: crocad/donut.py:70
+#: crocad/donut.py:68
 msgid ""
 "\n"
-"Generate a pattern for a donut (torus). The pattern\n"
-"starts off with a row in the centre (the donut hole) and crocheted up\n"
-"and around."
+"Generate a pattern for a donut (torus).\n"
+"\n"
+"The pattern starts off with a row in the centre (the donut hole) and is\n"
+"crocheted up and around.\n"
 msgstr ""
 
 #: crocad/donut.py:76
@@ -145,43 +130,27 @@ msgstr ""
 msgid "sc in each sc"
 msgstr ""
 
-#: crocad/util.py:233
-msgid "pc: %d, diff: %.4f"
-msgstr ""
-
-#: crocad/util.py:235
+#: crocad/util.py:234
 msgid ", 2sc in next"
 msgstr ""
 
-#: crocad/util.py:235
+#: crocad/util.py:234
 msgid ", sc2tog"
 msgstr ""
 
-#: crocad/util.py:236
-msgid "result: %s"
-msgstr ""
-
-#: crocad/util.py:239 crocad/util.py:242
+#: crocad/util.py:237 crocad/util.py:240
 msgid ", %dsc"
 msgstr ""
 
-#: crocad/util.py:244
+#: crocad/util.py:242
 msgid ", repeat from * %d times"
 msgstr ""
 
-#: crocad/util.py:247
+#: crocad/util.py:245
 msgid " %dsc "
 msgstr ""
 
-#: crocad/util.py:254
+#: crocad/util.py:252
 msgid "Row {row_number}: {instructions} ({stitch_count})"
-msgstr ""
-
-#: crocad/util.py:263
-msgid "<div class=\"instruction\">Row %d: "
-msgstr ""
-
-#: crocad/util.py:265
-msgid " <em class=\"stitch-count\">(%d)</em></div>"
 msgstr ""
 
