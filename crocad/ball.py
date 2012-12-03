@@ -23,15 +23,18 @@ crocad.ball - sphere crochet pattern generation for crochet-cad.
 """
 
 import logging
-from crocad import localization
-_ = localization.get_translation()
 from math import pi, sin
+import optparse
 
+from crocad import localization
 from crocad.util import round_to_nearest_iter as snap
-from crocad.util import print_instructions_txt, print_row_counts,\
-    UnicodeOptionParser
+from crocad.util import print_instructions_txt, print_row_counts
+
 
 __all__ = ['ball']
+
+_ = localization.get_translation()
+
 NAMES = ['ball', 'sphere']
 LOG = logging.getLogger('crocad.ball')
 
@@ -51,7 +54,7 @@ def ball(rows):
 def main(argv, global_options):
     """ Command entry-point for the ball pattern-generator. """
     _ = localization.get_translation()
-    opt_parser = UnicodeOptionParser(
+    opt_parser = optparse.OptionParser(
         '%prog [GLOBAL-OPTIONS] ball [--row-count=ROWS]',
         description=_("""
 Generate a crochet pattern for a ball (sphere).

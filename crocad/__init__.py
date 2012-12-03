@@ -44,7 +44,6 @@ class NullHandler(logging.Handler):
 logging.getLogger('crocad').addHandler(NullHandler())
 
 from crocad import donut, ball, cone
-from crocad.util import UnicodeOptionParser
 
 __all__ = ['main']
 
@@ -72,16 +71,13 @@ def find_command(command):
 
 def main(argv=sys.argv[1:]):
     """ Crochet CAD's command-line entry-point. """
-    global _
 
     locale.setlocale(locale.LC_ALL, '')
-    print 'set locale to:', locale.setlocale(locale.LC_ALL)
-    print 'current locale', locale.getlocale()
 
     from crocad import localization
     _ = localization.get_translation()
 
-    opt_parser = UnicodeOptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
+    opt_parser = optparse.OptionParser("""%prog [-va] COMMAND [COMMAND-OPTIONS]
 
 Help:
   %prog --help

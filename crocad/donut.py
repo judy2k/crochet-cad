@@ -27,10 +27,10 @@ _ = localization.get_translation()
 
 import logging
 from math import pi, cos
+import optparse
 
 from crocad.util import round_to_nearest_iter as snap
-from crocad.util import print_instructions_txt, print_row_counts,\
-    UnicodeOptionParser
+from crocad.util import print_instructions_txt, print_row_counts
 
 
 __all__ = ['donut']
@@ -64,7 +64,7 @@ def main(argv, global_options):
     Command entry-point for the donut pattern-generator.
     """
     _ = localization.get_translation()
-    opt_parser = UnicodeOptionParser(
+    opt_parser = optparse.OptionParser(
         '%prog [GLOBAL-OPTIONS] '
         'donut [--inner-radius=STITCHES] [--row-count=ROWS]',
         description=_("""

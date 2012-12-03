@@ -3,6 +3,7 @@ import gettext
 import locale
 import logging
 
+
 LOG = logging.getLogger('crocad.localization')
 
 
@@ -50,7 +51,7 @@ class Translation(object):
                     trans = gettext.translation("crochet-cad",
                         localedir=localedir,
                         languages=[self.lang])
-                    trans.install()
+                    trans.install(unicode=True)
                     self.translator = _   # NOQA
                     break
                 except IOError, ioe:
