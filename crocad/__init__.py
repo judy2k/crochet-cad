@@ -117,7 +117,6 @@ a specific command, run '%prog COMMAND --help' with the name of the command.
         global_options, args = opt_parser.parse_args(argv)
 
         logging.basicConfig()
-        # logging.getLogger().addHandler(logging.StreamHandler(sys.stderr))
         if global_options.verbose == 1:
             logging.getLogger().setLevel(logging.INFO)
         elif global_options.verbose > 1:
