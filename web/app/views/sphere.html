@@ -1,0 +1,24 @@
+
+<div class="row marketing">
+    <h1>Spheres are nice</h1>
+    Currently displaying {{ rows }}.
+    <div><input id="snap" type="checkbox" ng-model="snap" ng-change="updatePattern()">&nbsp;<label for="snap">Snap To Multiple</label></div>
+    <div><label for="rows">Rows:</label>&nbsp;<input id="rows" type="number" ng-model="rows" ng-change="updatePattern()" placeholder="Rows"></div>
+    <div id="pattern">
+        <ul class="list-unstyled">
+            <li ng-repeat="line in pattern track by $index">
+                <strong>Row {{ $index+1 }}</strong>:
+                {{ line.toString() }}
+                <em>({{line.stitches()}} stitches)</em>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<div class="footer">
+	<p>
+        Crochet CAD is free and open-source. Check it out on
+        <a href="http://github.com/bedmondmark/crochet-cad">GitHub</a>.
+    </p>
+</div>
