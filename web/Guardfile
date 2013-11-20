@@ -1,5 +1,0 @@
-guard 'shell' do
-    watch(%r{src}) do
-        `rake`
-    end
-end

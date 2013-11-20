@@ -1,5 +1,0 @@
-gem 'rb-fchange'
-gem 'rb-notifu'
-gem 'win32console'
-gem 'guard-shell'
-gem 'compass'
