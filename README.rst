@@ -1,6 +1,10 @@
 Crochet CAD
 ===========
 
+.. image:: https://landscape.io/github/judy2k/crochet-cad/master/landscape.png
+   :target: https://landscape.io/github/judy2k/crochet-cad/master
+   :alt: Code Health
+
 A collection of utilities to aid in designing round crochet patterns, such as
 Amigurumi. Currently this consists of a command-line script that will generate
 text patterns for Spheres, Cones, or Donuts (Tori).
