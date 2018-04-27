@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
 # Written by Martin v. Löwis <loewis@informatik.hu-berlin.de>
 
 """Generate binary message catalog from textual translation description.
@@ -36,7 +36,6 @@ __version__ = "1.1"
 MESSAGES = {}
 
 
-
 def usage(code, msg=''):
     print(__doc__, file=sys.stderr)
     if msg:
@@ -44,7 +43,6 @@ def usage(code, msg=''):
     sys.exit(code)
 
 
-
 def add(id, str, fuzzy):
     "Add a non-fuzzy translation to the dictionary."
     global MESSAGES
@@ -52,7 +50,6 @@ def add(id, str, fuzzy):
         MESSAGES[id] = str
 
 
-
 def generate():
     "Return the generated output."
     global MESSAGES
@@ -95,10 +92,10 @@ def generate():
     return output
 
 
-
 def make(filename, outfile):
     ID = 1
     STR = 2
+    msgid, msgstr = ''
 
     # Compute .mo name from .po name and arguments
     if filename.endswith('.po'):
@@ -143,27 +140,27 @@ def make(filename, outfile):
         # This is a message with plural forms
         elif l.startswith('msgid_plural'):
             if section != ID:
-                print('msgid_plural not preceeded by msgid on %s:%d' %\
-                    (infile, lno), file=sys.stderr)
+                print('msgid_plural not preceeded by msgid on %s:%d' %
+                      (infile, lno), file=sys.stderr)
                 sys.exit(1)
             l = l[12:]
-            msgid += '\0' # separator of singular and plural
+            msgid += '\0'  # separator of singular and plural
             is_plural = True
         # Now we are in a msgstr section
         elif l.startswith('msgstr'):
             section = STR
             if l.startswith('msgstr['):
                 if not is_plural:
-                    print('plural without msgid_plural on %s:%d' %\
-                        (infile, lno), file=sys.stderr)
+                    print('plural without msgid_plural on %s:%d' %
+                          (infile, lno), file=sys.stderr)
                     sys.exit(1)
                 l = l.split(']', 1)[1]
                 if msgstr:
-                    msgstr += '\0' # Separator of the various plural forms
+                    msgstr += '\0'  # Separator of the various plural forms
             else:
                 if is_plural:
-                    print('indexed msgstr required for plural on  %s:%d' %\
-                        (infile, lno), file=sys.stderr)
+                    print('indexed msgstr required for plural on  %s:%d' %
+                          (infile, lno), file=sys.stderr)
                     sys.exit(1)
                 l = l[6:]
         # Skip empty lines
@@ -177,7 +174,7 @@ def make(filename, outfile):
         elif section == STR:
             msgstr += l
         else:
-            print('Syntax error on %s:%d' % (infile, lno), \
+            print('Syntax error on %s:%d' % (infile, lno),
                   'before:', file=sys.stderr)
             print(l, file=sys.stderr)
             sys.exit(1)
@@ -189,12 +186,11 @@ def make(filename, outfile):
     output = generate()
 
     try:
-        open(outfile,"wb").write(output)
+        open(outfile, "wb").write(output)
     except IOError as msg:
         print(msg, file=sys.stderr)
 
 
-
 def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'hVo:',
