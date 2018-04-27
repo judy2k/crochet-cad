@@ -15,11 +15,11 @@ COPYING.txt for more details.
 Installation
 ------------
 
-Crochet CAD requires a relatively recent `Python 2`_ installation (I test with
-2.5+). If you run Linux or OSX you almost certainly already have this
-installed, otherwise install the latest Python 2 revision.
+Crochet CAD requires a relatively recent `Python 3`_ installation (I test with
+3.5.2). If you run Linux or OSX you almost certainly already have this
+installed, otherwise install the latest Python 3 revision.
 
-.. _`Python 2`: http://python.org/download/
+.. _`Python 3`: http://python.org/download/
 
 Download crochet-cad from the download_ site and unzip it.
 
