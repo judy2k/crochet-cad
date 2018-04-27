@@ -70,7 +70,7 @@ def compress(config):
 
 
 def hash(files):
-    print 'hashing'
+    print('hashing')
     hasher = hashlib.md5()
     for f in files:
         hasher.update(open(f, 'rb').read())
