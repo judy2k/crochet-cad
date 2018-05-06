@@ -73,7 +73,7 @@ class Translation(object):
                     trans = gettext.translation("crochet-cad",
                         localedir=localedir,
                         languages=[self.lang])
-                    trans.install(unicode=True)
+                    trans.install(str=True)
                     self.translator = _   # NOQA
                     break
                 except IOError:

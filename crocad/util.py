@@ -22,7 +22,7 @@
 crocad.util - Shared functionality for crochet pattern generation.
 """
 
-from __future__ import absolute_import
+
 
 import logging
 from crocad import localization
@@ -287,11 +287,11 @@ def instruction_txt(row, prev, count):
 
 def print_instructions_txt(title, stitches):
     """ Print plain text instructions for `stitches`. """
-    print title
-    print '=' * len(title)
+    print(title)
+    print('=' * len(title))
     prev = None
     for row, stitch_count in enumerate(stitches):
-        print instruction_txt(row + 1, prev, stitch_count)
+        print(instruction_txt(row + 1, prev, stitch_count))
         prev = stitch_count
 
 
@@ -315,4 +315,4 @@ def print_row_counts(stitches):
     Simply prints out the each stitch-count on its own line, as an integer.
     """
     for stitch in stitches:
-        print int(stitch)
+        print(int(stitch))

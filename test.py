@@ -71,23 +71,23 @@ class TestUtil(unittest.TestCase, UtilTestCaseMixin):
     def test_round_to_nearest(self):
         """ round_to_nearest produces the correct output
         """
-        self.assertEquals(21, self._rtn(20.51))
-        self.assertEquals(21, self._rtn(20.5))
-        self.assertEquals(20, self._rtn(20.49))
+        self.assertEqual(21, self._rtn(20.51))
+        self.assertEqual(21, self._rtn(20.5))
+        self.assertEqual(20, self._rtn(20.49))
 
-        self.assertEquals(18, self._rtn(20, 6))
-        self.assertEquals(18, self._rtn(19.99, 6))
-        self.assertEquals(24, self._rtn(21, 6))
-        self.assertEquals(24, self._rtn(22, 6))
+        self.assertEqual(18, self._rtn(20, 6))
+        self.assertEqual(18, self._rtn(19.99, 6))
+        self.assertEqual(24, self._rtn(21, 6))
+        self.assertEqual(24, self._rtn(22, 6))
 
-        self.assertEquals(6, self._rtn(0, 2, 6))
-        self.assertEquals(12, self._rtn(12, 2, 6))
+        self.assertEqual(6, self._rtn(0, 2, 6))
+        self.assertEqual(12, self._rtn(12, 2, 6))
 
     def test_round_to_nearest_iter(self):
         """ round_to_nearest_iter produces the correct output
         """
-        self.assertEquals([4,4,4,4,4,6,6,8,8,10],
-            list(self._rtni(range(10), 2, 4)))
+        self.assertEqual([4,4,4,4,4,6,6,8,8,10],
+            list(self._rtni(list(range(10)), 2, 4)))
 
     def test_instruction(self):
         """ instruction produces the correct output
@@ -335,8 +335,8 @@ class Test_output_txt(unittest.TestCase, UtilTestCaseMixin):
         self.assertEqual('Row 2: sc in each sc (6)', self._util.instruction_txt(2, 6., 6.))
 
         locale.setlocale(locale.LC_ALL, 'fi_FI.utf-8')
-        self.assertEqual(u'1. krs: Tee taikarengas, 6 ks keskustaan.(6)', self._util.instruction_txt(1, None, 6))
-        self.assertEqual(u'2. krs: ks jokaiseen ks:aan(6)', self._util.instruction_txt(2, 6., 6.))
+        self.assertEqual('1. krs: Tee taikarengas, 6 ks keskustaan.(6)', self._util.instruction_txt(1, None, 6))
+        self.assertEqual('2. krs: ks jokaiseen ks:aan(6)', self._util.instruction_txt(2, 6., 6.))
 
 
 class TestInit(unittest.TestCase):

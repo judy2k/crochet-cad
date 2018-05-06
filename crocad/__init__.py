@@ -129,7 +129,7 @@ a specific command, run '%prog COMMAND --help' with the name of the command.
             find_command(command)(args, global_options)
         else:
             opt_parser.error(_('No command was provided.'))
-    except UserError, user_error:
+    except UserError as user_error:
         opt_parser.error(user_error)
 
 
